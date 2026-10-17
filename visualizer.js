@@ -4,112 +4,154 @@
  * =========================================================================
  * File: visualizer.js
  * Deskripsi: Mesin render visualizer ASCII multi-momen dinamis dengan
- * sinkronisasi audio real-time dan tipografi beresolusi tinggi.
+ * sinkronisasi audio real-time, logo album art resmi .Feast, tipografi lirik besar,
+ * dan animasi visual atmosferik yang hidup.
  */
 
 (() => {
   // =========================================================================
-  // 🎵 1. PANDUAN PENGATURAN LIRIK (BISA ANDA EDIT DENGAN MUDAH DI SINI)
+  // 🎵 1. PANDUAN PENGATURAN LIRIK (VERSE 2 & CHORUS 2)
   // =========================================================================
-  // Parameter per baris lirik:
   // - text     : Kalimat lirik yang ingin ditampilkan (otomatis terbungkus rapi ke tengah)
-  // - startSec : Detik audio vokal mulai (contoh: 67.5 = menit 01:07.5)
-  // - endSec   : Detik audio vokal selesai (contoh: 72.8 = menit 01:12.8)
-  // - font     : Gaya font khusus (tema cinta gelap, romansa obsesif, katedral gothic)
-  // - showMs   : Durasi tampil jika audio belum bersuara (5300 = 5.3 detik)
-  // - hideMs   : Jeda layar gelap sebelum baris berikutnya (600 = 0.6 detik)
+  // - startSec : Detik audio vokal mulai (contoh: 135.8 = menit 02:15.8)
+  // - endSec   : Detik audio vokal selesai (contoh: 139.6 = menit 02:19.6)
+  // - font     : Gaya font khusus (Playfair Display, Cinzel, Montserrat)
+  // - showMs   : Durasi tampil jika audio belum bersuara (fallback)
+  // - hideMs   : Jeda layar sebelum baris berikutnya (fallback)
   // =========================================================================
   const config = {
     lyrics: [
-      // --- MOMENT 1 (01:07.0 - 01:25.0): FIGURAN BURAM (TEMA CINTA OBSESIF & SULTRY NOIR) ---
+      // --- MOMENT 1 (02:15.8 - 02:32.4): STALKER & OBSESI BUTA (VERSE 2A) ---
       {
-        text: "Namun sabun kita berbeda wangi",
-        startSec: 67.5,
-        endSec: 72.8,
-        showMs: 5300,
-        hideMs: 600,
-        font: 'italic 700 17px "Playfair Display", "Georgia", serif'
-      },
-      {
-        text: "Dan tubuhmu dibalut hal berbeda tiap malam",
-        startSec: 73.4,
-        endSec: 80.2,
-        showMs: 6800,
-        hideMs: 600,
-        font: 'italic 700 16.5px "Playfair Display", "Georgia", serif'
-      },
-      {
-        text: "Saat ini ku masih figuran buram",
-        startSec: 80.8,
-        endSec: 85.0,
-        showMs: 4200,
+        text: "Jumlah rambutmu 'kan kuhafal mati",
+        startSec: 135.8,
+        endSec: 139.6,
+        showMs: 3800,
         hideMs: 400,
-        font: 'italic 700 17px "Playfair Display", "Georgia", serif'
+        font: 'italic 700 21px "Playfair Display", "Georgia", serif'
+      },
+      {
+        text: "Rute pulangmu telah kupelajari",
+        startSec: 140.0,
+        endSec: 143.8,
+        showMs: 3800,
+        hideMs: 400,
+        font: 'italic 700 21px "Playfair Display", "Georgia", serif'
+      },
+      {
+        text: "Kutahu nama anak kita nanti",
+        startSec: 144.2,
+        endSec: 147.8,
+        showMs: 3600,
+        hideMs: 400,
+        font: 'italic 700 21px "Playfair Display", "Georgia", serif'
+      },
+      {
+        text: "Suatu saat kau pasti mengerti",
+        startSec: 148.2,
+        endSec: 152.0,
+        showMs: 3800,
+        hideMs: 400,
+        font: 'italic 700 21px "Playfair Display", "Georgia", serif'
       },
 
-      // --- MOMENT 2 (01:25.0 - 01:45.5): CHORUS 1 (TEMA ADORASI KATEDRAL GOTHIC & KULTUS) ---
+      // --- MOMENT 2 (02:32.4 - 02:49.0): KESENJANGAN SOSIAL & RADAR APLIKASI (VERSE 2B) ---
       {
-        text: "Tapi jadikanku belalang sembah",
-        startSec: 85.4,
-        endSec: 93.4,
-        showMs: 8000,
+        text: "Walau upahku dalam sebulan",
+        startSec: 152.4,
+        endSec: 156.0,
+        showMs: 3600,
         hideMs: 400,
-        font: 'bold 18px "Cinzel Decorative", "Cinzel", "Times New Roman", serif'
+        font: 'bold 21px "Cinzel", "Times New Roman", serif'
+      },
+      {
+        text: "Hanya porsimu dalam sehari",
+        startSec: 156.4,
+        endSec: 160.4,
+        showMs: 4000,
+        hideMs: 400,
+        font: 'bold 21px "Cinzel", "Times New Roman", serif'
+      },
+      {
+        text: "Di dalam app kita bersimpangan",
+        startSec: 160.8,
+        endSec: 164.8,
+        showMs: 4000,
+        hideMs: 400,
+        font: '900 22px "Montserrat", sans-serif'
+      },
+      {
+        text: "Aku yakin kau bisa mengerti",
+        startSec: 164.8,
+        endSec: 169.0,
+        showMs: 4200,
+        hideMs: 500,
+        font: '900 22px "Montserrat", sans-serif'
+      },
+
+      // --- MOMENT 3 (02:49.5 - 03:08.6): KULTUS PEMUJAAN BELALANG SEMBAH (CHORUS 2) ---
+      {
+        text: "Maka jadikanku belalang sembah",
+        startSec: 169.5,
+        endSec: 177.5,
+        showMs: 8000,
+        hideMs: 500,
+        font: 'bold 23px "Cinzel Decorative", "Cinzel", serif'
       },
       {
         text: "Walau sebentar kupercaya indah",
-        startSec: 93.8,
-        endSec: 101.0,
-        showMs: 7200,
+        startSec: 178.0,
+        endSec: 184.8,
+        showMs: 6800,
         hideMs: 400,
-        font: 'bold 18px "Cinzel Decorative", "Cinzel", "Times New Roman", serif'
+        font: 'bold 23px "Cinzel Decorative", "Cinzel", serif'
       },
       {
         text: "Seberapa banyak, seberapa mahal",
-        startSec: 101.4,
-        endSec: 105.4,
-        showMs: 4000,
-        hideMs: 300,
-        font: 'bold 18px "Cinzel", "Cinzel Decorative", "Times New Roman", serif'
+        startSec: 185.2,
+        endSec: 188.6,
+        showMs: 3400,
+        hideMs: 400,
+        font: 'bold 22px "Cinzel Decorative", "Cinzel", serif'
       },
 
-      // --- MOMENT 3 (01:45.5 - 02:07.0): MATIKAN AKU (TEMA PENGORBANAN FATAL & SUMPAH DARAH) ---
+      // --- MOMENT 4 (03:08.6 - 03:23.0): SUMPAH DARAH & PENGORBANAN FATAL ---
       {
         text: "Semua 'kan kuberi",
-        startSec: 105.7,
-        endSec: 107.9,
-        showMs: 2200,
-        hideMs: 200,
-        font: '900 19px "Montserrat", "Impact", "Arial Black", sans-serif'
+        startSec: 189.0,
+        endSec: 191.4,
+        showMs: 2400,
+        hideMs: 400,
+        font: '900 23px "Montserrat", "Impact", sans-serif'
       },
       {
         text: "Semua 'kan kugadai",
-        startSec: 108.1,
-        endSec: 110.6,
-        showMs: 2500,
-        hideMs: 300,
-        font: '900 19px "Montserrat", "Impact", "Arial Black", sans-serif'
+        startSec: 191.8,
+        endSec: 194.2,
+        showMs: 2400,
+        hideMs: 400,
+        font: '900 23px "Montserrat", "Impact", sans-serif'
       },
       {
         text: "Matikan aku setelah usai",
-        startSec: 110.9,
-        endSec: 114.6,
-        showMs: 3700,
-        hideMs: 300,
-        font: '900 19px "Montserrat", "Impact", "Arial Black", sans-serif'
+        startSec: 194.6,
+        endSec: 198.0,
+        showMs: 3400,
+        hideMs: 500,
+        font: '900 24px "Montserrat", "Impact", sans-serif'
       },
       {
         text: "Matikan aku setelah usai",
-        startSec: 114.9,
-        endSec: 118.5,
-        showMs: 3600,
-        hideMs: 8500,
-        font: '900 19px "Montserrat", "Impact", "Arial Black", sans-serif'
+        startSec: 198.5,
+        endSec: 202.0,
+        showMs: 3500,
+        hideMs: 1000,
+        font: '900 24px "Montserrat", "Impact", sans-serif'
       }
     ],
 
-    audioStartTime: 67.0,   // Mulai detik 67.0 (01:07.0)
-    audioEndTime: 127.0,     // Selesai detik 127.0 (02:07.0) = Tepat 60 Detik (1 Menit)
+    audioStartTime: 133.0, // Mulai detik 133.0 (02:13.0) -> Jeda 2.8 detik untuk Intro Logo & Judul
+    audioEndTime: 203.0,   // Selesai detik 203.0 (03:23.0) -> Selesai setelah 'Matikan aku setelah usai'
     isLooping: true
   };
 
@@ -126,6 +168,10 @@
   const charsFixed = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
   const charsLength = charsFixed.length;
 
+  // Preload gambar album cover resmi .Feast (Kucing Maneki-Neko & Penyembah)
+  const coverImg = new Image();
+  coverImg.src = "cover.jpg";
+
   let currentLyricIndex = 0;
   let lastTime = 0;
   let timeAccumulator = 0;
@@ -134,11 +180,10 @@
   let isGlitchActive = false;
   let glitchTimeout = null;
 
-  // Analyser audio untuk responsivitas beat & bass
+  // Web Audio API Analyser untuk responsivitas beat & bass
   let audioCtx = null;
   let analyser = null;
   let dataArray = null;
-  let bassIntensity = 0;
 
   const initAudioAnalyser = () => {
     if (audioCtx || !audioElement) return;
@@ -153,14 +198,13 @@
       analyser.connect(audioCtx.destination);
       dataArray = new Uint8Array(analyser.frequencyBinCount);
     } catch (e) {
-      // AudioContext fallback otomatis jika di-sandbox
+      // AudioContext fallback otomatis
     }
   };
 
   const getBassEnergy = () => {
     if (!analyser || !dataArray) return 0;
     analyser.getByteFrequencyData(dataArray);
-    // Ambil rata-rata frekuensi rendah (bass drum / kick)
     const lowFreq = (dataArray[0] + dataArray[1] + dataArray[2] + dataArray[3]) / 4;
     return lowFreq / 255;
   };
@@ -175,12 +219,11 @@
     }, duration);
   };
 
-  // Glitch periodik halus untuk dinamika visual
   setInterval(() => {
-    if (!isPaused && isShowing && Math.random() < 0.28) {
-      triggerGlitch(80);
+    if (!isPaused && isShowing && Math.random() < 0.25) {
+      triggerGlitch(75);
     }
-  }, 3800);
+  }, 4000);
 
   // =========================================================================
   // 🎵 3. SISTEM PEMUTARAN AUDIO TANPA PESAN DI LAYAR
@@ -199,7 +242,6 @@
       p.then(() => {
         isPaused = false;
       }).catch(() => {
-        // Autoplay bersuara ditahan browser sampai ada interaksi user pertama
         const unlock = () => {
           if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
           if (audioElement.currentTime < config.audioStartTime || audioElement.currentTime >= (config.audioEndTime || 9999)) {
@@ -216,7 +258,6 @@
     }
   };
 
-  // Klik di mana saja atau tekan spasi untuk memutar/pause
   const handleUserInteraction = () => {
     if (!audioElement) return;
     initAudioAnalyser();
@@ -262,7 +303,101 @@
   });
 
   // =========================================================================
-  // 🎭 4. TIGA TEMA MOMEN SUASANA SENI ASCII YANG HIDUP & BERGERAK
+  // 🏛️ 4. INTRO LOGO & ALBUM ART .FEAST (DETIK 133.0 - 135.8 / 02:13.0)
+  // =========================================================================
+  const drawIntroScene = (time, curTime, bass) => {
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+
+    ctx.save();
+
+    // 1. Gambar Logo / Album Cover Resmi .Feast
+    const imgSize = 48;
+    const imgX = cx - (imgSize / 2);
+    const imgY = 16;
+
+    if (coverImg.complete && coverImg.naturalWidth > 0) {
+      // Gambar cover asli dari file dengan kontras tinggi untuk detail ASCII optimal
+      try {
+        ctx.filter = "contrast(1.6) brightness(1.2)";
+      } catch (e) {}
+      ctx.drawImage(coverImg, imgX, imgY, imgSize, imgSize);
+      ctx.filter = "none";
+    } else {
+      // Fallback Vektor Seni ASCII: Kucing Keberuntungan Emas (Maneki-neko) & Penyembah
+      const catY = imgY + 12;
+      // Kepala Kucing
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      ctx.arc(cx, catY, 12, 0, Math.PI * 2);
+      ctx.fill();
+      // Telinga Kucing Kiri & Kanan
+      ctx.beginPath();
+      ctx.moveTo(cx - 10, catY - 6);
+      ctx.lineTo(cx - 14, catY - 17);
+      ctx.lineTo(cx - 4, catY - 11);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(cx + 10, catY - 6);
+      ctx.lineTo(cx + 14, catY - 17);
+      ctx.lineTo(cx + 4, catY - 11);
+      ctx.closePath();
+      ctx.fill();
+      // Tangan Kucing Kiri Melambai (Maneki-Neko Paw)
+      const wave = Math.sin(time * 0.008) * 3;
+      ctx.lineWidth = 3.5;
+      ctx.strokeStyle = "white";
+      ctx.beginPath();
+      ctx.moveTo(cx + 11, catY + 2);
+      ctx.lineTo(cx + 18, catY - 8 + wave);
+      ctx.stroke();
+      // Kalung Lonceng & Tubuh
+      ctx.fillRect(cx - 10, catY + 11, 20, 16);
+    }
+
+    // Bingkai Ornamen Gothic / Brackets di Sekeliling Album Art
+    ctx.strokeStyle = "rgba(255, 255, 255, 0.75)";
+    ctx.lineWidth = 1;
+    const framePad = 3;
+    const bx = imgX - framePad;
+    const by = imgY - framePad;
+    const bw = imgSize + framePad * 2;
+    const bh = imgSize + framePad * 2;
+    const bLen = 8;
+    // Sudut Kiri-Atas
+    ctx.beginPath(); ctx.moveTo(bx, by + bLen); ctx.lineTo(bx, by); ctx.lineTo(bx + bLen, by); ctx.stroke();
+    // Sudut Kanan-Atas
+    ctx.beginPath(); ctx.moveTo(bx + bw - bLen, by); ctx.lineTo(bx + bw, by); ctx.lineTo(bx + bw, by + bLen); ctx.stroke();
+    // Sudut Kiri-Bawah
+    ctx.beginPath(); ctx.moveTo(bx, by + bh - bLen); ctx.lineTo(bx, by + bh); ctx.lineTo(bx + bLen, by + bh); ctx.stroke();
+    // Sudut Kanan-Bawah
+    ctx.beginPath(); ctx.moveTo(bx + bw - bLen, by + bh); ctx.lineTo(bx + bw, by + bh); ctx.lineTo(bx + bw, by + bh - bLen); ctx.stroke();
+
+    // 2. Tulisan Judul Lagu & Artis
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    // Header Atas: BELALANG SEMBAH
+    ctx.font = 'bold 15px "Cinzel Decorative", "Cinzel", serif';
+    ctx.fillText("B E L A L A N G   S E M B A H", cx, 8);
+
+    // Subtitle Bawah: . F E A S T
+    ctx.font = '900 11.5px "Montserrat", sans-serif';
+    ctx.fillText(". F E A S T", cx, h - 8);
+
+    // Indikator Posisi Momen Waktu
+    ctx.font = '700 8.5px "Courier New", monospace';
+    ctx.fillStyle = "rgba(255, 255, 255, 0.65)";
+    ctx.fillText("[ 02:13 // VERSE 2 & CHORUS ]", cx, h - 18);
+
+    ctx.restore();
+  };
+
+  // =========================================================================
+  // 🎭 5. REVISI 4 TEMA VISUAL ANIMASI ASCII YANG LEBIH HIDUP & BERAGAM
   // =========================================================================
   const drawMomentScene = (time, curTime, bass) => {
     const cx = canvas.width / 2;
@@ -270,156 +405,243 @@
 
     ctx.save();
 
-    // --- TEMA MOMEN 1: (01:07 - 01:25) FIGURAN BURAM & SMOLDERING NOIR ---
-    if (curTime < 85.2) {
-      // 1. Siluet Gedung Kota Malam di dasar dengan lampu berkerlap-kerlip
-      ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-      for (let x = 0; x < canvas.width; x += 6) {
-        const bHeight = 8 + Math.abs(Math.sin(x * 0.28)) * 8 + (x % 5) * 1.5;
-        ctx.fillRect(x, baseY - bHeight, 5, bHeight);
-
-        // Lampu jendela kota malam
-        ctx.fillStyle = "white";
-        for (let wy = baseY - bHeight + 2; wy < baseY - 2; wy += 4) {
-          if ((x + wy + Math.floor(time * 0.002)) % 3 === 0) {
-            ctx.fillRect(x + 2, wy, 1.4, 1.4);
-          }
-        }
-        ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-      }
-
-      // 2. Kepulan Asap Rokok / Hawa Misterius Melayang Naik
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
-      ctx.lineWidth = 1.2;
-      for (let s = 0; s < 5; s++) {
-        const sOffset = (s - 2) * 26;
+    // --- TEMA 1: (02:15.8 - 02:32.4) STALKER & OBSESI BUTA (MATA, RUTE JALAN, HELAI RAMBUT) ---
+    if (curTime < 152.4) {
+      // 1. Grid Garis Perspektif Jalanan Malam Menghilang ke Cakrawala ("Rute Pulangmu Telah Kupelajari")
+      const horizonY = baseY - 36;
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+      ctx.lineWidth = 1;
+      
+      // Garis jalan perspektif dari cakrawala ke bawah
+      for (let rx = -90; rx <= 90; rx += 30) {
         ctx.beginPath();
-        ctx.moveTo(cx + sOffset, baseY - 10);
-        for (let sy = baseY - 10; sy > baseY - 30; sy -= 3) {
-          const sx = cx + sOffset + Math.sin(time * 0.003 + sy * 0.18 + s) * 4;
-          ctx.lineTo(sx, sy);
-        }
+        ctx.moveTo(cx + rx * 0.15, horizonY);
+        ctx.lineTo(cx + rx * 1.3, baseY);
         ctx.stroke();
       }
 
-      // 3. Dua Siluet Tangan Menjangkau Satu Sama Lain ("Figuran Buram")
-      const reach = Math.sin(time * 0.0025) * 2.5 + bass * 2;
-      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-      // Tangan Kiri
-      ctx.fillRect(cx - 36 + reach, baseY - 20, 16, 3);
-      ctx.fillRect(cx - 22 + reach, baseY - 22, 7, 2);
-      // Tangan Kanan
-      ctx.fillRect(cx + 20 - reach, baseY - 20, 16, 3);
-      ctx.fillRect(cx + 15 - reach, baseY - 22, 7, 2);
+      // Garis marka jalan meluncur maju (simulasi berkendara / mengikuti target)
+      const roadSpeed = (time * 0.05) % 12;
+      for (let dy = 0; dy < 36; dy += 8) {
+        const yPos = horizonY + dy + roadSpeed;
+        if (yPos <= baseY) {
+          const spread = ((yPos - horizonY) / 36) * 75;
+          ctx.beginPath();
+          ctx.moveTo(cx - spread, yPos);
+          ctx.lineTo(cx + spread, yPos);
+          ctx.stroke();
+        }
+      }
+
+      // 2. Mata Obsesif Pengintai (The Stalker's Eye) di Tengah
+      const eyeY = baseY - 26;
+      const eyeWidth = 32 + bass * 4;
+      const eyeHeight = 13 + bass * 3;
+
+      // Kelopak Mata Atas & Bawah
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(cx - eyeWidth, eyeY);
+      ctx.quadraticCurveTo(cx, eyeY - eyeHeight, cx + eyeWidth, eyeY);
+      ctx.quadraticCurveTo(cx, eyeY + eyeHeight, cx - eyeWidth, eyeY);
+      ctx.stroke();
+
+      // Pupil & Iris yang Membesar/Mengecil Mengikuti Hentakan Musik
+      const irisRadius = 7 + bass * 3;
+      ctx.fillStyle = "white";
+      ctx.beginPath();
+      ctx.arc(cx, eyeY, irisRadius, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Reticle / Bidikan Pengintai di Sekitar Mata
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(cx - eyeWidth - 8, eyeY); ctx.lineTo(cx - eyeWidth - 2, eyeY);
+      ctx.moveTo(cx + eyeWidth + 2, eyeY); ctx.lineTo(cx + eyeWidth + 8, eyeY);
+      ctx.moveTo(cx, eyeY - eyeHeight - 5); ctx.lineTo(cx, eyeY - eyeHeight - 1);
+      ctx.moveTo(cx, eyeY + eyeHeight + 1); ctx.lineTo(cx, eyeY + eyeHeight + 5);
+      ctx.stroke();
+
+      // 3. Helai Rambut Halus Mengambang Tertiup Angin ("Jumlah Rambutmu 'Kan Kuhafal Mati")
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+      ctx.lineWidth = 1;
+      for (let h = 0; h < 4; h++) {
+        const hY = baseY - 38 + (h * 9);
+        ctx.beginPath();
+        ctx.moveTo(cx - 110, hY);
+        for (let hx = cx - 110; hx <= cx + 110; hx += 10) {
+          const hyOffset = Math.sin(time * 0.003 + hx * 0.04 + h) * 4;
+          ctx.lineTo(hx, hY + hyOffset);
+        }
+        ctx.stroke();
+      }
     }
 
-    // --- TEMA MOMEN 2: (01:25 - 01:45.5) ALTAR KATEDRAL BELALANG SEMBAH HIDUP ---
-    else if (curTime < 105.5) {
-      // 1. Halo Busur Katedral Gothic di Belakang Belalang
-      ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+    // --- TEMA 2: (02:32.4 - 02:49.0) KESENJANGAN SOSIAL & RADAR INTERSEKSI APLIKASI ---
+    else if (curTime < 169.5) {
+      const radarY = baseY - 24;
+      const radarR = 26 + bass * 3;
+
+      // 1. Lingkaran Radar & Sinyal Pemindai ("Di Dalam App Kita Bersimpangan")
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
       ctx.lineWidth = 1;
-      const altarPulse = bass * 4;
+      ctx.beginPath(); ctx.arc(cx, radarY, radarR * 0.35, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, radarY, radarR * 0.7, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.arc(cx, radarY, radarR, 0, Math.PI * 2); ctx.stroke();
+
+      // Garis sapuan radar yang berputar 360 derajat
+      const sweepAngle = time * 0.004;
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 1.6;
       ctx.beginPath();
-      ctx.arc(cx, baseY + 8, 42 + altarPulse, Math.PI, Math.PI * 2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(cx, baseY + 8, 34 + altarPulse, Math.PI, Math.PI * 2);
+      ctx.moveTo(cx, radarY);
+      ctx.lineTo(cx + Math.cos(sweepAngle) * radarR, radarY + Math.sin(sweepAngle) * radarR);
       ctx.stroke();
 
-      // Sinar Altar Memancar
-      for (let a = Math.PI + 0.15; a < Math.PI * 2 - 0.15; a += 0.3) {
-        const rx1 = cx + Math.cos(a) * (43 + altarPulse);
-        const ry1 = (baseY + 8) + Math.sin(a) * (43 + altarPulse);
-        const rx2 = cx + Math.cos(a) * (49 + altarPulse);
-        const ry2 = (baseY + 8) + Math.sin(a) * (49 + altarPulse);
+      // Dua Titik Koordinat Pengguna yang Bersimpangan (Intersecting Blips)
+      const transitPhase = ((curTime - 152.4) / (169.5 - 152.4)) * 2 - 1; // Rentang -1 s/d +1
+      const blip1X = cx + (transitPhase * 38);
+      const blip1Y = radarY - (transitPhase * 14);
+      const blip2X = cx - (transitPhase * 38);
+      const blip2Y = radarY + (transitPhase * 14);
+
+      ctx.fillStyle = "white";
+      ctx.beginPath(); ctx.arc(blip1X, blip1Y, 2.8, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(blip2X, blip2Y, 2.8, 0, Math.PI * 2); ctx.fill();
+
+      // Gelombang getar saat bersimpangan tepat di tengah (160.8 - 164.8)
+      if (curTime >= 160.8 && curTime <= 164.8) {
+        const ringRipple = ((time * 0.03) % 20);
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.arc(cx, radarY, ringRipple, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // 2. Bar Spektrum Kesenjangan Upah vs Porsi (Equalizer Kiri vs Kanan)
+      ctx.fillStyle = "rgba(255, 255, 255, 0.55)";
+      // Kiri: "Walau Upahku Dalam Sebulan" (Bar lebih rendah/berjuang)
+      for (let bx = 0; bx < 6; bx++) {
+        const bHeight = 4 + Math.sin(time * 0.005 + bx) * 4 + bass * 5;
+        ctx.fillRect(cx - 75 + (bx * 7), baseY - bHeight, 5, bHeight);
+      }
+      // Kanan: "Hanya Porsimu Dalam Sehari" (Bar tinggi menjulang)
+      for (let bx = 0; bx < 6; bx++) {
+        const bHeight = 14 + Math.sin(time * 0.007 + bx) * 10 + bass * 14;
+        ctx.fillRect(cx + 35 + (bx * 7), baseY - bHeight, 5, bHeight);
+      }
+    }
+
+    // --- TEMA 3: (02:49.5 - 03:08.6) KULTUS PEMUJAAN BELALANG SEMBAH (CHORUS 2) ---
+    else if (curTime < 189.0) {
+      // 1. Busur Katedral Gothic Altar Suci
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+      ctx.lineWidth = 1;
+      const altarPulse = bass * 5;
+      ctx.beginPath();
+      ctx.arc(cx, baseY + 6, 44 + altarPulse, Math.PI, Math.PI * 2);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(cx, baseY + 6, 36 + altarPulse, Math.PI, Math.PI * 2);
+      ctx.stroke();
+
+      // 16 Sinar Altar Memancar Keluar
+      for (let a = Math.PI + 0.15; a < Math.PI * 2 - 0.15; a += 0.28) {
+        const rx1 = cx + Math.cos(a) * (45 + altarPulse);
+        const ry1 = (baseY + 6) + Math.sin(a) * (45 + altarPulse);
+        const rx2 = cx + Math.cos(a) * (52 + altarPulse);
+        const ry2 = (baseY + 6) + Math.sin(a) * (52 + altarPulse);
         ctx.beginPath();
         ctx.moveTo(rx1, ry1);
         ctx.lineTo(rx2, ry2);
         ctx.stroke();
       }
 
-      // 2. Tubuh Belalang Sembah yang Hidup & Bernapas
-      const breathe = Math.sin(time * 0.003) * 1.2 + bass * 1.5;
-      const antennaWave = Math.sin(time * 0.005) * 2.8;
+      // 2. Belalang Sembah Hidup (Living Majestic Mantis)
+      const breathe = Math.sin(time * 0.003) * 1.4 + bass * 2;
+      const antennaWave = Math.sin(time * 0.005) * 3.2;
 
       // Kepala Segitiga
-      const headY = baseY - 22 + breathe;
+      const headY = baseY - 24 + breathe;
       ctx.fillStyle = "white";
       ctx.beginPath();
       ctx.moveTo(cx, headY);
-      ctx.lineTo(cx - 6, headY - 7);
-      ctx.lineTo(cx + 6, headY - 7);
+      ctx.lineTo(cx - 7, headY - 8);
+      ctx.lineTo(cx + 7, headY - 8);
       ctx.closePath();
       ctx.fill();
 
-      // Sepasang Mata Majemuk Menyala Merah (Bereaksi pada bass kick)
+      // Sepasang Mata Majemuk Menyala Tajam (Merespons kick drum)
       ctx.beginPath();
-      ctx.arc(cx - 7, headY - 7, 2.5 + bass * 0.8, 0, Math.PI * 2);
-      ctx.arc(cx + 7, headY - 7, 2.5 + bass * 0.8, 0, Math.PI * 2);
+      ctx.arc(cx - 8, headY - 8, 2.7 + bass * 1.2, 0, Math.PI * 2);
+      ctx.arc(cx + 8, headY - 8, 2.7 + bass * 1.2, 0, Math.PI * 2);
       ctx.fill();
 
-      // Antena Panjang Meliuk
+      // Antena Panjang Meliuk Lentur
       ctx.strokeStyle = "white";
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.1;
       ctx.beginPath();
-      ctx.moveTo(cx - 3, headY - 7);
-      ctx.quadraticCurveTo(cx - 10 + antennaWave, headY - 15, cx - 18 + antennaWave * 1.5, headY - 22);
-      ctx.moveTo(cx + 3, headY - 7);
-      ctx.quadraticCurveTo(cx + 10 - antennaWave, headY - 15, cx + 18 - antennaWave * 1.5, headY - 22);
+      ctx.moveTo(cx - 3, headY - 8);
+      ctx.quadraticCurveTo(cx - 12 + antennaWave, headY - 17, cx - 22 + antennaWave * 1.6, headY - 25);
+      ctx.moveTo(cx + 3, headY - 8);
+      ctx.quadraticCurveTo(cx + 12 - antennaWave, headY - 17, cx + 22 - antennaWave * 1.6, headY - 25);
       ctx.stroke();
 
       // Batang Dada Prothorax
-      ctx.lineWidth = 3.5;
+      ctx.lineWidth = 3.8;
       ctx.beginPath();
       ctx.moveTo(cx, headY);
-      ctx.lineTo(cx, baseY - 9);
+      ctx.lineTo(cx, baseY - 10);
       ctx.stroke();
 
       // Cakar Raptorial Terlipat Berdoa "Sembah" yang Bergerak Ritmik
-      ctx.lineWidth = 2.4;
-      const armPray = Math.sin(time * 0.004) * 3 + bass * 3;
+      ctx.lineWidth = 2.6;
+      const armPray = Math.sin(time * 0.004) * 3.5 + bass * 4;
       // Cakar Kiri
       ctx.beginPath();
       ctx.moveTo(cx - 2, headY + 3);
-      ctx.lineTo(cx - 14 - armPray, headY - 3);
-      ctx.lineTo(cx - 7 - armPray * 0.5, headY + 9);
+      ctx.lineTo(cx - 16 - armPray, headY - 3);
+      ctx.lineTo(cx - 8 - armPray * 0.5, headY + 10);
       ctx.stroke();
       // Cakar Kanan
       ctx.beginPath();
       ctx.moveTo(cx + 2, headY + 3);
-      ctx.lineTo(cx + 14 + armPray, headY - 3);
-      ctx.lineTo(cx + 7 + armPray * 0.5, headY + 9);
+      ctx.lineTo(cx + 16 + armPray, headY - 3);
+      ctx.lineTo(cx + 8 + armPray * 0.5, headY + 10);
       ctx.stroke();
 
-      // Sayap & Perut
-      ctx.beginPath();
-      ctx.moveTo(cx, baseY - 9);
-      ctx.lineTo(cx - 10, baseY);
-      ctx.lineTo(cx + 10, baseY);
-      ctx.closePath();
-      ctx.fill();
-
-      // Kaki Laba-laba Panjang
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(cx - 2, baseY - 8);
-      ctx.lineTo(cx - 22, baseY - 4);
-      ctx.lineTo(cx - 34, baseY);
-      ctx.moveTo(cx + 2, baseY - 8);
-      ctx.lineTo(cx + 22, baseY - 4);
-      ctx.lineTo(cx + 34, baseY);
-      ctx.stroke();
+      // 3. Kerumunan Penyembah yang Sujud (Sesuai Cover Album .Feast)
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      const bow = Math.sin(time * 0.0035) * 1.5;
+      // Deretan jemaah bersujud di sisi kiri dan kanan
+      for (let p = -5; p <= 5; p++) {
+        if (Math.abs(p) > 1) {
+          const px = cx + (p * 18);
+          // Punggung orang sujud
+          ctx.beginPath();
+          ctx.arc(px, baseY - 3 + bow, 6, Math.PI, Math.PI * 2);
+          ctx.fill();
+          // Kepala sujud ke tanah
+          ctx.beginPath();
+          ctx.arc(px + (p > 0 ? -6 : 6), baseY - 2, 3, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
     }
 
-    // --- TEMA MOMEN 3: (01:45.5 - 02:07) MATIKAN AKU / PENGORBANAN & HUJAN ABU ---
+    // --- TEMA 4: (03:08.6 - 03:23.0) SUMPAH DARAH, PENGORBANAN FATAL & PELEBURAN KE ANGKASA ---
     else {
-      const isDying = curTime > 118.5;
-      const fadeAlpha = isDying ? Math.max(0.12, 1 - (curTime - 118.5) / 8) : 1;
+      const isDissolving = curTime > 198.5;
+      const fadeAlpha = isDissolving ? Math.max(0.08, 1 - (curTime - 198.5) / 4.2) : 1;
 
       ctx.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
       ctx.strokeStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
 
-      const headY = baseY - 20;
+      // Cakar Fatal Strike: Menutup dan Menusuk ke Dalam
+      const headY = baseY - 22;
       ctx.beginPath();
       ctx.moveTo(cx, headY);
       ctx.lineTo(cx - 6, headY - 7);
@@ -427,40 +649,33 @@
       ctx.closePath();
       ctx.fill();
 
-      ctx.beginPath();
-      ctx.arc(cx - 6.5, headY - 7, 2.3, 0, Math.PI * 2);
-      ctx.arc(cx + 6.5, headY - 7, 2.3, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Cakar Mengunci Rapat Menusuk ke Dalam (Fatal Strike)
-      ctx.lineWidth = 2.8;
+      ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(cx - 2, headY + 2);
-      ctx.lineTo(cx - 8, headY - 2);
+      ctx.lineTo(cx - 9, headY - 2);
       ctx.lineTo(cx - 1, headY + 8);
       ctx.moveTo(cx + 2, headY + 2);
-      ctx.lineTo(cx + 8, headY - 2);
+      ctx.lineTo(cx + 9, headY - 2);
       ctx.lineTo(cx + 1, headY + 8);
       ctx.stroke();
 
-      ctx.lineWidth = 3.5;
+      ctx.lineWidth = 3.6;
       ctx.beginPath();
       ctx.moveTo(cx, headY);
       ctx.lineTo(cx, baseY - 8);
       ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(cx, baseY - 8);
-      ctx.lineTo(cx - 9, baseY);
-      ctx.lineTo(cx + 9, baseY);
-      ctx.closePath();
-      ctx.fill();
 
-      // Hujan Abu & Partikel Bara Berjatuhan Menghiasi Langit
-      ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-      for (let e = 0; e < 32; e++) {
-        const ex = (cx - 65) + ((e * 19 + Math.floor(time * 0.05)) % 130);
-        const ey = ((e * 23 + Math.floor(time * 0.08)) % 32) + (baseY - 32);
+      // Hujan Badai Partikel Abu & Bara Api yang Beterbangan
+      ctx.fillStyle = `rgba(255, 255, 255, ${fadeAlpha * 0.9})`;
+      for (let e = 0; e < 42; e++) {
+        const ex = (cx - 90) + ((e * 23 + Math.floor(time * 0.07)) % 180);
+        const ey = ((e * 19 + Math.floor(time * 0.09)) % 38) + (baseY - 38);
         ctx.fillRect(ex, ey, 1.4, 1.4);
+      }
+
+      // Gelombang Glitch Kehancuran (Fatal Climax)
+      if (curTime >= 194.6 && curTime <= 198.0 && Math.random() < 0.3) {
+        ctx.fillRect(0, baseY - 15, canvas.width, 1.5);
       }
     }
 
@@ -468,7 +683,7 @@
   };
 
   // =========================================================================
-  // ✍️ 5. RENDER LIRIK: BEBAS BATASAN, FONT OBSESIF, TIDAK PERNAH TERPOTONG
+  // ✍️ 6. RENDER LIRIK BESAR: PROPORSIONAL DI LAYAR LAPTOP, ANTI-TERPOTONG
   // =========================================================================
   const drawLyricText = (item) => {
     if (!item || !item.text) return;
@@ -477,11 +692,10 @@
     const text = item.text;
     const words = text.split(" ");
 
-    // Gunakan font bertema khusus atau default font
-    let fontStr = item.font || 'bold 17px "Segoe UI", Arial, sans-serif';
+    let fontStr = item.font || 'bold 21px "Cinzel", "Segoe UI", sans-serif';
     ctx.font = fontStr;
 
-    // Auto Word-Wrap ke dalam 2 baris proporsional
+    // Auto Word-Wrap ke dalam baris yang proporsional
     let lines = [];
     let currentLine = words[0] || "";
 
@@ -490,7 +704,6 @@
       const testLine = currentLine + " " + word;
       const testWidth = ctx.measureText(testLine).width;
 
-      // Ruang aman: minimal menyisakan 28px ruang kosong di tepi kiri & kanan
       if (testWidth < w - 28) {
         currentLine = testLine;
       } else {
@@ -500,7 +713,7 @@
     }
     lines.push(currentLine);
 
-    // Auto-scale dinamis: Jika ada baris yang terlalu panjang, kecilkan font secara halus
+    // Auto-scale dinamis jika ada baris yang melampaui lebar kanvas
     const maxLineWidth = Math.max(...lines.map(l => ctx.measureText(l).width));
     if (maxLineWidth > w - 28) {
       const ratio = (w - 28) / maxLineWidth;
@@ -517,9 +730,9 @@
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
-    const lineHeight = 19;
+    const lineHeight = 21;
     const totalHeight = lines.length * lineHeight;
-    // Posisikan teks di zona atas kanvas (y = 8 s/d 28)
+    // Posisikan teks di zona atas kanvas secara seimbang (y = 6 s/d 32)
     const startY = 17 - (totalHeight / 2) + (lineHeight / 2);
 
     for (let i = 0; i < lines.length; i++) {
@@ -528,7 +741,7 @@
   };
 
   // =========================================================================
-  // 🎨 6. RENDER CANVAS UTAMA (LIRIK DI ATAS + MOMEN SUASANA DI BAWAH)
+  // 🎨 7. RENDER CANVAS UTAMA
   // =========================================================================
   const drawCanvas = (time) => {
     const w = canvas.width;
@@ -543,18 +756,23 @@
       curTime = audioElement.currentTime;
     } else {
       const item = config.lyrics[currentLyricIndex];
-      const dur = item ? item.showMs : 3000;
+      const dur = item ? item.showMs : 3800;
       const frac = Math.min(1, Math.max(0, timeAccumulator / dur));
       curTime = item ? (item.startSec + frac * (item.endSec - item.startSec)) : config.audioStartTime;
     }
 
-    // Ambil energi bass real-time dari musik
     const bass = getBassEnergy();
 
-    // 1. Gambar 3 Tema Momen Suasana di Bagian Bawah
+    // 1. Cek Apakah Masih di Zona Intro (Detik 133.0 s/d 135.8 = Menit 02:13)
+    if (curTime < 135.8) {
+      drawIntroScene(time, curTime, bass);
+      return;
+    }
+
+    // 2. Gambar 4 Tema Momen Suasana di Bagian Bawah
     drawMomentScene(time, curTime, bass);
 
-    // 2. Gambar Teks Lirik Bersih di Bagian Atas
+    // 3. Gambar Teks Lirik Besar di Bagian Atas
     if (isShowing) {
       const currentItem = config.lyrics[currentLyricIndex];
       if (currentItem) {
@@ -564,14 +782,14 @@
   };
 
   // =========================================================================
-  // ⚡ 7. LOOP ANIMASI ASCII REAL-TIME
+  // ⚡ 8. LOOP ANIMASI ASCII REAL-TIME
   // =========================================================================
   const updateASCII = (time) => {
     if (!isPaused) {
       if (audioElement && !audioElement.paused && audioElement.duration > 0) {
         const curTime = audioElement.currentTime;
 
-        // Cek batas akhir klip 1 menit
+        // Cek batas akhir klip
         if (config.audioEndTime && curTime >= config.audioEndTime) {
           if (config.isLooping) {
             audioElement.currentTime = config.audioStartTime;
@@ -585,8 +803,8 @@
           return;
         }
 
+        // Sinkronisasi Lirik
         let matched = false;
-
         for (let i = 0; i < config.lyrics.length; i++) {
           const item = config.lyrics[i];
           if (item.startSec !== undefined && item.endSec !== undefined) {
@@ -612,14 +830,11 @@
           }
         }
 
-        if (!matched && config.lyrics.length > 0) {
-          if (curTime < config.audioStartTime) {
-            audioElement.currentTime = config.audioStartTime;
-            isShowing = true;
-          }
+        if (!matched && curTime < 135.8) {
+          isShowing = false; // Saat intro, teks lirik disembunyikan agar logo tampil penuh
         }
       } else {
-        // Fallback waktu jika audio ditahan browser
+        // Fallback jika audio ditahan browser
         if (lastTime === 0) lastTime = time;
         const deltaTime = time - lastTime;
         timeAccumulator += deltaTime;
@@ -674,20 +889,20 @@
             char = charsFixed[safeCharIndex];
           }
 
-          // Pewarnaan Merah Obsesif: Teks menyala terang, aset atmosferik mendukung dengan estetika sinematik
+          // Pewarnaan Merah Obsesif: Teks menyala terang, aset atmosferik mendukung secara sinematik
           let charColor, glow;
-          if (c > 190) {
-            // Teks Lirik yang sedang aktif tampil
+          if (c > 185) {
+            // Teks Lirik / Judul Intro bercahaya tajam
             const brightReds = ["#ff1744", "#ff2a55", "#ff003b", "#ff3366"];
             charColor = brightReds[(x + y) % brightReds.length];
             glow = `0 0 5px ${charColor}, 0 0 12px rgba(255, 23, 68, 0.75)`;
           } else if (c > 120) {
-            // Tubuh siluet ilustrasi atmosfer
+            // Siluet tubuh atmosferik / cover album
             const midReds = ["#e50914", "#dc143c", "#c00028"];
             charColor = midReds[(x + y) % midReds.length];
             glow = `0 0 3px rgba(220, 20, 60, 0.5)`;
           } else if (c > 60) {
-            // Sinar altar / detail halus
+            // Garis detail halus / sinar radar
             charColor = "#a80020";
             glow = "none";
           } else {

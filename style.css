@@ -35,6 +35,8 @@ html, body {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-width: 98vw;
+  max-height: 98vh;
   transition: transform 0.08s ease-out;
 }
 
@@ -48,11 +50,11 @@ html, body {
   text-align: center;
   font-family: inherit;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
   white-space: pre;
   background: transparent !important;
-  font-size: 7.6px;
-  line-height: 1.05;
+  font-size: clamp(7.4px, 0.82vw, 8.8px);
+  line-height: 1.06;
   cursor: pointer;
   display: block;
   margin: 0 auto;
