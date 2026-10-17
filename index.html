@@ -55,7 +55,7 @@
       letter-spacing: 0.05em;
       white-space: pre;
       background: transparent !important;
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.1;
       cursor: pointer;
       display: block;
@@ -118,7 +118,8 @@
   ▶ Klik di mana saja untuk memutar lagu
 </div>
 
-<canvas id="prerender" width="124" height="62"></canvas>
+<!-- Kanvas resolusi 150x66: lebar cukup luas agar teks tidak terpotong sama sekali -->
+<canvas id="prerender" width="150" height="66"></canvas>
 
 <!-- Pemutar Audio Musik -->
 <audio id="audio-player" preload="auto">
@@ -131,140 +132,32 @@
 <script>
   (() => {
     // =========================================================================
-    // KONFIGURASI LIRIK: KATA PER KATA MUNCUL SESUAI PENYEBUTAN VOKAL
-    // (Lirik yang belum dinyanyikan tidak akan muncul di layar)
+    // 🎵 PANDUAN PENGATURAN LIRIK (BISA ANDA EDIT SENDIRI DI BAGIAN INI)
+    // =========================================================================
+    // Cara mengatur lirik:
+    // - text     : Kalimat lirik yang ingin ditampilkan (otomatis terbungkus rapi ke tengah)
+    // - startSec : Detik audio vokal mulai (contoh: 67.5 = menit 01:07.5)
+    // - endSec   : Detik audio vokal selesai (contoh: 72.8 = menit 01:12.8)
+    // - showMs   : Durasi tampil jika audio belum bersuara (5300 = 5.3 detik)
+    // - hideMs   : Jeda layar gelap sebelum baris berikutnya (600 = 0.6 detik)
     // =========================================================================
     const config = {
       lyrics: [
-        // --- MOMENT 1: 01:07.0 - 01:25.0 (PRE-CHORUS / FIGURAN BURAM) ---
-        {
-          startSec: 67.5,
-          endSec: 72.8,
-          showMs: 5300,
-          hideMs: 600,
-          words: [
-            { text: "Namun", time: 67.5, line: 1 },
-            { text: "sabun", time: 68.4, line: 1 },
-            { text: "kita", time: 69.6, line: 1 },
-            { text: "berbeda", time: 70.4, line: 2 },
-            { text: "wangi", time: 71.5, line: 2 }
-          ]
-        },
-        {
-          startSec: 73.4,
-          endSec: 80.2,
-          showMs: 6800,
-          hideMs: 600,
-          words: [
-            { text: "Dan", time: 73.4, line: 1 },
-            { text: "tubuhmu", time: 74.0, line: 1 },
-            { text: "dibalut", time: 75.2, line: 1 },
-            { text: "hal", time: 76.5, line: 2 },
-            { text: "berbeda", time: 77.2, line: 2 },
-            { text: "tiap", time: 78.5, line: 2 },
-            { text: "malam", time: 79.2, line: 2 }
-          ]
-        },
-        {
-          startSec: 80.8,
-          endSec: 85.0,
-          showMs: 4200,
-          hideMs: 400,
-          words: [
-            { text: "Saat", time: 80.8, line: 1 },
-            { text: "ini", time: 81.3, line: 1 },
-            { text: "ku", time: 81.8, line: 1 },
-            { text: "masih", time: 82.2, line: 1 },
-            { text: "figuran", time: 82.8, line: 2 },
-            { text: "buram", time: 83.6, line: 2 }
-          ]
-        },
+        // --- MOMENT 1 (01:07.0 - 01:25.0): FIGURAN BURAM ---
+        { text: "Namun sabun kita berbeda wangi",             startSec: 67.5,  endSec: 72.8,  showMs: 5300, hideMs: 600 },
+        { text: "Dan tubuhmu dibalut hal berbeda tiap malam", startSec: 73.4,  endSec: 80.2,  showMs: 6800, hideMs: 600 },
+        { text: "Saat ini ku masih figuran buram",            startSec: 80.8,  endSec: 85.0,  showMs: 4200, hideMs: 400 },
 
-        // --- MOMENT 2: 01:25.0 - 01:45.5 (CHORUS 1 / BELALANG SEMBAH ALTAR) ---
-        {
-          startSec: 85.4,
-          endSec: 93.4,
-          showMs: 8000,
-          hideMs: 400,
-          words: [
-            { text: "Tapi", time: 85.4, line: 1 },
-            { text: "jadikanku", time: 86.8, line: 1 },
-            { text: "belalang", time: 88.8, line: 2 },
-            { text: "sembah", time: 91.0, line: 2 }
-          ]
-        },
-        {
-          startSec: 93.8,
-          endSec: 101.0,
-          showMs: 7200,
-          hideMs: 400,
-          words: [
-            { text: "Walau", time: 93.8, line: 1 },
-            { text: "sebentar", time: 95.2, line: 1 },
-            { text: "kupercaya", time: 97.0, line: 2 },
-            { text: "indah", time: 99.0, line: 2 }
-          ]
-        },
-        {
-          startSec: 101.4,
-          endSec: 105.4,
-          showMs: 4000,
-          hideMs: 300,
-          words: [
-            { text: "Seberapa", time: 101.4, line: 1 },
-            { text: "banyak,", time: 102.2, line: 1 },
-            { text: "seberapa", time: 103.4, line: 2 },
-            { text: "mahal", time: 104.2, line: 2 }
-          ]
-        },
+        // --- MOMENT 2 (01:25.0 - 01:45.5): CHORUS 1 / BELALANG SEMBAH ALTAR ---
+        { text: "Tapi jadikanku belalang sembah",             startSec: 85.4,  endSec: 93.4,  showMs: 8000, hideMs: 400 },
+        { text: "Walau sebentar kupercaya indah",             startSec: 93.8,  endSec: 101.0, showMs: 7200, hideMs: 400 },
+        { text: "Seberapa banyak, seberapa mahal",            startSec: 101.4, endSec: 105.4, showMs: 4000, hideMs: 300 },
 
-        // --- MOMENT 3: 01:45.5 - 02:07.0 (MATIKAN AKU SETELAH USAI / STRIKE & ASH) ---
-        {
-          startSec: 105.7,
-          endSec: 107.9,
-          showMs: 2200,
-          hideMs: 200,
-          words: [
-            { text: "Semua", time: 105.7, line: 1 },
-            { text: "'kan", time: 106.3, line: 1 },
-            { text: "kuberi", time: 106.8, line: 1 }
-          ]
-        },
-        {
-          startSec: 108.1,
-          endSec: 110.6,
-          showMs: 2500,
-          hideMs: 300,
-          words: [
-            { text: "Semua", time: 108.1, line: 1 },
-            { text: "'kan", time: 108.7, line: 1 },
-            { text: "kugadai", time: 109.2, line: 1 }
-          ]
-        },
-        {
-          startSec: 110.9,
-          endSec: 114.6,
-          showMs: 3700,
-          hideMs: 300,
-          words: [
-            { text: "Matikan", time: 110.9, line: 1 },
-            { text: "aku", time: 111.8, line: 1 },
-            { text: "setelah", time: 112.8, line: 2 },
-            { text: "usai", time: 113.6, line: 2 }
-          ]
-        },
-        {
-          startSec: 114.9,
-          endSec: 118.5,
-          showMs: 3600,
-          hideMs: 8500,
-          words: [
-            { text: "Matikan", time: 114.9, line: 1 },
-            { text: "aku", time: 115.8, line: 1 },
-            { text: "setelah", time: 116.8, line: 2 },
-            { text: "usai", time: 117.6, line: 2 }
-          ]
-        }
+        // --- MOMENT 3 (01:45.5 - 02:07.0): MATIKAN AKU SETELAH USAI ---
+        { text: "Semua 'kan kuberi",                          startSec: 105.7, endSec: 107.9, showMs: 2200, hideMs: 200 },
+        { text: "Semua 'kan kugadai",                         startSec: 108.1, endSec: 110.6, showMs: 2500, hideMs: 300 },
+        { text: "Matikan aku setelah usai",                   startSec: 110.9, endSec: 114.6, showMs: 3700, hideMs: 300 },
+        { text: "Matikan aku setelah usai",                   startSec: 114.9, endSec: 118.5, showMs: 3600, hideMs: 8500 }
       ],
 
       audioStartTime: 67.0,   // Mulai detik 67.0 (01:07.0)
@@ -273,7 +166,7 @@
     };
 
     // =========================================================================
-    // CANVAS & SISTEM RENDER
+    // CANVAS & SISTEM RENDER ASCII
     // =========================================================================
     const canvas = document.getElementById("prerender");
     const output = document.getElementById("output");
@@ -282,7 +175,7 @@
     const audioPrompt = document.getElementById("audio-prompt");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-    // Karakter shading ASCII klasik berdensitas tinggi untuk kejelasan teks
+    // Karakter shading ASCII klasik (tegas, kontur bersih, keterbacaan tinggi)
     const charsFixed = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
     const charsLength = charsFixed.length;
 
@@ -312,7 +205,7 @@
     }, 4000);
 
     // =========================================================================
-    // AUDIO AUTOPLAY & KONTROL
+    // AUDIO AUTOPLAY & KONTROL INTERAKSI
     // =========================================================================
     const playAudio = () => {
       if (!audioElement) return;
@@ -371,7 +264,7 @@
     });
 
     // =========================================================================
-    // 3 TEMA MOMEN ATMOSFER DALAM BENTUK SENI ASCII
+    // 3 TEMA MOMEN SUASANA SENI ASCII (DI BAGIAN BAWAH LAYAR)
     // =========================================================================
     const drawMomentScene = (time, curTime) => {
       const cx = canvas.width / 2;
@@ -382,9 +275,9 @@
       // --- TEMA MOMEN 1: (01:07 - 01:25) FIGURAN BURAM & SMOLDERING NOIR ---
       if (curTime < 85.2) {
         // Siluet Gedung Kota Malam di dasar
-        ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
         for (let x = 0; x < canvas.width; x += 6) {
-          const bHeight = 8 + Math.abs(Math.sin(x * 0.28)) * 7 + (x % 5) * 1.5;
+          const bHeight = 8 + Math.abs(Math.sin(x * 0.28)) * 8 + (x % 5) * 1.5;
           ctx.fillRect(x, baseY - bHeight, 5, bHeight);
 
           // Kerlap-kerlip jendela kota
@@ -394,14 +287,14 @@
               ctx.fillRect(x + 2, wy, 1.4, 1.4);
             }
           }
-          ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+          ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
         }
 
         // Kepulan Asap Rokok / Hawa Misterius Melayang Naik
         ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
         ctx.lineWidth = 1.2;
         for (let s = 0; s < 3; s++) {
-          const sOffset = (s - 1) * 22;
+          const sOffset = (s - 1) * 24;
           ctx.beginPath();
           ctx.moveTo(cx + sOffset, baseY - 10);
           for (let sy = baseY - 10; sy > baseY - 26; sy -= 3) {
@@ -415,11 +308,11 @@
         const reach = Math.sin(time * 0.0025) * 2;
         ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
         // Tangan Kiri
-        ctx.fillRect(cx - 30 + reach, baseY - 18, 14, 3);
-        ctx.fillRect(cx - 18 + reach, baseY - 20, 6, 2);
+        ctx.fillRect(cx - 32 + reach, baseY - 18, 14, 3);
+        ctx.fillRect(cx - 20 + reach, baseY - 20, 6, 2);
         // Tangan Kanan
-        ctx.fillRect(cx + 16 - reach, baseY - 18, 14, 3);
-        ctx.fillRect(cx + 12 - reach, baseY - 20, 6, 2);
+        ctx.fillRect(cx + 18 - reach, baseY - 18, 14, 3);
+        ctx.fillRect(cx + 14 - reach, baseY - 20, 6, 2);
       }
 
       // --- TEMA MOMEN 2: (01:25 - 01:45.5) ALTAR KATEDRAL BELALANG SEMBAH HIDUP ---
@@ -428,18 +321,18 @@
         ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
         ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(cx, baseY + 8, 34, Math.PI, Math.PI * 2);
+        ctx.arc(cx, baseY + 8, 36, Math.PI, Math.PI * 2);
         ctx.stroke();
         ctx.beginPath();
-        ctx.arc(cx, baseY + 8, 28, Math.PI, Math.PI * 2);
+        ctx.arc(cx, baseY + 8, 30, Math.PI, Math.PI * 2);
         ctx.stroke();
 
         // Sinar Altar Memancar
         for (let a = Math.PI + 0.2; a < Math.PI * 2 - 0.2; a += 0.35) {
-          const rx1 = cx + Math.cos(a) * 35;
-          const ry1 = (baseY + 8) + Math.sin(a) * 35;
-          const rx2 = cx + Math.cos(a) * 40;
-          const ry2 = (baseY + 8) + Math.sin(a) * 40;
+          const rx1 = cx + Math.cos(a) * 37;
+          const ry1 = (baseY + 8) + Math.sin(a) * 37;
+          const rx2 = cx + Math.cos(a) * 42;
+          const ry2 = (baseY + 8) + Math.sin(a) * 42;
           ctx.beginPath();
           ctx.moveTo(rx1, ry1);
           ctx.lineTo(rx2, ry2);
@@ -566,7 +459,7 @@
         // Hujan Abu & Partikel Bara Berjatuhan Menghiasi Langit
         ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
         for (let e = 0; e < 24; e++) {
-          const ex = (cx - 48) + ((e * 17 + Math.floor(time * 0.05)) % 96);
+          const ex = (cx - 50) + ((e * 17 + Math.floor(time * 0.05)) % 100);
           const ey = ((e * 23 + Math.floor(time * 0.08)) % 28) + (baseY - 28);
           ctx.fillRect(ex, ey, 1.3, 1.3);
         }
@@ -576,17 +469,69 @@
     };
 
     // =========================================================================
-    // RENDER LIRIK: KATA PER KATA MUNCUL TEPAT SESUAI PENYEBUTAN VOKAL
-    // (Kata yang belum dinyanyikan tidak akan tampil di layar)
+    // RENDER LIRIK: AUTO WORD-WRAP & AUTO-SCALE (TIDAK PERNAH TERPOTONG)
     // =========================================================================
-    const drawTextToCanvas = (time) => {
+    const drawLyricText = (text) => {
+      if (!text) return;
+
+      const w = canvas.width;
+      const words = text.split(" ");
+
+      // Ukuran font dasar yang proporsional
+      let fontSize = words.length <= 4 ? 14 : 12.5;
+      ctx.font = `bold ${fontSize}px "Segoe UI", Arial, sans-serif`;
+
+      // Word-wrap otomatis: pecah ke baris baru sebelum menabrak batas kanvas
+      let lines = [];
+      let currentLine = words[0] || "";
+
+      for (let i = 1; i < words.length; i++) {
+        const word = words[i];
+        const testLine = currentLine + " " + word;
+        const testWidth = ctx.measureText(testLine).width;
+
+        // Batas aman: menyisakan minimal 24px ruang kosong di tepi kiri & kanan
+        if (testWidth < w - 24) {
+          currentLine = testLine;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+
+      // Auto-scale pengaman tambahan: jika ada baris yang terlalu panjang, kecilkan font
+      const maxLineWidth = Math.max(...lines.map(l => ctx.measureText(l).width));
+      if (maxLineWidth > w - 24) {
+        fontSize = Math.floor(fontSize * (w - 24) / maxLineWidth);
+        ctx.font = `bold ${fontSize}px "Segoe UI", Arial, sans-serif`;
+      }
+
+      ctx.fillStyle = "white"; // Putih di kanvas = Merah menyala bersinar di ASCII
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      const lineHeight = fontSize + 4;
+      const totalHeight = lines.length * lineHeight;
+      // Posisikan lirik di zona atas kanvas (y = 6 s/d 26)
+      const startY = 16 - (totalHeight / 2) + (lineHeight / 2);
+
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], w / 2, startY + (i * lineHeight));
+      }
+    };
+
+    // =========================================================================
+    // RENDER CANVAS UTAMA (LIRIK DI ATAS + MOMEN SUASANA DI BAWAH)
+    // =========================================================================
+    const drawCanvas = (time) => {
       const w = canvas.width;
       const h = canvas.height;
 
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, w, h);
 
-      // Dapatkan waktu audio saat ini
+      // Dapatkan detik audio saat ini
       let curTime = config.audioStartTime;
       if (audioElement && !audioElement.paused && audioElement.duration > 0) {
         curTime = audioElement.currentTime;
@@ -600,42 +545,12 @@
       // 1. Gambar 3 Tema Momen Suasana di Bagian Bawah
       drawMomentScene(time, curTime);
 
-      // 2. Gambar Lirik yang Sedang Dinyanyikan di Bagian Atas
-      if (!isShowing) return;
-
-      const currentItem = config.lyrics[currentLyricIndex];
-      if (!currentItem || !currentItem.words) return;
-
-      // Ambil HANYA kata-kata yang sudah dinyanyikan sampai detik saat ini
-      const sungWordsLine1 = currentItem.words
-        .filter(w => w.line === 1 && w.time <= curTime)
-        .map(w => w.text);
-
-      const sungWordsLine2 = currentItem.words
-        .filter(w => w.line === 2 && w.time <= curTime)
-        .map(w => w.text);
-
-      const textLine1 = sungWordsLine1.join(" ");
-      const textLine2 = sungWordsLine2.join(" ");
-
-      // Jika belum ada kata yang mulai dinyanyikan dalam bait ini, kosongkan
-      if (!textLine1 && !textLine2) return;
-
-      // Ukuran font tebal, bersih dan proporsional untuk keterbacaan mata
-      ctx.font = `bold 15px "Segoe UI", Arial, sans-serif`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillStyle = "white"; // Putih di kanvas = Merah menyala bersinar di ASCII
-
-      const hasLine2 = currentItem.words.some(w => w.line === 2);
-      const line1Y = hasLine2 ? 10 : 15;
-      const line2Y = 23;
-
-      if (textLine1) {
-        ctx.fillText(textLine1, w / 2, line1Y);
-      }
-      if (textLine2) {
-        ctx.fillText(textLine2, w / 2, line2Y);
+      // 2. Gambar Teks Lirik Bersih di Bagian Atas
+      if (isShowing) {
+        const currentItem = config.lyrics[currentLyricIndex];
+        if (currentItem && currentItem.text) {
+          drawLyricText(currentItem.text);
+        }
       }
     };
 
@@ -720,7 +635,7 @@
       }
       lastTime = time;
 
-      drawTextToCanvas(time);
+      drawCanvas(time);
 
       const w = canvas.width;
       const h = canvas.height;
