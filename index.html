@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Belalang Sembah - .Feast (ASCII Visualizer)</title>
+  <title>Belalang Sembah - .Feast (Stockholm Metro Dot Matrix)</title>
   
-  <!-- Font Google Berdaya Baca Tinggi: Cinzel, Playfair Display, Montserrat -->
+  <!-- Font Google: Space Grotesk (Stockholm Metro Font), Cinzel, Montserrat -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Playfair+Display:ital,wght@1,700;1,900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=Cinzel:wght@700;900&family=Montserrat:wght@800;900&family=DotGothic16&display=swap" rel="stylesheet">
 
   <!-- Modular Styling -->
   <link rel="stylesheet" href="style.css">
@@ -17,12 +17,10 @@
 
 <div class="container">
   <div id="output-wrapper">
-    <pre id="output"></pre>
+    <!-- Canvas Utama Mesin Tipografi Stockholm Metro Dot Matrix -->
+    <canvas id="matrix-canvas" width="960" height="540"></canvas>
   </div>
 </div>
-
-<!-- Kanvas Resolusi 300x96: Lebar ekstra luas dan tinggi lega untuk lirik bebas terpotong & visual animasi atmosferik -->
-<canvas id="prerender" width="300" height="96"></canvas>
 
 <!-- Pemutar Audio Musik (.Feast - Belalang Sembah) -->
 <audio id="audio-player" preload="auto">
@@ -32,7 +30,7 @@
   <source src="belalang_sembah.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Modular Script Mesin Visualizer & Pengaturan Lirik -->
+<!-- Modular Script Mesin Dot Matrix Visualizer & Pengaturan Lirik -->
 <script src="visualizer.js"></script>
 
 </body>
