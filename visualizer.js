@@ -3,9 +3,10 @@
  * BELALANG SEMBAH (.FEAST / HINDIA) - STOCKHOLM METRO DOT MATRIX ENGINE
  * =========================================================================
  * File: visualizer.js
- * Deskripsi: Mesin Tipografi Dot Matrix Stockholm Metro berkerapatan tinggi,
- * font besar yang memenuhi layar (screen-filling), efek atmosferik hidup
- * yang bervariasi di tiap lirik, dan sinkronisasi audio real-time.
+ * Deskripsi: Mesin Tipografi Dot Matrix Stockholm Metro dengan lirik
+ * tepat di tengah layar (dead-center), font raksasa yang memenuhi layar,
+ * efek atmosferik visual khusus di setiap lirik tanpa tulisan label/nama efek,
+ * dan animasi dinamis berbasis konsep video klip resmi .Feast.
  */
 
 (() => {
@@ -180,7 +181,7 @@
       analyser.connect(audioCtx.destination);
       dataArray = new Uint8Array(analyser.frequencyBinCount);
     } catch (e) {
-      // Fallback
+      // Fallback otomatis
     }
   };
 
@@ -296,7 +297,7 @@
 
     offCtx.save();
 
-    // 1. Header Atas: B E L A L A N G   S E M B A H (Besar & Megah)
+    // 1. Header Atas: B E L A L A N G   S E M B A H (Besar)
     offCtx.fillStyle = "#ffffff";
     offCtx.textAlign = "center";
     offCtx.textBaseline = "middle";
@@ -304,9 +305,9 @@
     offCtx.fillText("BELALANG SEMBAH", cx, 95);
 
     // 2. Cover Art / Logo di Tengah
-    const imgSize = 380;
+    const imgSize = 400;
     const imgX = cx - (imgSize / 2);
-    const imgY = 170;
+    const imgY = 175;
 
     if (coverImg.complete && coverImg.naturalWidth > 0) {
       try {
@@ -317,7 +318,7 @@
     } else {
       const catY = imgY + 130;
       offCtx.fillStyle = "#ffffff";
-      offCtx.beginPath(); offCtx.arc(cx, catY, 90, 0, Math.PI * 2); offCtx.fill();
+      offCtx.beginPath(); offCtx.arc(cx, catY, 95, 0, Math.PI * 2); offCtx.fill();
       offCtx.beginPath();
       offCtx.moveTo(cx - 75, catY - 40); offCtx.lineTo(cx - 105, catY - 120); offCtx.lineTo(cx - 30, catY - 85); offCtx.closePath(); offCtx.fill();
       offCtx.beginPath();
@@ -340,22 +341,18 @@
     offCtx.beginPath(); offCtx.moveTo(bx + bw - bLen, by + bh); offCtx.lineTo(bx + bw, by + bh); offCtx.lineTo(bx + bw, by + bh - bLen); offCtx.stroke();
 
     // 3. Subtitle Bawah
-    offCtx.font = '700 64px "Space Grotesk", sans-serif';
-    offCtx.fillText(". F E A S T", cx, 660);
-
-    // 4. Metadata
-    offCtx.font = '700 28px "DotGothic16", monospace';
-    offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
-    offCtx.fillText("[ 02:13 // VERSE 2 & CHORUS 2 ]", cx, 745);
+    offCtx.font = '700 68px "Space Grotesk", sans-serif';
+    offCtx.fillText(". F E A S T", cx, 680);
 
     offCtx.restore();
   };
 
   // =========================================================================
-  // 🎭 5. TEMA VISUAL DINAMIS & KHUSUS DI SETIAP LIRIK (TIDAK MONOTON)
+  // 🎭 5. TEMA VISUAL DINAMIS KHUSUS DI SETIAP LIRIK (BEBAS LABEL / BEBAS GELOMBANG)
   // =========================================================================
   const drawMomentScene = (time, curTime, bass) => {
     const cx = width / 2;
+    const cy = height / 2;
     const baseY = height - 15;
 
     offCtx.save();
@@ -365,49 +362,46 @@
     // =======================================================================
 
     // 1. (135.8 - 139.6) "Jumlah rambutmu 'kan kuhafal mati"
-    // Efek: Badai helai rambut satin melayang dinamis dengan counter digital penghitung helai
+    // Visual: Jendela kamar noir berjeruji cahaya lampu kota & siluet helai rambut jatuh perlahan
     if (curTime < 139.8) {
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.75)";
-      offCtx.lineWidth = 3.5;
-      for (let h = 0; h < 6; h++) {
-        const hY = baseY - 280 + (h * 48);
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.18)";
+      for (let j = 0; j < 8; j++) {
+        const jY = 80 + (j * 95);
+        offCtx.fillRect(cx - 720, jY, 1440, 40);
+      }
+      // Siluet helaian rambut lurus elegan melayang jatuh perlahan
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+      offCtx.lineWidth = 3;
+      for (let h = 0; h < 12; h++) {
+        const hx = (cx - 600) + ((h * 117 + Math.floor(time * 0.15)) % 1200);
+        const hy = ((h * 83 + Math.floor(time * 0.12)) % 750) + 60;
         offCtx.beginPath();
-        offCtx.moveTo(cx - 700, hY);
-        for (let hx = cx - 700; hx <= cx + 700; hx += 25) {
-          const wavePhase = Math.sin(time * 0.0035 + hx * 0.012 + h * 1.5) * 28;
-          offCtx.lineTo(hx, hY + wavePhase);
-        }
+        offCtx.moveTo(hx, hy);
+        offCtx.lineTo(hx - 20, hy + 70);
         offCtx.stroke();
       }
-
-      // Counter Telemetri Obsesif
-      const hairCount = 142857 + Math.floor((time * 0.08) % 999);
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
-      offCtx.font = '700 24px "DotGothic16", monospace';
-      offCtx.textAlign = "center";
-      offCtx.fillText(`[ MEMORIZED: ${hairCount.toLocaleString()} STRANDS // EXACT ]`, cx, baseY - 60);
     }
 
     // 2. (140.0 - 143.8) "Rute pulangmu telah kupelajari"
-    // Efek: Navigasi GPS jalan raya 3D melaju cepat dengan rambu & pelacak rute pulang
+    // Visual: Garis-garis lurus perspektif jalan raya 3D melaju kencang & tiang lampu jalan kota
     else if (curTime < 144.0) {
-      const horizonY = baseY - 280;
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+      const horizonY = cy + 40;
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
       offCtx.lineWidth = 3.5;
 
-      for (let rx = -680; rx <= 680; rx += 140) {
+      for (let rx = -700; rx <= 700; rx += 140) {
         offCtx.beginPath();
-        offCtx.moveTo(cx + rx * 0.12, horizonY);
-        offCtx.lineTo(cx + rx * 1.45, baseY);
+        offCtx.moveTo(cx + rx * 0.08, horizonY);
+        offCtx.lineTo(cx + rx * 1.5, baseY);
         offCtx.stroke();
       }
 
-      // Marka jalan meluncur kencang
-      const roadSpeed = (time * 0.22) % 60;
-      for (let dy = 0; dy < 280; dy += 55) {
+      // Marka jalan meluncur cepat
+      const roadSpeed = (time * 0.28) % 75;
+      for (let dy = 0; dy < 380; dy += 70) {
         const yPos = horizonY + dy + roadSpeed;
         if (yPos <= baseY) {
-          const spread = ((yPos - horizonY) / 280) * 520;
+          const spread = ((yPos - horizonY) / 380) * 580;
           offCtx.beginPath();
           offCtx.moveTo(cx - spread, yPos);
           offCtx.lineTo(cx + spread, yPos);
@@ -415,175 +409,138 @@
         }
       }
 
-      // Titik Target & Indikator Rute Pulang
+      // Titik target suar navigasi di cakrawala
       offCtx.fillStyle = "#ffffff";
-      offCtx.beginPath(); offCtx.arc(cx, horizonY + 70, 14 + bass * 8, 0, Math.PI * 2); offCtx.fill();
-      offCtx.font = '700 22px "DotGothic16", monospace';
-      offCtx.fillText("ROUTE: HOMEBOUND // DISTANCE: 0.8 KM // TRACKED", cx, baseY - 50);
+      offCtx.beginPath(); offCtx.arc(cx, horizonY, 16 + bass * 10, 0, Math.PI * 2); offCtx.fill();
     }
 
     // 3. (144.2 - 147.8) "Kutahu nama anak kita nanti"
-    // Efek: Siluet detak jantung berdenyut (heartbeat pulse) dikelilingi spiral konstelasi takdir
+    // Visual: Cincin pernikahan suci & konstelasi bintang geometris berdenyut dengan bass
     else if (curTime < 148.0) {
-      const heartY = baseY - 165;
-      const heartScale = 3.6 + bass * 1.5;
-
-      offCtx.save();
-      offCtx.translate(cx, heartY);
-      offCtx.scale(heartScale, heartScale);
-
-      // Jalur Vektor Hati Berdenyut
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      const ringR = 210 + bass * 35;
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+      offCtx.lineWidth = 4;
       offCtx.beginPath();
-      offCtx.moveTo(0, 5);
-      offCtx.bezierCurveTo(-15, -15, -25, 0, 0, 25);
-      offCtx.bezierCurveTo(25, 0, 15, -15, 0, 5);
-      offCtx.fill();
-      offCtx.restore();
-
-      // Gelombang Elektrokardiogram (EKG Pulse) di Bawah Jantung
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.7)";
-      offCtx.lineWidth = 3.5;
-      offCtx.beginPath();
-      offCtx.moveTo(cx - 500, baseY - 45);
-      for (let x = -500; x <= 500; x += 10) {
-        let ekgY = 0;
-        const distFromCenter = Math.abs(x);
-        if (distFromCenter < 120) {
-          ekgY = Math.sin(x * 0.15 + time * 0.01) * 35 * (1 - distFromCenter / 120);
-        }
-        offCtx.lineTo(cx + x, baseY - 45 + ekgY);
-      }
+      offCtx.arc(cx, cy, ringR, 0, Math.PI * 2);
       offCtx.stroke();
+      offCtx.beginPath();
+      offCtx.arc(cx, cy, ringR - 25, 0, Math.PI * 2);
+      offCtx.stroke();
+
+      // Sinar bintang geometris lurus memancar
+      for (let b = 0; b < 12; b++) {
+        const ang = (b * Math.PI) / 6;
+        offCtx.beginPath();
+        offCtx.moveTo(cx + Math.cos(ang) * (ringR + 10), cy + Math.sin(ang) * (ringR + 10));
+        offCtx.lineTo(cx + Math.cos(ang) * (ringR + 65), cy + Math.sin(ang) * (ringR + 65));
+        offCtx.stroke();
+      }
     }
 
     // 4. (148.2 - 152.0) "Suatu saat kau pasti mengerti"
-    // Efek: Mata Pengintai Besar Membuka Penuh dengan Reticle Bidikan [LOCKED ON] Berputar
+    // Visual: Mata Pengintai CCTV Raksasa Membuka Lebar dengan Diafragma Rana Berputar
     else if (curTime < 152.4) {
-      const eyeY = baseY - 175;
-      const eyeWidth = 185 + bass * 30;
-      const eyeHeight = 75 + bass * 16;
+      const eyeWidth = 240 + bass * 35;
+      const eyeHeight = 100 + bass * 20;
 
-      offCtx.strokeStyle = "#ffffff";
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.55)";
       offCtx.lineWidth = 7;
       offCtx.beginPath();
-      offCtx.moveTo(cx - eyeWidth, eyeY);
-      offCtx.quadraticCurveTo(cx, eyeY - eyeHeight, cx + eyeWidth, eyeY);
-      offCtx.quadraticCurveTo(cx, eyeY + eyeHeight, cx - eyeWidth, eyeY);
+      offCtx.moveTo(cx - eyeWidth, cy);
+      offCtx.quadraticCurveTo(cx, cy - eyeHeight, cx + eyeWidth, cy);
+      offCtx.quadraticCurveTo(cx, cy + eyeHeight, cx - eyeWidth, cy);
       offCtx.stroke();
 
-      const irisRadius = 42 + bass * 16;
+      const irisRadius = 55 + bass * 20;
       offCtx.fillStyle = "#ffffff";
       offCtx.beginPath();
-      offCtx.arc(cx, eyeY, irisRadius, 0, Math.PI * 2);
+      offCtx.arc(cx, cy, irisRadius, 0, Math.PI * 2);
       offCtx.fill();
 
-      // Cincin Bidikan Berputar
+      // Bilah rana aperture berputar
       const rot = time * 0.003;
       offCtx.save();
-      offCtx.translate(cx, eyeY);
+      offCtx.translate(cx, cy);
       offCtx.rotate(rot);
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.9)";
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.75)";
       offCtx.lineWidth = 4;
-      offCtx.beginPath();
-      offCtx.arc(0, 0, eyeWidth + 20, 0, Math.PI * 0.4);
-      offCtx.arc(0, 0, eyeWidth + 20, Math.PI * 0.5, Math.PI * 0.9);
-      offCtx.arc(0, 0, eyeWidth + 20, Math.PI, Math.PI * 1.4);
-      offCtx.arc(0, 0, eyeWidth + 20, Math.PI * 1.5, Math.PI * 1.9);
-      offCtx.stroke();
+      for (let s = 0; s < 6; s++) {
+        const sa = (s * Math.PI) / 3;
+        offCtx.beginPath();
+        offCtx.moveTo(Math.cos(sa) * 60, Math.sin(sa) * 60);
+        offCtx.lineTo(Math.cos(sa + 0.4) * (eyeWidth + 30), Math.sin(sa + 0.4) * (eyeWidth + 30));
+        offCtx.stroke();
+      }
       offCtx.restore();
-
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
-      offCtx.font = '700 22px "DotGothic16", monospace';
-      offCtx.fillText("TARGET: LOCKED_ON // OBSESSION: 100%", cx, baseY - 40);
     }
 
     // =======================================================================
     // [VERSE 2B: KESENJANGAN SOSIAL & RADAR APLIKASI]
     // =======================================================================
 
-    // 5 & 6. (152.4 - 160.4) "Walau upahku dalam sebulan / Hanya porsimu dalam sehari"
-    // Efek: Kesenjangan Ekstrem! Bar kemiskinan rendah di kiri vs Gedung kemewahan menjulang di kanan
-    else if (curTime < 160.6) {
-      const isPorsiLine = curTime >= 156.4;
-
-      // Sisi Kiri: "Upahku dalam sebulan" (Bar rendah berjuang)
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.45)";
-      for (let bx = 0; bx < 11; bx++) {
-        const bHeight = 25 + Math.sin(time * 0.005 + bx) * 20 + bass * 35;
-        offCtx.fillRect(cx - 650 + (bx * 38), baseY - bHeight, 26, bHeight);
+    // 5. (152.4 - 156.0) "Walau upahku dalam sebulan"
+    // Visual: Partikel koin & lembaran uang jatuh melayang ke bawah ke jurang kegelapan
+    else if (curTime < 156.4) {
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      for (let c = 0; c < 45; c++) {
+        const coinX = (cx - 700) + ((c * 97 + Math.floor(time * 0.2)) % 1400);
+        const coinY = ((c * 67 + Math.floor(time * 0.25)) % 800) + 50;
+        offCtx.fillRect(coinX, coinY, 14, 8); // Siluet uang kertas
       }
-      offCtx.font = '700 20px "DotGothic16", monospace';
-      offCtx.fillText("UPAH_SEBULAN: MINIMUM", cx - 450, baseY - 120);
+    }
 
-      // Sisi Kanan: "Porsimu dalam sehari" (Bar raksasa menjulang megah)
-      offCtx.fillStyle = isPorsiLine ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.6)";
-      for (let bx = 0; bx < 11; bx++) {
-        const bHeight = 120 + Math.sin(time * 0.008 + bx) * 75 + bass * 120;
-        offCtx.fillRect(cx + 250 + (bx * 38), baseY - bHeight, 26, bHeight);
+    // 6. (156.4 - 160.4) "Hanya porsimu dalam sehari"
+    // Visual: Gedung-gedung pencakar langit megah menjulang tinggi di sisi kanan
+    else if (curTime < 160.8) {
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
+      for (let b = 0; b < 10; b++) {
+        const bHeight = 160 + (b * 32) + bass * 60;
+        const bx = cx + 220 + (b * 55);
+        offCtx.fillRect(bx, baseY - bHeight, 48, bHeight);
+        // Jendela gedung kota
+        offCtx.fillStyle = "#ffffff";
+        for (let wy = baseY - bHeight + 10; wy < baseY - 15; wy += 28) {
+          offCtx.fillRect(bx + 10, wy, 12, 12);
+          offCtx.fillRect(bx + 26, wy, 12, 12);
+        }
+        offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
       }
-      offCtx.fillText("PORSI_SEHARI: LUXURY", cx + 450, baseY - 260);
     }
 
     // 7. (160.8 - 164.8) "Di dalam app kita bersimpangan"
-    // Efek: Tabrakan Radar Aplikasi! Dua titik GPS meluncur, bertabrakan di tengah & meledakkan riak sonar
+    // Visual: Dua kartu profil dating app meluncur & bertabrakan di tengah meledakkan riak radar
     else if (curTime < 165.0) {
-      const radarY = baseY - 170;
-      const radarR = 175 + bass * 25;
-
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-      offCtx.lineWidth = 4;
-      offCtx.beginPath(); offCtx.arc(cx, radarY, radarR * 0.35, 0, Math.PI * 2); offCtx.stroke();
-      offCtx.beginPath(); offCtx.arc(cx, radarY, radarR * 0.7, 0, Math.PI * 2); offCtx.stroke();
-      offCtx.beginPath(); offCtx.arc(cx, radarY, radarR, 0, Math.PI * 2); offCtx.stroke();
-
-      const sweepAngle = time * 0.005;
-      offCtx.strokeStyle = "#ffffff";
-      offCtx.lineWidth = 6;
-      offCtx.beginPath();
-      offCtx.moveTo(cx, radarY);
-      offCtx.lineTo(cx + Math.cos(sweepAngle) * radarR, radarY + Math.sin(sweepAngle) * radarR);
-      offCtx.stroke();
-
-      // Dua Titik GPS Bertabrakan di Tengah
       const transitPhase = ((curTime - 160.8) / 4.0) * 2 - 1;
-      const blip1X = cx + (transitPhase * 260);
-      const blip1Y = radarY - (transitPhase * 80);
-      const blip2X = cx - (transitPhase * 260);
-      const blip2Y = radarY + (transitPhase * 80);
+      const card1X = cx + (transitPhase * 360) - 90;
+      const card2X = cx - (transitPhase * 360) + 90;
 
-      offCtx.fillStyle = "#ffffff";
-      offCtx.beginPath(); offCtx.arc(blip1X, blip1Y, 14, 0, Math.PI * 2); offCtx.fill();
-      offCtx.beginPath(); offCtx.arc(blip2X, blip2Y, 14, 0, Math.PI * 2); offCtx.fill();
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.55)";
+      offCtx.lineWidth = 4;
+      // Kartu Kiri
+      offCtx.strokeRect(card1X - 70, cy - 110, 140, 220);
+      // Kartu Kanan
+      offCtx.strokeRect(card2X - 70, cy - 110, 140, 220);
 
-      // Ledakan Riak Gelombang Sonar
-      const ripple = ((time * 0.08) % 150);
+      // Riak Sonar Ledakan di Tengah
+      const ripple = ((time * 0.08) % 220);
       offCtx.strokeStyle = "#ffffff";
       offCtx.lineWidth = 6;
       offCtx.beginPath();
-      offCtx.arc(cx, radarY, ripple, 0, Math.PI * 2);
+      offCtx.arc(cx, cy, ripple, 0, Math.PI * 2);
       offCtx.stroke();
-
-      offCtx.font = '700 22px "DotGothic16", monospace';
-      offCtx.fillText("APP_INTERSECTION: DETECTED // COLLISION POINT", cx, baseY - 40);
     }
 
     // 8. (164.8 - 169.0) "Aku yakin kau bisa mengerti"
-    // Efek: Pita Gelombang Osiloskop Frekuensi Audio Berdenyut Kencang Menjelang Chorus
+    // Visual: Meteran spektrum equalizer vertikal bertingkat di kedua sisi layar memuncak ke chorus
     else if (curTime < 169.5) {
-      offCtx.strokeStyle = "#ffffff";
-      offCtx.lineWidth = 4.5;
-      offCtx.beginPath();
-      offCtx.moveTo(cx - 700, baseY - 160);
-      for (let x = -700; x <= 700; x += 15) {
-        const freqY = Math.sin(x * 0.02 + time * 0.008) * Math.cos(x * 0.006) * (60 + bass * 70);
-        offCtx.lineTo(cx + x, baseY - 160 + freqY);
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
+      for (let s = 0; s < 12; s++) {
+        const sHeight = 80 + (s * 25) + bass * 90;
+        // Kiri
+        offCtx.fillRect(cx - 750 + (s * 32), baseY - sHeight, 24, sHeight);
+        // Kanan
+        offCtx.fillRect(cx + 750 - (s * 32) - 24, baseY - sHeight, 24, sHeight);
       }
-      offCtx.stroke();
-
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
-      offCtx.font = '700 24px "DotGothic16", monospace';
-      offCtx.fillText("[ FREQUENCY RESONANCE: HARMONIZED // BUILD UP ]", cx, baseY - 50);
     }
 
     // =======================================================================
@@ -591,145 +548,126 @@
     // =======================================================================
 
     // 9. (169.5 - 177.5) "Maka jadikanku belalang sembah"
-    // Efek: CHORUS DROP! Altar Katedral Raksasa, Belalang Sembah Hidup Menyembah, & Jemaah Sujud
+    // Visual: CHORUS DROP! Altar Katedral Raksasa, Belalang Sembah Hidup Menyembah, & Jemaah Sujud
     else if (curTime < 177.8) {
-      // Busur Altar Katedral Megah
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.5)";
-      offCtx.lineWidth = 5;
-      const altarPulse = bass * 35;
+      // Busur Altar Katedral Megah Menjulang
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+      offCtx.lineWidth = 6;
+      const altarPulse = bass * 40;
       offCtx.beginPath();
-      offCtx.arc(cx, baseY + 25, 280 + altarPulse, Math.PI, Math.PI * 2);
+      offCtx.arc(cx, baseY + 30, 360 + altarPulse, Math.PI, Math.PI * 2);
       offCtx.stroke();
       offCtx.beginPath();
-      offCtx.arc(cx, baseY + 25, 230 + altarPulse, Math.PI, Math.PI * 2);
+      offCtx.arc(cx, baseY + 30, 300 + altarPulse, Math.PI, Math.PI * 2);
       offCtx.stroke();
 
-      // 20 Sinar Altar Memancar Keluar
-      for (let a = Math.PI + 0.15; a < Math.PI * 2 - 0.15; a += 0.22) {
-        const rx1 = cx + Math.cos(a) * (285 + altarPulse);
-        const ry1 = (baseY + 25) + Math.sin(a) * (285 + altarPulse);
-        const rx2 = cx + Math.cos(a) * (340 + altarPulse);
-        const ry2 = (baseY + 25) + Math.sin(a) * (340 + altarPulse);
+      // 20 Sinar Altar Lurus Memancar
+      for (let a = Math.PI + 0.15; a < Math.PI * 2 - 0.15; a += 0.2) {
+        const rx1 = cx + Math.cos(a) * (365 + altarPulse);
+        const ry1 = (baseY + 30) + Math.sin(a) * (365 + altarPulse);
+        const rx2 = cx + Math.cos(a) * (440 + altarPulse);
+        const ry2 = (baseY + 30) + Math.sin(a) * (440 + altarPulse);
         offCtx.beginPath();
         offCtx.moveTo(rx1, ry1);
         offCtx.lineTo(rx2, ry2);
         offCtx.stroke();
       }
 
-      // Tubuh Belalang Sembah Raksasa
-      const breathe = Math.sin(time * 0.003) * 10 + bass * 16;
-      const antennaWave = Math.sin(time * 0.005) * 22;
+      // Tubuh Belalang Sembah Raksasa di Altar
+      const breathe = Math.sin(time * 0.003) * 12 + bass * 18;
+      const antennaWave = Math.sin(time * 0.005) * 25;
 
-      // Kepala Segitiga
-      const headY = baseY - 195 + breathe;
-      offCtx.fillStyle = "#ffffff";
+      const headY = baseY - 260 + breathe;
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
       offCtx.beginPath();
       offCtx.moveTo(cx, headY);
-      offCtx.lineTo(cx - 45, headY - 50);
-      offCtx.lineTo(cx + 45, headY - 50);
+      offCtx.lineTo(cx - 50, headY - 55);
+      offCtx.lineTo(cx + 50, headY - 55);
       offCtx.closePath();
       offCtx.fill();
 
       // Sepasang Mata Majemuk Menyala Terang
       offCtx.beginPath();
-      offCtx.arc(cx - 52, headY - 50, 18 + bass * 8, 0, Math.PI * 2);
-      offCtx.arc(cx + 52, headY - 50, 18 + bass * 8, 0, Math.PI * 2);
+      offCtx.arc(cx - 58, headY - 55, 20 + bass * 10, 0, Math.PI * 2);
+      offCtx.arc(cx + 58, headY - 55, 20 + bass * 10, 0, Math.PI * 2);
       offCtx.fill();
 
       // Antena Panjang Meliuk
       offCtx.strokeStyle = "#ffffff";
       offCtx.lineWidth = 6;
       offCtx.beginPath();
-      offCtx.moveTo(cx - 18, headY - 50);
-      offCtx.quadraticCurveTo(cx - 75 + antennaWave, headY - 110, cx - 145 + antennaWave * 1.6, headY - 170);
-      offCtx.moveTo(cx + 18, headY - 50);
-      offCtx.quadraticCurveTo(cx + 75 - antennaWave, headY - 110, cx + 145 - antennaWave * 1.6, headY - 170);
+      offCtx.moveTo(cx - 20, headY - 55);
+      offCtx.quadraticCurveTo(cx - 85 + antennaWave, headY - 120, cx - 165 + antennaWave * 1.6, headY - 190);
+      offCtx.moveTo(cx + 20, headY - 55);
+      offCtx.quadraticCurveTo(cx + 85 - antennaWave, headY - 120, cx + 165 - antennaWave * 1.6, headY - 190);
       offCtx.stroke();
 
-      // Prothorax Dada
-      offCtx.lineWidth = 24;
+      // Batang Dada Prothorax
+      offCtx.lineWidth = 28;
       offCtx.beginPath();
       offCtx.moveTo(cx, headY);
-      offCtx.lineTo(cx, baseY - 55);
+      offCtx.lineTo(cx, baseY - 60);
       offCtx.stroke();
 
       // Cakar Raptorial Terlipat Berdoa Menyembah
-      offCtx.lineWidth = 16;
-      const armPray = Math.sin(time * 0.004) * 22 + bass * 25;
+      offCtx.lineWidth = 18;
+      const armPray = Math.sin(time * 0.004) * 26 + bass * 28;
       offCtx.beginPath();
-      offCtx.moveTo(cx - 15, headY + 20);
-      offCtx.lineTo(cx - 95 - armPray, headY - 20);
-      offCtx.lineTo(cx - 48 - armPray * 0.5, headY + 65);
+      offCtx.moveTo(cx - 18, headY + 25);
+      offCtx.lineTo(cx - 110 - armPray, headY - 25);
+      offCtx.lineTo(cx - 55 - armPray * 0.5, headY + 75);
       offCtx.stroke();
 
       offCtx.beginPath();
-      offCtx.moveTo(cx + 15, headY + 20);
-      offCtx.lineTo(cx + 95 + armPray, headY - 20);
-      offCtx.lineTo(cx + 48 + armPray * 0.5, headY + 65);
+      offCtx.moveTo(cx + 18, headY + 25);
+      offCtx.lineTo(cx + 110 + armPray, headY - 25);
+      offCtx.lineTo(cx + 55 + armPray * 0.5, headY + 75);
       offCtx.stroke();
 
-      // Barisan Jemaah Bersujud Menyembah
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      // Barisan Jemaah Bersujud Menyembah di Dasar (Sesuai Album Art)
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.75)";
       const bow = Math.sin(time * 0.0035) * 10;
       for (let p = -5; p <= 5; p++) {
         if (Math.abs(p) > 1) {
-          const px = cx + (p * 125);
+          const px = cx + (p * 135);
           offCtx.beginPath();
-          offCtx.arc(px, baseY - 18 + bow, 32, Math.PI, Math.PI * 2);
+          offCtx.arc(px, baseY - 20 + bow, 35, Math.PI, Math.PI * 2);
           offCtx.fill();
           offCtx.beginPath();
-          offCtx.arc(px + (p > 0 ? -32 : 32), baseY - 12, 18, 0, Math.PI * 2);
+          offCtx.arc(px + (p > 0 ? -35 : 35), baseY - 14, 20, 0, Math.PI * 2);
           offCtx.fill();
         }
       }
     }
 
     // 10. (178.0 - 184.8) "Walau sebentar kupercaya indah"
-    // Efek: Mandala Katedral Berputar Lambat & Asap Dupa Misterius Naik Melayang
+    // Visual: Mandala Geometris Katedral Berputar & Sinar Suci Memancar
     else if (curTime < 185.0) {
-      const mandalaY = baseY - 180;
-      const rot = time * 0.0015;
-
+      const rot = time * 0.0018;
       offCtx.save();
-      offCtx.translate(cx, mandalaY);
+      offCtx.translate(cx, cy);
       offCtx.rotate(rot);
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
       offCtx.lineWidth = 4;
-      for (let i = 0; i < 8; i++) {
+      for (let i = 0; i < 12; i++) {
         offCtx.beginPath();
-        offCtx.arc(0, 0, 160 + Math.sin(time * 0.003 + i) * 20, (i * Math.PI) / 4, ((i + 0.6) * Math.PI) / 4);
+        offCtx.arc(0, 0, 240 + Math.sin(time * 0.003 + i) * 25, (i * Math.PI) / 6, ((i + 0.6) * Math.PI) / 6);
         offCtx.stroke();
       }
       offCtx.restore();
-
-      // Kepulan Asap Dupa Suci Melayang
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.5)";
-      offCtx.lineWidth = 3.5;
-      for (let s = 0; s < 5; s++) {
-        const sOffset = (s - 2) * 150;
-        offCtx.beginPath();
-        offCtx.moveTo(cx + sOffset, baseY - 30);
-        for (let sy = baseY - 30; sy > baseY - 300; sy -= 15) {
-          const sx = cx + sOffset + Math.sin(time * 0.003 + sy * 0.02 + s) * 25;
-          offCtx.lineTo(sx, sy);
-        }
-        offCtx.stroke();
-      }
     }
 
     // 11. (185.2 - 188.6) "Seberapa banyak, seberapa mahal"
-    // Efek: Hujan Koin Emas & Butiran Emas Persembahan Berjatuhan dari Langit Altar
+    // Visual: Hujan Butiran Emas & Koin Persembahan Mengalir Deras dari Langit Altar
     else if (curTime < 188.8) {
-      offCtx.fillStyle = "#ffffff";
-      for (let c = 0; c < 50; c++) {
-        const coinX = (cx - 650) + ((c * 73 + Math.floor(time * 0.35)) % 1300);
-        const coinY = ((c * 47 + Math.floor(time * 0.45)) % 320) + (baseY - 320);
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      for (let c = 0; c < 60; c++) {
+        const coinX = (cx - 700) + ((c * 83 + Math.floor(time * 0.38)) % 1400);
+        const coinY = ((c * 53 + Math.floor(time * 0.48)) % 800) + 50;
         offCtx.beginPath();
-        offCtx.arc(coinX, coinY, 6 + (c % 4), 0, Math.PI * 2);
+        offCtx.arc(coinX, coinY, 7 + (c % 5), 0, Math.PI * 2);
         offCtx.fill();
       }
-      offCtx.font = '700 24px "DotGothic16", monospace';
-      offCtx.fillText("[ TRIBUTE OFFERING: CASCADING INTO THE ALTAR ]", cx, baseY - 50);
     }
 
     // =======================================================================
@@ -737,106 +675,92 @@
     // =======================================================================
 
     // 12. (189.0 - 191.4) "Semua 'kan kuberi"
-    // Efek: Cakar Belalang Melesat Maju Siaga Menyerang! Ledakan Gelombang Hentakan Drum
+    // Visual: Cakar Belalang Melesat Maju Menusuk! Ledakan Gelombang Kejut Sirkular Ganda
     else if (curTime < 191.6) {
       offCtx.strokeStyle = "#ffffff";
-      offCtx.lineWidth = 6;
-      const shockWave = ((time * 0.12) % 250);
+      offCtx.lineWidth = 7;
+      const shockWave = ((time * 0.14) % 360);
       offCtx.beginPath();
-      offCtx.arc(cx, baseY - 180, shockWave, 0, Math.PI * 2);
+      offCtx.arc(cx, cy, shockWave, 0, Math.PI * 2);
       offCtx.stroke();
-
-      offCtx.fillStyle = "#ffffff";
-      offCtx.font = '700 26px "DotGothic16", monospace';
-      offCtx.fillText(">> BLOOD OATH: SURRENDER ALL <<", cx, baseY - 50);
+      offCtx.beginPath();
+      offCtx.arc(cx, cy, Math.max(0, shockWave - 80), 0, Math.PI * 2);
+      offCtx.stroke();
     }
 
     // 13. (191.8 - 194.2) "Semua 'kan kugadai"
-    // Efek: Altar Bergetar Hebat, Sambaran Kilat Glitch Merah Menyayat Layar
+    // Visual: Altar Retak Disayat Kilatan Petir Garis Geometris Merah
     else if (curTime < 194.4) {
       offCtx.strokeStyle = "#ffffff";
-      offCtx.lineWidth = 5;
-      for (let l = 0; l < 4; l++) {
-        const lx = cx - 500 + l * 320;
+      offCtx.lineWidth = 6;
+      for (let l = 0; l < 5; l++) {
+        const lx = cx - 600 + l * 300;
         offCtx.beginPath();
-        offCtx.moveTo(lx, baseY - 320);
-        offCtx.lineTo(lx + 30, baseY - 240);
-        offCtx.lineTo(lx - 20, baseY - 160);
-        offCtx.lineTo(lx + 40, baseY - 40);
+        offCtx.moveTo(lx, 80);
+        offCtx.lineTo(lx + 40, 300);
+        offCtx.lineTo(lx - 30, 520);
+        offCtx.lineTo(lx + 50, 840);
         offCtx.stroke();
       }
-      offCtx.fillStyle = "#ffffff";
-      offCtx.font = '700 26px "DotGothic16", monospace';
-      offCtx.fillText(">> SACRIFICE PLEDGED: IRREVERSIBLE <<", cx, baseY - 50);
     }
 
     // 14. (194.6 - 198.0) "Matikan aku setelah usai"
-    // Efek: FATAL STRIKE! Cakar Mengunci Menusuk Mematikan, Badai Abu Membara Meletus
+    // Visual: FATAL STRIKE! Cakar Mengunci Menusuk, Badai Abu Membara Berterbangan
     else if (curTime < 198.4) {
-      const headY = baseY - 160;
+      const headY = cy + 40;
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.9)";
       offCtx.beginPath();
       offCtx.moveTo(cx, headY);
-      offCtx.lineTo(cx - 40, headY - 45);
-      offCtx.lineTo(cx + 40, headY - 45);
+      offCtx.lineTo(cx - 45, headY - 50);
+      offCtx.lineTo(cx + 45, headY - 50);
       offCtx.closePath();
       offCtx.fill();
 
       // Cakar Menusuk Mengunci Rapat
-      offCtx.lineWidth = 16;
+      offCtx.strokeStyle = "#ffffff";
+      offCtx.lineWidth = 18;
       offCtx.beginPath();
-      offCtx.moveTo(cx - 12, headY + 12);
-      offCtx.lineTo(cx - 60, headY - 12);
-      offCtx.lineTo(cx - 8, headY + 50);
-      offCtx.moveTo(cx + 12, headY + 12);
-      offCtx.lineTo(cx + 60, headY - 12);
-      offCtx.lineTo(cx + 8, headY + 50);
-      offCtx.stroke();
-
-      offCtx.lineWidth = 22;
-      offCtx.beginPath();
-      offCtx.moveTo(cx, headY);
-      offCtx.lineTo(cx, baseY - 45);
+      offCtx.moveTo(cx - 15, headY + 15);
+      offCtx.lineTo(cx - 70, headY - 15);
+      offCtx.lineTo(cx - 10, headY + 60);
+      offCtx.moveTo(cx + 15, headY + 15);
+      offCtx.lineTo(cx + 70, headY - 15);
+      offCtx.lineTo(cx + 10, headY + 60);
       offCtx.stroke();
 
       // Hujan Badai Abu Membara
       offCtx.fillStyle = "#ffffff";
-      for (let e = 0; e < 70; e++) {
-        const ex = (cx - 650) + ((e * 149 + Math.floor(time * 0.35)) % 1300);
-        const ey = ((e * 103 + Math.floor(time * 0.4)) % 260) + (baseY - 260);
-        offCtx.fillRect(ex, ey, 8, 8);
+      for (let e = 0; e < 85; e++) {
+        const ex = (cx - 750) + ((e * 157 + Math.floor(time * 0.38)) % 1500);
+        const ey = ((e * 109 + Math.floor(time * 0.42)) % 800) + 50;
+        offCtx.fillRect(ex, ey, 9, 9);
       }
 
-      // Glitch Horisontal Fatal Climax
+      // Glitch Slices
       if (Math.random() < 0.35) {
-        offCtx.fillRect(0, baseY - 110, width, 10);
+        offCtx.fillRect(0, cy + 90, width, 12);
       }
     }
 
     // 15. (198.5 - 203.0) "Matikan aku setelah usai" (OUTRO PELEBURAN)
-    // Efek: DISINTEGRASI KE ANGKASA! Seluruh altar & mantis meluruh perlahan menjadi asap debu
+    // Visual: DISINTEGRASI KE ANGKASA! Ribuan Partikel Debu Abu Terbang Naik ke Langit
     else {
       const dissolveProgress = Math.min(1, Math.max(0, (curTime - 198.5) / 4.5));
       const fadeAlpha = Math.max(0.04, 1 - dissolveProgress);
 
       offCtx.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
-      offCtx.strokeStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
-
-      // Ribuan Partikel Debu Abu Naik Melayang ke Surga
-      for (let e = 0; e < 90; e++) {
-        const ex = (cx - 700) + ((e * 163 + Math.floor(time * 0.25)) % 1400);
-        const ey = baseY - ((e * 33 + Math.floor(time * 0.35)) % 360);
-        offCtx.fillRect(ex, ey, 6, 6);
+      for (let e = 0; e < 110; e++) {
+        const ex = (cx - 750) + ((e * 173 + Math.floor(time * 0.28)) % 1500);
+        const ey = baseY - ((e * 37 + Math.floor(time * 0.4)) % 800);
+        offCtx.fillRect(ex, ey, 7, 7);
       }
-
-      offCtx.font = '700 24px "DotGothic16", monospace';
-      offCtx.fillText("[ AFTERMATH // DISSOLVING INTO EMBERS ]", cx, baseY - 60);
     }
 
     offCtx.restore();
   };
 
   // =========================================================================
-  // ✍️ 6. RENDER LIRIK: FONT BESAR MEMENUHI LAYAR (SCREEN-FILLING)
+  // ✍️ 6. RENDER LIRIK: TEPAT DI TENGAH PAS (DEAD-CENTER) & FONT RAKSASA
   // =========================================================================
   const drawLyricText = (item) => {
     if (!item || !item.text) return;
@@ -844,6 +768,7 @@
     const text = item.text.trim();
     const words = text.split(" ");
     const cx = width / 2;
+    const cy = height / 2; // TEPAT DI TENGAH PAS (DEAD-CENTER)
 
     offCtx.save();
     offCtx.fillStyle = "#ffffff";
@@ -861,20 +786,21 @@
       ];
     }
 
-    const maxW = width * 0.92; // 1470px batas aman lebar
+    const maxW = width * 0.94; // 1500px lebar maksimal
 
     if (lines.length === 1) {
-      let size = 125;
+      // 1 Baris: Font Raksasa 150px
+      let size = 150;
       offCtx.font = `700 ${size}px "Space Grotesk", "Helvetica Neue", Arial, sans-serif`;
       const textWidth = offCtx.measureText(lines[0]).width;
       if (textWidth > maxW) {
         size = Math.floor(size * (maxW / textWidth));
         offCtx.font = `700 ${size}px "Space Grotesk", "Helvetica Neue", Arial, sans-serif`;
       }
-      // Posisikan lirik 1 baris besar di tengah zona atas
-      offCtx.fillText(lines[0], cx, 180);
+      offCtx.fillText(lines[0], cx, cy);
     } else {
-      let size = 110;
+      // 2 Baris: Font Raksasa 125px Mengisi Penuh Tengah Layar
+      let size = 125;
       offCtx.font = `700 ${size}px "Space Grotesk", "Helvetica Neue", Arial, sans-serif`;
       const w1 = offCtx.measureText(lines[0]).width;
       const w2 = offCtx.measureText(lines[1]).width;
@@ -883,10 +809,9 @@
         size = Math.floor(size * (maxW / maxLineWidth));
         offCtx.font = `700 ${size}px "Space Grotesk", "Helvetica Neue", Arial, sans-serif`;
       }
-      const lineHeight = Math.floor(size * 1.18);
-      // Posisikan lirik 2 baris besar mengisi penuh zona atas layar
-      offCtx.fillText(lines[0], cx, 180 - (lineHeight / 2));
-      offCtx.fillText(lines[1], cx, 180 + (lineHeight / 2));
+      const lineHeight = Math.floor(size * 1.22);
+      offCtx.fillText(lines[0], cx, cy - (lineHeight / 2));
+      offCtx.fillText(lines[1], cx, cy + (lineHeight / 2));
     }
 
     offCtx.restore();
@@ -917,10 +842,10 @@
       return;
     }
 
-    // 2. Gambar Efek Visual Dinamis di Bagian Bawah
+    // 2. Gambar Efek Visual Dinamis di Latar Belakang
     drawMomentScene(time, curTime, bass);
 
-    // 3. Gambar Teks Lirik Stockholm Metro Besar di Bagian Atas
+    // 3. Gambar Teks Lirik Stockholm Metro RAKSASA Tepat di Tengah Layar (Dead-Center)
     if (isShowing) {
       const currentItem = config.lyrics[currentLyricIndex];
       if (currentItem) {
@@ -949,8 +874,6 @@
     const darkRedDots = [];
 
     for (let y = step / 2; y < height; y += step) {
-      const isTopZone = y < 330;
-
       for (let x = step / 2; x < width; x += step) {
         const index = (Math.floor(y) * width + Math.floor(x)) * 4;
         const r = imgData[index];
@@ -959,20 +882,17 @@
         const brightness = (r + g + b) / 3;
 
         if (brightness > 60) {
-          if (isTopZone) {
-            if (brightness > 135) {
-              whiteDots.push(x, y);
-            } else {
-              redAccentDots.push(x, y);
-            }
+          // Lirik putih tebal (#ffffff) terdeteksi otomatis dengan brightness > 140
+          if (brightness > 140) {
+            whiteDots.push(x, y);
+          } else if (brightness > 105) {
+            redAccentDots.push(x, y);
+          } else if (brightness > 85) {
+            brightRedDots.push(x, y);
+          } else if (brightness > 70) {
+            midRedDots.push(x, y);
           } else {
-            if (brightness > 165) {
-              brightRedDots.push(x, y);
-            } else if (brightness > 105) {
-              midRedDots.push(x, y);
-            } else {
-              darkRedDots.push(x, y);
-            }
+            darkRedDots.push(x, y);
           }
         }
       }
@@ -997,14 +917,14 @@
       ctx.restore();
     };
 
-    // 1. Gambar Bagian Ilustrasi Atmosferik Bawah
+    // 1. Gambar Ilustrasi Atmosferik
     drawBatch(darkRedDots, "#7a0016", null, 0);
     drawBatch(midRedDots, "#dc143c", null, 0);
     drawBatch(brightRedDots, "#ff1744", "rgba(255, 23, 68, 0.6)", 4);
 
-    // 2. Gambar Bagian Tipografi Lirik Atas (Putih Bersih Stockholm Metro & Akses Crimson)
+    // 2. Gambar Tipografi Lirik RAKSASA (Putih Bersih Stockholm Metro & Akses Crimson)
     drawBatch(redAccentDots, "#ff2a55", "rgba(255, 23, 68, 0.4)", 3);
-    drawBatch(whiteDots, "#ffffff", "rgba(255, 23, 68, 0.8)", 4);
+    drawBatch(whiteDots, "#ffffff", "rgba(255, 23, 68, 0.8)", 5);
   };
 
   // =========================================================================
