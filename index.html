@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belalang Sembah - ASCII Visualizer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* BACKGROUND TETAP HITAM PEKAT MURNI - TANPA GRADASI PUTIH */
+    html, body {
+      background-color: #000000 !important;
+      background: #000000 !important;
+      color: #ff1744;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+      font-family: "SF Mono", "Cascadia Code", Consolas, "Courier New", monospace;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    #output-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.08s ease-out;
+    }
+
+    /* Efek glitch sesaat saat pergantian baris lirik */
+    #output-wrapper.glitching {
+      animation: glitch-anim 0.14s steps(2) forwards;
+    }
+
+    #output {
+      text-align: center;
+      font-family: inherit;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      white-space: pre;
+      background: transparent !important; /* TRANSPARAN MURNI: TIDAK ADA KOTAK SAMA SEKALI */
+      font-size: 13.5px;
+      line-height: 1.1;
+      cursor: pointer;
+      display: block;
+    }
+
+    /* Indikator Pemutar Musik jika autoplay diblokir browser */
+    #audio-prompt {
+      position: absolute;
+      bottom: 28px;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 22px;
+      border-radius: 24px;
+      background: rgba(255, 23, 68, 0.15);
+      border: 1px solid rgba(255, 23, 68, 0.4);
+      color: #ff3366;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 23, 68, 0.3);
+      animation: pulse-btn 2s infinite ease-in-out;
+      z-index: 50;
+    }
+
+    #audio-prompt:hover {
+      background: rgba(255, 23, 68, 0.3);
+      transform: scale(1.03);
+    }
+
+    @keyframes pulse-btn {
+      0%, 100% { opacity: 0.75; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); box-shadow: 0 0 25px rgba(255, 23, 68, 0.6); }
+    }
+
+    @keyframes glitch-anim {
+      0% { transform: translate(0, 0); }
+      30% { transform: translate(-3px, 1px) skewX(-2deg); filter: contrast(1.5) brightness(1.3); }
+      70% { transform: translate(3px, -1px) skewX(1.5deg); }
+      100% { transform: translate(0, 0); }
+    }
+
+    #prerender {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div id="output-wrapper">
+    <pre id="output"></pre>
+  </div>
+</div>
+
+<!-- Tombol bantuan jika browser Chrome memblokir autoplay bersuara -->
+<div id="audio-prompt">
+  ▶ Klik di mana saja untuk memutar lagu
+</div>
+
+<canvas id="prerender" width="116" height="38"></canvas>
+
+<!-- Audio Lagu Belalang Sembah -->
+<audio id="audio-player" preload="auto">
+  <source src="Feast%20-%20Belalang%20Sembah%20(Official%20Music%20Video).mp3" type="audio/mpeg">
+  <source src="Feast - Belalang Sembah (Official Music Video).mp3" type="audio/mpeg">
+  <source src="audio.mp3" type="audio/mpeg">
+  <source src="belalang_sembah.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  (() => {
+    // =========================================================================
+    // KONFIGURASI KLIP 1 MENIT (PRE-CHORUS & CHORUS 1)
+    // =========================================================================
+    const config = {
+      lyrics: [
+        // --- PRE-CHORUS ---
+        {
+          lines: ["Namun sabun kita", "berbeda wangi"],
+          startSec: 67.5,
+          endSec: 72.8,
+          showMs: 5300,
+          hideMs: 600
+        },
+        {
+          lines: ["Dan tubuhmu dibalut", "hal berbeda tiap malam"],
+          startSec: 73.4,
+          endSec: 80.2,
+          showMs: 6800,
+          hideMs: 600
+        },
+        {
+          lines: ["Saat ini ku masih", "figuran buram"],
+          startSec: 80.8,
+          endSec: 85.0,
+          showMs: 4200,
+          hideMs: 400
+        },
+
+        // --- CHORUS 1 (BAGIAN VIRAL) ---
+        {
+          lines: ["Tapi jadikanku", "belalang sembah"],
+          startSec: 85.4,
+          endSec: 93.4,
+          showMs: 8000,
+          hideMs: 400
+        },
+        {
+          lines: ["Walau sebentar", "kupercaya indah"],
+          startSec: 93.8,
+          endSec: 101.0,
+          showMs: 7200,
+          hideMs: 400
+        },
+        {
+          lines: ["Seberapa banyak,", "seberapa mahal"],
+          startSec: 101.4,
+          endSec: 105.4,
+          showMs: 4000,
+          hideMs: 300
+        },
+        {
+          lines: ["Semua 'kan kuberi"],
+          startSec: 105.7,
+          endSec: 107.9,
+          showMs: 2200,
+          hideMs: 200
+        },
+        {
+          lines: ["Semua 'kan kugadai"],
+          startSec: 108.1,
+          endSec: 110.6,
+          showMs: 2500,
+          hideMs: 300
+        },
+        {
+          lines: ["Matikan aku", "setelah usai"],
+          startSec: 110.9,
+          endSec: 114.6,
+          showMs: 3700,
+          hideMs: 300
+        },
+        {
+          lines: ["Matikan aku", "setelah usai"],
+          startSec: 114.9,
+          endSec: 118.5,
+          showMs: 3600,
+          hideMs: 8500
+        }
+      ],
+
+      audioStartTime: 67.0,   // Mulai detik 67.0 (01:07.0)
+      audioEndTime: 127.0,     // Selesai detik 127.0 (02:07.0) = Tepat 60 Detik (1 Menit)
+      isLooping: true
+    };
+
+    // =========================================================================
+    // SISTEM RENDER ASCII DENGAN KARAKTER BERSIH & JELAS TERBACA
+    // =========================================================================
+    const canvas = document.getElementById("prerender");
+    const output = document.getElementById("output");
+    const outputWrapper = document.getElementById("output-wrapper");
+    const audioElement = document.getElementById("audio-player");
+    const audioPrompt = document.getElementById("audio-prompt");
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+
+    // Karakter standar ASCII shading: huruf memiliki kontur jelas dan tidak menggumpal
+    const charsFixed = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
+    const charsLength = charsFixed.length;
+
+    let currentLyricIndex = 0;
+    let lastTime = 0;
+    let timeAccumulator = 0;
+    let isShowing = true;
+    let isPaused = false;
+    let isGlitchActive = false;
+    let glitchTimeout = null;
+
+    // Trigger efek glitch sesaat
+    const triggerGlitch = (duration = 140) => {
+      isGlitchActive = true;
+      if (outputWrapper) outputWrapper.classList.add("glitching");
+      clearTimeout(glitchTimeout);
+      glitchTimeout = setTimeout(() => {
+        isGlitchActive = false;
+        if (outputWrapper) outputWrapper.classList.remove("glitching");
+      }, duration);
+    };
+
+    // Glitch periodik halus
+    setInterval(() => {
+      if (!isPaused && isShowing && Math.random() < 0.3) {
+        triggerGlitch(80);
+      }
+    }, 3500);
+
+    // =========================================================================
+    // PENGATURAN PEMUTARAN AUDIO & PENANGANAN AUTOPLAY BROWSER
+    // =========================================================================
+    const playAudio = () => {
+      if (!audioElement) return;
+      if (audioElement.currentTime < config.audioStartTime || audioElement.currentTime >= (config.audioEndTime || 9999)) {
+        audioElement.currentTime = config.audioStartTime;
+      }
+      const p = audioElement.play();
+      if (p !== undefined) {
+        p.then(() => {
+          if (audioPrompt) audioPrompt.style.display = "none";
+          isPaused = false;
+        }).catch((err) => {
+          // Autoplay bersuara ditahan Chrome sampai ada interaksi user
+          if (audioPrompt) audioPrompt.style.display = "flex";
+        });
+      }
+    };
+
+    // Klik di mana saja atau tekan spasi untuk memutar/pause
+    const handleUserInteraction = () => {
+      if (!audioElement) return;
+      if (audioElement.paused) {
+        playAudio();
+      } else {
+        audioElement.pause();
+        isPaused = true;
+      }
+    };
+
+    window.addEventListener("click", handleUserInteraction);
+    window.addEventListener("keydown", (e) => {
+      if (e.code === "Space") {
+        e.preventDefault();
+        handleUserInteraction();
+      } else if (e.code === "ArrowRight") {
+        e.preventDefault();
+        currentLyricIndex = (currentLyricIndex + 1) % config.lyrics.length;
+        timeAccumulator = 0;
+        isShowing = true;
+        triggerGlitch(160);
+        if (audioElement && config.lyrics[currentLyricIndex].startSec !== undefined) {
+          audioElement.currentTime = config.lyrics[currentLyricIndex].startSec;
+        }
+      } else if (e.code === "ArrowLeft") {
+        e.preventDefault();
+        currentLyricIndex = (currentLyricIndex - 1 + config.lyrics.length) % config.lyrics.length;
+        timeAccumulator = 0;
+        isShowing = true;
+        triggerGlitch(160);
+        if (audioElement && config.lyrics[currentLyricIndex].startSec !== undefined) {
+          audioElement.currentTime = config.lyrics[currentLyricIndex].startSec;
+        }
+      }
+    });
+
+    // Otomatis coba putar saat pertama kali dibuka
+    window.addEventListener("DOMContentLoaded", () => {
+      playAudio();
+    });
+
+    // =========================================================================
+    // RENDER TEKS KE CANVAS (FONT BERSIH, TEGAS & TIDAK PERNAH KEPOTONG)
+    // =========================================================================
+    const drawTextToCanvas = () => {
+      const w = canvas.width;
+      const h = canvas.height;
+
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, w, h);
+
+      if (!isShowing) return; 
+
+      const currentItem = config.lyrics[currentLyricIndex];
+      if (!currentItem || !currentItem.lines) return;
+
+      const lines = currentItem.lines;
+      
+      // Menggunakan font bersih (clean sans-serif bold) agar lubang huruf tidak tersumbat
+      let fontSize = lines.length === 1 ? 15.5 : 13.5; 
+      ctx.font = `bold ${fontSize}px "Segoe UI", Arial, sans-serif`;
+
+      // Skala otomatis jika baris melebihi batas aman kanvas
+      const maxLineWidth = Math.max(...lines.map(l => ctx.measureText(l).width));
+      if (maxLineWidth > w - 10) {
+        fontSize = Math.floor(fontSize * (w - 10) / maxLineWidth);
+        ctx.font = `bold ${fontSize}px "Segoe UI", Arial, sans-serif`;
+      }
+
+      ctx.fillStyle = "white"; 
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+
+      const lineHeight = fontSize + 4; 
+      const totalHeight = lines.length * lineHeight;
+      let startY = (h / 2) - (totalHeight / 2) + (lineHeight / 2);
+
+      for (let i = 0; i < lines.length; i++) {
+        ctx.fillText(lines[i], w / 2, startY + (i * lineHeight));
+      }
+    };
+
+    // =========================================================================
+    // LOOP ANIMASI ASCII REAL-TIME
+    // =========================================================================
+    const updateASCII = (time) => {
+      if (!isPaused) {
+        if (audioElement && !audioElement.paused && audioElement.duration > 0) {
+          const curTime = audioElement.currentTime;
+
+          // Cek batas akhir klip 1 menit
+          if (config.audioEndTime && curTime >= config.audioEndTime) {
+            if (config.isLooping) {
+              audioElement.currentTime = config.audioStartTime;
+              currentLyricIndex = 0;
+              isShowing = true;
+              triggerGlitch(180);
+            } else {
+              isPaused = true;
+              audioElement.pause();
+            }
+            return;
+          }
+
+          let matched = false;
+
+          for (let i = 0; i < config.lyrics.length; i++) {
+            const item = config.lyrics[i];
+            if (item.startSec !== undefined && item.endSec !== undefined) {
+              if (curTime >= item.startSec && curTime <= item.endSec) {
+                if (currentLyricIndex !== i) {
+                  currentLyricIndex = i;
+                  triggerGlitch(160);
+                }
+                isShowing = true;
+                matched = true;
+                break;
+              } else if (i < config.lyrics.length - 1 && curTime > item.endSec && curTime < config.lyrics[i + 1].startSec) {
+                currentLyricIndex = i;
+                isShowing = false;
+                matched = true;
+                break;
+              } else if (i === config.lyrics.length - 1 && curTime > item.endSec) {
+                currentLyricIndex = i;
+                isShowing = false;
+                matched = true;
+                break;
+              }
+            }
+          }
+
+          if (!matched && config.lyrics.length > 0) {
+            if (curTime < config.audioStartTime) {
+              audioElement.currentTime = config.audioStartTime;
+              isShowing = true;
+            }
+          }
+        } else {
+          // Fallback timer jika audio belum bersuara
+          if (lastTime === 0) lastTime = time;
+          const deltaTime = time - lastTime;
+          timeAccumulator += deltaTime;
+
+          const currentLyric = config.lyrics[currentLyricIndex];
+          const currentPhaseDuration = isShowing ? currentLyric.showMs : currentLyric.hideMs;
+
+          if (timeAccumulator > currentPhaseDuration) {
+            timeAccumulator = 0;
+            if (isShowing) {
+              isShowing = false;
+            } else {
+              isShowing = true;
+              currentLyricIndex++;
+              if (currentLyricIndex >= config.lyrics.length) {
+                currentLyricIndex = config.isLooping ? 0 : config.lyrics.length - 1;
+              }
+              triggerGlitch(160);
+            }
+          }
+        }
+      }
+      lastTime = time;
+
+      drawTextToCanvas();
+
+      const w = canvas.width;
+      const h = canvas.height;
+      const data = ctx.getImageData(0, 0, w, h).data;
+
+      // Cari batas teks aktif agar tidak merender baris kosong
+      let minY = h, maxY = -1;
+      let minX = w, maxX = -1;
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (x + y * w) * 4;
+          const c = (data[idx] + data[idx + 1] + data[idx + 2]) / 3;
+          if (c >= 25) {
+            if (y < minY) minY = y;
+            if (y > maxY) maxY = y;
+            if (x < minX) minX = x;
+            if (x > maxX) maxX = x;
+          }
+        }
+      }
+
+      // Jeda antar lirik: layar hitam murni
+      if (minY > maxY || !isShowing) {
+        output.innerHTML = "";
+        requestAnimationFrame(updateASCII);
+        return;
+      }
+
+      minY = Math.max(0, minY - 1);
+      maxY = Math.min(h - 1, maxY + 1);
+      minX = Math.max(0, minX - 1);
+      maxX = Math.min(w - 1, maxX + 1);
+
+      let outputText = "";
+      
+      for (let y = minY; y <= maxY; y++) {
+        let row = "";
+        for (let x = minX; x <= maxX; x++) {
+          const index = (x + y * w) * 4;
+          const r = data[index];
+          const g = data[index + 1];
+          const b = data[index + 2];
+          const c = (r + g + b) / 3;
+
+          if (c < 25) {
+            // Spasi murni tanpa tag HTML -> TIDAK ADA KOTAK SAMA SEKALI
+            row += " ";
+          } else {
+            let char;
+            if (isGlitchActive && Math.random() < 0.18) {
+              const glitchGlyphs = ["†", "‡", "§", "ø", "X", "✦", "#", "!", "?"];
+              char = glitchGlyphs[Math.floor(Math.random() * glitchGlyphs.length)];
+            } else {
+              const charIndex = Math.floor((charsLength * c) / 255);
+              const safeCharIndex = Math.min(Math.max(charIndex, 0), charsLength - 1);
+              char = charsFixed[safeCharIndex];
+            }
+
+            // Pewarnaan Merah Obsesif & Aura Pendaran Nyata
+            let charColor, glow;
+            if (c > 210) {
+              const brightReds = ["#ff1744", "#ff2a55", "#ff003b", "#ff3366"];
+              charColor = brightReds[(x + y) % brightReds.length];
+              glow = `0 0 6px ${charColor}, 0 0 14px rgba(255, 23, 68, 0.75)`;
+            } else if (c > 140) {
+              const midReds = ["#e50914", "#dc143c", "#c00028"];
+              charColor = midReds[(x + y) % midReds.length];
+              glow = `0 0 4px rgba(220, 20, 60, 0.55)`;
+            } else if (c > 75) {
+              charColor = "#a80020";
+              glow = "none";
+            } else {
+              charColor = "#550010";
+              glow = "none";
+            }
+
+            if (glow !== "none") {
+              row += `<span style="color:${charColor};text-shadow:${glow};">${char}</span>`;
+            } else {
+              row += `<span style="color:${charColor};">${char}</span>`;
+            }
+          }
+        }
+        outputText += row + "\n";
+      }
+
+      output.innerHTML = outputText;
+
+      requestAnimationFrame(updateASCII);
+    };
+
+    requestAnimationFrame(updateASCII);
+  })();
+</script>
+
+</body>
+</html>

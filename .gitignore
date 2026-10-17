@@ -1,0 +1,21 @@
+# OS Files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Node (jika ada)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional large audio files (hapus tanda '#' jika tidak ingin meng-upload file mp3 ke github)
+# *.mp3
