@@ -3,10 +3,10 @@
  * BELALANG SEMBAH (.FEAST / HINDIA) - STOCKHOLM METRO DOT MATRIX ENGINE
  * =========================================================================
  * File: visualizer.js
- * Deskripsi: Mesin Tipografi Dot Matrix Stockholm Metro dengan lirik
- * tepat di tengah layar (dead-center), font raksasa yang memenuhi layar,
- * efek atmosferik visual khusus di setiap lirik tanpa tulisan label/nama efek,
- * dan animasi dinamis berbasis konsep video klip resmi .Feast.
+ * Deskripsi: Mesin Tipografi Dot Matrix Stockholm Metro berkerapatan tinggi,
+ * lirik tepat di tengah layar (dead-center) berukuran raksasa, animasi tematik
+ * tersinkronisasi presisi sesuai referensi (tangan mengelus rambut, POV jalan raya,
+ * uang dollar, mangkok makanan, jam pasir, altar belalang sembah).
  */
 
 (() => {
@@ -181,7 +181,7 @@
       analyser.connect(audioCtx.destination);
       dataArray = new Uint8Array(analyser.frequencyBinCount);
     } catch (e) {
-      // Fallback otomatis
+      // Fallback
     }
   };
 
@@ -297,7 +297,7 @@
 
     offCtx.save();
 
-    // 1. Header Atas: B E L A L A N G   S E M B A H (Besar)
+    // 1. Header Atas: B E L A L A N G   S E M B A H
     offCtx.fillStyle = "#ffffff";
     offCtx.textAlign = "center";
     offCtx.textBaseline = "middle";
@@ -348,7 +348,7 @@
   };
 
   // =========================================================================
-  // 🎭 5. TEMA VISUAL DINAMIS KHUSUS DI SETIAP LIRIK (BEBAS LABEL / BEBAS GELOMBANG)
+  // 🎭 5. TEMA VISUAL DINAMIS KHUSUS DI SETIAP LIRIK (TERSINKRONISASI PRESISI)
   // =========================================================================
   const drawMomentScene = (time, curTime, bass) => {
     const cx = width / 2;
@@ -362,43 +362,129 @@
     // =======================================================================
 
     // 1. (135.8 - 139.6) "Jumlah rambutmu 'kan kuhafal mati"
-    // Visual: Jendela kamar noir berjeruji cahaya lampu kota & siluet helai rambut jatuh perlahan
+    // Visual Referensi SDF WebGL: Siluet kepala & profil perempuan dengan rambut panjang terurai,
+    // serta tangan yang menjangkau dan menyisir/mengelus helaian rambutnya dengan lembut.
     if (curTime < 139.8) {
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.18)";
-      for (let j = 0; j < 8; j++) {
-        const jY = 80 + (j * 95);
-        offCtx.fillRect(cx - 720, jY, 1440, 40);
-      }
-      // Siluet helaian rambut lurus elegan melayang jatuh perlahan
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.65)";
-      offCtx.lineWidth = 3;
-      for (let h = 0; h < 12; h++) {
-        const hx = (cx - 600) + ((h * 117 + Math.floor(time * 0.15)) % 1200);
-        const hy = ((h * 83 + Math.floor(time * 0.12)) % 750) + 60;
+      const womanX = cx - 240;
+      const womanY = cy - 40;
+
+      // --- Siluet Profil Perempuan (Kiri) ---
+      // Kepala / Batok Kepala
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      offCtx.beginPath();
+      offCtx.arc(womanX, womanY, 78, 0, Math.PI * 2);
+      offCtx.fill();
+
+      // Lekukan Profil Wajah (Dahi, Hidung Mungil, Bibir, Dagu)
+      offCtx.beginPath();
+      offCtx.moveTo(womanX + 45, womanY - 50);
+      offCtx.quadraticCurveTo(womanX + 85, womanY - 20, womanX + 95, womanY - 10); // Hidung
+      offCtx.quadraticCurveTo(womanX + 80, womanY + 8, womanX + 85, womanY + 16);  // Bibir
+      offCtx.quadraticCurveTo(womanX + 70, womanY + 36, womanX + 50, womanY + 45); // Dagu
+      offCtx.lineTo(womanX, womanY + 50);
+      offCtx.closePath();
+      offCtx.fill();
+
+      // Leher & Bahu Ramping
+      offCtx.beginPath();
+      offCtx.moveTo(womanX + 15, womanY + 45);
+      offCtx.lineTo(womanX - 25, womanY + 180);
+      offCtx.lineTo(womanX - 220, womanY + 220);
+      offCtx.lineTo(womanX - 180, womanY + 50);
+      offCtx.closePath();
+      offCtx.fill();
+
+      // --- Helaian Rambut Panjang Terurai Bergelombang Lembut ---
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.lineWidth = 8;
+      for (let i = 0; i < 9; i++) {
+        const laneX = womanX - 55 + (i * 26);
         offCtx.beginPath();
-        offCtx.moveTo(hx, hy);
-        offCtx.lineTo(hx - 20, hy + 70);
+        offCtx.moveTo(laneX, womanY - 60);
+
+        // Aliran rambut mengalir anggun melewati bahu ke bawah
+        for (let hy = womanY - 60; hy <= baseY; hy += 25) {
+          const wavePhase = hy * 0.015 - time * 0.0035 + (i * 0.45);
+          const waveOffset = Math.sin(wavePhase) * 16 + Math.cos(wavePhase * 0.5) * 8;
+          // Efek sentuhan tangan: rambut sedikit tertarik saat tangan melintas
+          const handInfluence = Math.exp(-Math.pow((hy - (cy + 20)) * 0.012, 2.0));
+          const caressShift = Math.sin(time * 0.003) * 18 * handInfluence;
+
+          offCtx.lineTo(laneX + waveOffset + caressShift, hy);
+        }
         offCtx.stroke();
       }
+
+      // --- Tangan yang Mengelus Helaian Rambut (Datang dari Kanan) ---
+      const handStroke = Math.sin(time * 0.003) * 25;
+      const handX = cx + 80 + handStroke;
+      const handY = cy + 20 + Math.cos(time * 0.003) * 14;
+
+      // Lengan Bawah & Pergelangan Tangan
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.lineWidth = 26;
+      offCtx.beginPath();
+      offCtx.moveTo(cx + 450, handY + 60);
+      offCtx.lineTo(handX + 60, handY + 15);
+      offCtx.stroke();
+
+      // Telapak Tangan
+      offCtx.beginPath();
+      offCtx.arc(handX + 35, handY + 10, 32, 0, Math.PI * 2);
+      offCtx.fill();
+
+      // Jari-jemari Lembut yang Menyisir & Menggenggam Helaian Rambut
+      offCtx.lineWidth = 10;
+      // Ibu Jari
+      offCtx.beginPath();
+      offCtx.moveTo(handX + 30, handY - 15);
+      offCtx.quadraticCurveTo(handX - 20, handY - 20, handX - 45, handY - 5);
+      offCtx.stroke();
+
+      // Jari Telunjuk
+      offCtx.beginPath();
+      offCtx.moveTo(handX + 15, handY - 5);
+      offCtx.quadraticCurveTo(handX - 55, handY - 5, handX - 90, handY + 10);
+      offCtx.stroke();
+
+      // Jari Tengah (Paling Panjang Menyusup ke Rambut)
+      offCtx.beginPath();
+      offCtx.moveTo(handX + 15, handY + 10);
+      offCtx.quadraticCurveTo(handX - 70, handY + 12, handX - 110, handY + 28);
+      offCtx.stroke();
+
+      // Jari Manis
+      offCtx.beginPath();
+      offCtx.moveTo(handX + 15, handY + 25);
+      offCtx.quadraticCurveTo(handX - 60, handY + 30, handX - 95, handY + 48);
+      offCtx.stroke();
+
+      // Jari Kelingking
+      offCtx.beginPath();
+      offCtx.moveTo(handX + 15, handY + 38);
+      offCtx.quadraticCurveTo(handX - 45, handY + 45, handX - 75, handY + 65);
+      offCtx.stroke();
     }
 
     // 2. (140.0 - 143.8) "Rute pulangmu telah kupelajari"
-    // Visual: Garis-garis lurus perspektif jalan raya 3D melaju kencang & tiang lampu jalan kota
+    // Visual: POV Nyata Mengemudi di Jalan Raya Malam Hari (Mobil Depan, Lampu Belakang Merah, Marka Jalan Cepat)
     else if (curTime < 144.0) {
-      const horizonY = cy + 40;
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-      offCtx.lineWidth = 3.5;
+      const horizonY = cy + 50;
 
-      for (let rx = -700; rx <= 700; rx += 140) {
+      // Garis Perspektif Jalan Raya 4 Jalur
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+      offCtx.lineWidth = 4;
+      for (let rx = -700; rx <= 700; rx += 175) {
         offCtx.beginPath();
-        offCtx.moveTo(cx + rx * 0.08, horizonY);
+        offCtx.moveTo(cx + rx * 0.05, horizonY);
         offCtx.lineTo(cx + rx * 1.5, baseY);
         offCtx.stroke();
       }
 
-      // Marka jalan meluncur cepat
-      const roadSpeed = (time * 0.28) % 75;
-      for (let dy = 0; dy < 380; dy += 70) {
+      // Marka Garis Putus-putus Meluncur Cepat Menghampiri Kamera
+      const roadSpeed = (time * 0.35) % 85;
+      for (let dy = 0; dy < 380; dy += 75) {
         const yPos = horizonY + dy + roadSpeed;
         if (yPos <= baseY) {
           const spread = ((yPos - horizonY) / 380) * 580;
@@ -409,30 +495,66 @@
         }
       }
 
-      // Titik target suar navigasi di cakrawala
+      // Kendaraan Mobil 1 (Tepat di Depan di Jalur Tengah-Kiri)
+      const car1Y = cy + 190;
+      const car1X = cx - 120;
+      // Bodi Mobil Belakang
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.fillRect(car1X - 75, car1Y - 25, 150, 50); // Bodi bawah
+      offCtx.fillRect(car1X - 55, car1Y - 65, 110, 42); // Kabin kaca belakang
+      offCtx.fillRect(car1X - 85, car1Y + 12, 16, 26);  // Ban kiri
+      offCtx.fillRect(car1X + 69, car1Y + 12, 16, 26);  // Ban kanan
+
+      // Sepasang Lampu Belakang Mobil (Taillights Merah Menyala Tajam)
       offCtx.fillStyle = "#ffffff";
-      offCtx.beginPath(); offCtx.arc(cx, horizonY, 16 + bass * 10, 0, Math.PI * 2); offCtx.fill();
+      offCtx.fillRect(car1X - 68, car1Y - 18, 28, 14); // Lampu Rem Kiri
+      offCtx.fillRect(car1X + 40, car1Y - 18, 28, 14); // Lampu Rem Kanan
+      // Plat Nomor
+      offCtx.fillRect(car1X - 22, car1Y - 6, 44, 16);
+
+      // Kendaraan Mobil 2 (Di Jalur Kanan Lebih Jauh di Depan)
+      const car2Y = cy + 110;
+      const car2X = cx + 180;
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
+      offCtx.fillRect(car2X - 42, car2Y - 14, 84, 28);
+      offCtx.fillRect(car2X - 30, car2Y - 36, 60, 24);
+      // Lampu Rem Mobil 2
+      offCtx.fillStyle = "#ffffff";
+      offCtx.fillRect(car2X - 38, car2Y - 10, 16, 8);
+      offCtx.fillRect(car2X + 22, car2Y - 10, 16, 8);
+
+      // Tiang Lampu Jalan Tol di Kiri & Kanan yang Melintas
+      const lampSpeed = (time * 0.25) % 180;
+      for (let l = 0; l < 4; l++) {
+        const ly = horizonY + l * 100 + lampSpeed;
+        if (ly <= baseY) {
+          const lx1 = cx - 550 - (ly - horizonY) * 0.4;
+          const lx2 = cx + 550 + (ly - horizonY) * 0.4;
+          offCtx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+          offCtx.lineWidth = 3;
+          offCtx.beginPath(); offCtx.moveTo(lx1, ly); offCtx.lineTo(lx1, ly - 80); offCtx.stroke();
+          offCtx.beginPath(); offCtx.moveTo(lx2, ly); offCtx.lineTo(lx2, ly - 80); offCtx.stroke();
+          offCtx.fillStyle = "#ffffff";
+          offCtx.beginPath(); offCtx.arc(lx1 + 10, ly - 80, 8, 0, Math.PI * 2); offCtx.fill();
+          offCtx.beginPath(); offCtx.arc(lx2 - 10, ly - 80, 8, 0, Math.PI * 2); offCtx.fill();
+        }
+      }
     }
 
     // 3. (144.2 - 147.8) "Kutahu nama anak kita nanti"
-    // Visual: Cincin pernikahan suci & konstelasi bintang geometris berdenyut dengan bass
+    // Visual: Cincin Pernikahan Suci Berpendar dengan Dua Siluet Berdampingan
     else if (curTime < 148.0) {
       const ringR = 210 + bass * 35;
       offCtx.strokeStyle = "rgba(255, 255, 255, 0.45)";
-      offCtx.lineWidth = 4;
-      offCtx.beginPath();
-      offCtx.arc(cx, cy, ringR, 0, Math.PI * 2);
-      offCtx.stroke();
-      offCtx.beginPath();
-      offCtx.arc(cx, cy, ringR - 25, 0, Math.PI * 2);
-      offCtx.stroke();
+      offCtx.lineWidth = 5;
+      offCtx.beginPath(); offCtx.arc(cx, cy, ringR, 0, Math.PI * 2); offCtx.stroke();
+      offCtx.beginPath(); offCtx.arc(cx, cy, ringR - 25, 0, Math.PI * 2); offCtx.stroke();
 
-      // Sinar bintang geometris lurus memancar
       for (let b = 0; b < 12; b++) {
         const ang = (b * Math.PI) / 6;
         offCtx.beginPath();
         offCtx.moveTo(cx + Math.cos(ang) * (ringR + 10), cy + Math.sin(ang) * (ringR + 10));
-        offCtx.lineTo(cx + Math.cos(ang) * (ringR + 65), cy + Math.sin(ang) * (ringR + 65));
+        offCtx.lineTo(cx + Math.cos(ang) * (ringR + 70), cy + Math.sin(ang) * (ringR + 70));
         offCtx.stroke();
       }
     }
@@ -440,8 +562,8 @@
     // 4. (148.2 - 152.0) "Suatu saat kau pasti mengerti"
     // Visual: Mata Pengintai CCTV Raksasa Membuka Lebar dengan Diafragma Rana Berputar
     else if (curTime < 152.4) {
-      const eyeWidth = 240 + bass * 35;
-      const eyeHeight = 100 + bass * 20;
+      const eyeWidth = 250 + bass * 35;
+      const eyeHeight = 105 + bass * 20;
 
       offCtx.strokeStyle = "rgba(255, 255, 255, 0.55)";
       offCtx.lineWidth = 7;
@@ -453,11 +575,8 @@
 
       const irisRadius = 55 + bass * 20;
       offCtx.fillStyle = "#ffffff";
-      offCtx.beginPath();
-      offCtx.arc(cx, cy, irisRadius, 0, Math.PI * 2);
-      offCtx.fill();
+      offCtx.beginPath(); offCtx.arc(cx, cy, irisRadius, 0, Math.PI * 2); offCtx.fill();
 
-      // Bilah rana aperture berputar
       const rot = time * 0.003;
       offCtx.save();
       offCtx.translate(cx, cy);
@@ -479,36 +598,99 @@
     // =======================================================================
 
     // 5. (152.4 - 156.0) "Walau upahku dalam sebulan"
-    // Visual: Partikel koin & lembaran uang jatuh melayang ke bawah ke jurang kegelapan
+    // Visual: Animasi Uang Dollar ($) Diserahkan / Diberikan ke Tangan Kita
     else if (curTime < 156.4) {
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.75)";
-      for (let c = 0; c < 45; c++) {
-        const coinX = (cx - 700) + ((c * 97 + Math.floor(time * 0.2)) % 1400);
-        const coinY = ((c * 67 + Math.floor(time * 0.25)) % 800) + 50;
-        offCtx.fillRect(coinX, coinY, 14, 8); // Siluet uang kertas
+      const moneyX = cx;
+      const moneyY = cy + 120;
+      const slide = Math.sin(time * 0.004) * 25;
+
+      // Tangan Kiri Menyerahkan Tumpukan Uang Dollar
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      offCtx.fillRect(moneyX - 420 + slide, moneyY + 25, 180, 45); // Lengan
+      offCtx.beginPath();
+      offCtx.arc(moneyX - 240 + slide, moneyY + 45, 35, 0, Math.PI * 2);
+      offCtx.fill();
+
+      // Lembaran Uang Kertas Dollar ($) yang Sedang Diberikan
+      for (let b = 0; b < 3; b++) {
+        const bx = moneyX - 110 + (b * 45) + slide;
+        const by = moneyY - 30 - (b * 18);
+        offCtx.fillStyle = "#ffffff";
+        offCtx.fillRect(bx, by, 160, 90);
+        offCtx.strokeStyle = "#000000";
+        offCtx.lineWidth = 4;
+        offCtx.strokeRect(bx + 8, by + 8, 144, 74);
+        offCtx.beginPath(); offCtx.arc(bx + 80, by + 45, 22, 0, Math.PI * 2); offCtx.stroke();
+        // Simbol Dollar '$' Jelas di Lembaran Uang
+        offCtx.fillStyle = "#000000";
+        offCtx.font = '700 32px "Space Grotesk", sans-serif';
+        offCtx.textAlign = "center";
+        offCtx.textBaseline = "middle";
+        offCtx.fillText("$", bx + 80, by + 46);
+        offCtx.font = '700 16px "Space Grotesk", sans-serif';
+        offCtx.fillText("$", bx + 22, by + 22);
+        offCtx.fillText("$", bx + 138, by + 68);
       }
+
+      // Tangan Kanan Terbuka Siap Menerima Upah
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      offCtx.fillRect(moneyX + 240 - slide, moneyY + 50, 180, 45);
+      offCtx.beginPath();
+      offCtx.arc(moneyX + 220 - slide, moneyY + 65, 38, 0, Math.PI * 2);
+      offCtx.fill();
     }
 
     // 6. (156.4 - 160.4) "Hanya porsimu dalam sehari"
-    // Visual: Gedung-gedung pencakar langit megah menjulang tinggi di sisi kanan
+    // Visual: Porsi Mangkok Makanan Mewah Berasap Panas (Steaming Food Bowl)
     else if (curTime < 160.8) {
-      offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
-      for (let b = 0; b < 10; b++) {
-        const bHeight = 160 + (b * 32) + bass * 60;
-        const bx = cx + 220 + (b * 55);
-        offCtx.fillRect(bx, baseY - bHeight, 48, bHeight);
-        // Jendela gedung kota
-        offCtx.fillStyle = "#ffffff";
-        for (let wy = baseY - bHeight + 10; wy < baseY - 15; wy += 28) {
-          offCtx.fillRect(bx + 10, wy, 12, 12);
-          offCtx.fillRect(bx + 26, wy, 12, 12);
+      const bowlX = cx;
+      const bowlY = cy + 180;
+
+      // Mangkok Makanan Keramik Besar
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.beginPath();
+      offCtx.arc(bowlX, bowlY, 150, 0, Math.PI); // Lengkungan Bodi Mangkok
+      offCtx.fill();
+
+      // Kaki / Tatakan Mangkok
+      offCtx.fillRect(bowlX - 60, bowlY + 145, 120, 25);
+
+      // Bibir Mangkok Bergaris Ornamen
+      offCtx.fillStyle = "#ffffff";
+      offCtx.fillRect(bowlX - 165, bowlY - 8, 330, 16);
+
+      // Porsi Makanan Melimpah Menggunung di Atas Mangkok
+      offCtx.beginPath();
+      offCtx.arc(bowlX, bowlY - 8, 140, Math.PI, Math.PI * 2);
+      offCtx.fill();
+
+      // Sepasang Sumpit yang Bersandar Menyilang
+      offCtx.strokeStyle = "#ffffff";
+      offCtx.lineWidth = 7;
+      offCtx.beginPath();
+      offCtx.moveTo(bowlX - 190, bowlY - 80);
+      offCtx.lineTo(bowlX + 170, bowlY + 20);
+      offCtx.moveTo(bowlX - 180, bowlY - 95);
+      offCtx.lineTo(bowlX + 180, bowlY + 5);
+      offCtx.stroke();
+
+      // Kepulan Uap Panas Menguap dari Porsi Makanan
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+      offCtx.lineWidth = 4;
+      for (let s = 0; s < 5; s++) {
+        const sxOffset = (s - 2) * 55;
+        offCtx.beginPath();
+        offCtx.moveTo(bowlX + sxOffset, bowlY - 40);
+        for (let sy = bowlY - 40; sy > bowlY - 240; sy -= 25) {
+          const steamWave = Math.sin(time * 0.005 + sy * 0.03 + s) * 22;
+          offCtx.lineTo(bowlX + sxOffset + steamWave, sy);
         }
-        offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
+        offCtx.stroke();
       }
     }
 
     // 7. (160.8 - 164.8) "Di dalam app kita bersimpangan"
-    // Visual: Dua kartu profil dating app meluncur & bertabrakan di tengah meledakkan riak radar
+    // Visual: Dua Kartu Profil Dating App Berpapasan di Tengah
     else if (curTime < 165.0) {
       const transitPhase = ((curTime - 160.8) / 4.0) * 2 - 1;
       const card1X = cx + (transitPhase * 360) - 90;
@@ -516,12 +698,9 @@
 
       offCtx.strokeStyle = "rgba(255, 255, 255, 0.55)";
       offCtx.lineWidth = 4;
-      // Kartu Kiri
       offCtx.strokeRect(card1X - 70, cy - 110, 140, 220);
-      // Kartu Kanan
       offCtx.strokeRect(card2X - 70, cy - 110, 140, 220);
 
-      // Riak Sonar Ledakan di Tengah
       const ripple = ((time * 0.08) % 220);
       offCtx.strokeStyle = "#ffffff";
       offCtx.lineWidth = 6;
@@ -531,14 +710,12 @@
     }
 
     // 8. (164.8 - 169.0) "Aku yakin kau bisa mengerti"
-    // Visual: Meteran spektrum equalizer vertikal bertingkat di kedua sisi layar memuncak ke chorus
+    // Visual: Meteran Spektrum Equalizer Bertingkat Memuncak ke Chorus
     else if (curTime < 169.5) {
       offCtx.fillStyle = "rgba(255, 255, 255, 0.65)";
       for (let s = 0; s < 12; s++) {
         const sHeight = 80 + (s * 25) + bass * 90;
-        // Kiri
         offCtx.fillRect(cx - 750 + (s * 32), baseY - sHeight, 24, sHeight);
-        // Kanan
         offCtx.fillRect(cx + 750 - (s * 32) - 24, baseY - sHeight, 24, sHeight);
       }
     }
@@ -550,30 +727,20 @@
     // 9. (169.5 - 177.5) "Maka jadikanku belalang sembah"
     // Visual: CHORUS DROP! Altar Katedral Raksasa, Belalang Sembah Hidup Menyembah, & Jemaah Sujud
     else if (curTime < 177.8) {
-      // Busur Altar Katedral Megah Menjulang
       offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
       offCtx.lineWidth = 6;
       const altarPulse = bass * 40;
-      offCtx.beginPath();
-      offCtx.arc(cx, baseY + 30, 360 + altarPulse, Math.PI, Math.PI * 2);
-      offCtx.stroke();
-      offCtx.beginPath();
-      offCtx.arc(cx, baseY + 30, 300 + altarPulse, Math.PI, Math.PI * 2);
-      offCtx.stroke();
+      offCtx.beginPath(); offCtx.arc(cx, baseY + 30, 360 + altarPulse, Math.PI, Math.PI * 2); offCtx.stroke();
+      offCtx.beginPath(); offCtx.arc(cx, baseY + 30, 300 + altarPulse, Math.PI, Math.PI * 2); offCtx.stroke();
 
-      // 20 Sinar Altar Lurus Memancar
       for (let a = Math.PI + 0.15; a < Math.PI * 2 - 0.15; a += 0.2) {
         const rx1 = cx + Math.cos(a) * (365 + altarPulse);
         const ry1 = (baseY + 30) + Math.sin(a) * (365 + altarPulse);
         const rx2 = cx + Math.cos(a) * (440 + altarPulse);
         const ry2 = (baseY + 30) + Math.sin(a) * (440 + altarPulse);
-        offCtx.beginPath();
-        offCtx.moveTo(rx1, ry1);
-        offCtx.lineTo(rx2, ry2);
-        offCtx.stroke();
+        offCtx.beginPath(); offCtx.moveTo(rx1, ry1); offCtx.lineTo(rx2, ry2); offCtx.stroke();
       }
 
-      // Tubuh Belalang Sembah Raksasa di Altar
       const breathe = Math.sin(time * 0.003) * 12 + bass * 18;
       const antennaWave = Math.sin(time * 0.005) * 25;
 
@@ -586,13 +753,11 @@
       offCtx.closePath();
       offCtx.fill();
 
-      // Sepasang Mata Majemuk Menyala Terang
       offCtx.beginPath();
       offCtx.arc(cx - 58, headY - 55, 20 + bass * 10, 0, Math.PI * 2);
       offCtx.arc(cx + 58, headY - 55, 20 + bass * 10, 0, Math.PI * 2);
       offCtx.fill();
 
-      // Antena Panjang Meliuk
       offCtx.strokeStyle = "#ffffff";
       offCtx.lineWidth = 6;
       offCtx.beginPath();
@@ -602,14 +767,9 @@
       offCtx.quadraticCurveTo(cx + 85 - antennaWave, headY - 120, cx + 165 - antennaWave * 1.6, headY - 190);
       offCtx.stroke();
 
-      // Batang Dada Prothorax
       offCtx.lineWidth = 28;
-      offCtx.beginPath();
-      offCtx.moveTo(cx, headY);
-      offCtx.lineTo(cx, baseY - 60);
-      offCtx.stroke();
+      offCtx.beginPath(); offCtx.moveTo(cx, headY); offCtx.lineTo(cx, baseY - 60); offCtx.stroke();
 
-      // Cakar Raptorial Terlipat Berdoa Menyembah
       offCtx.lineWidth = 18;
       const armPray = Math.sin(time * 0.004) * 26 + bass * 28;
       offCtx.beginPath();
@@ -624,41 +784,89 @@
       offCtx.lineTo(cx + 55 + armPray * 0.5, headY + 75);
       offCtx.stroke();
 
-      // Barisan Jemaah Bersujud Menyembah di Dasar (Sesuai Album Art)
       offCtx.fillStyle = "rgba(255, 255, 255, 0.75)";
       const bow = Math.sin(time * 0.0035) * 10;
       for (let p = -5; p <= 5; p++) {
         if (Math.abs(p) > 1) {
           const px = cx + (p * 135);
-          offCtx.beginPath();
-          offCtx.arc(px, baseY - 20 + bow, 35, Math.PI, Math.PI * 2);
-          offCtx.fill();
-          offCtx.beginPath();
-          offCtx.arc(px + (p > 0 ? -35 : 35), baseY - 14, 20, 0, Math.PI * 2);
-          offCtx.fill();
+          offCtx.beginPath(); offCtx.arc(px, baseY - 20 + bow, 35, Math.PI, Math.PI * 2); offCtx.fill();
+          offCtx.beginPath(); offCtx.arc(px + (p > 0 ? -35 : 35), baseY - 14, 20, 0, Math.PI * 2); offCtx.fill();
         }
       }
     }
 
     // 10. (178.0 - 184.8) "Walau sebentar kupercaya indah"
-    // Visual: Mandala Geometris Katedral Berputar & Sinar Suci Memancar
+    // Visual: Jam Pasir Klasik (Hourglass) dengan Butiran Pasir Menetes Turun (Simbol Waktu Fana)
     else if (curTime < 185.0) {
-      const rot = time * 0.0018;
-      offCtx.save();
-      offCtx.translate(cx, cy);
-      offCtx.rotate(rot);
-      offCtx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+      const hgX = cx;
+      const hgY = cy + 120;
+      const hgW = 160;
+      const hgH = 260;
+
+      // Pelat Kayu Atas & Bawah Jam Pasir
+      offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.fillRect(hgX - 105, hgY - (hgH / 2) - 15, 210, 20); // Pelat Atas
+      offCtx.fillRect(hgX - 105, hgY + (hgH / 2) - 5, 210, 20);  // Pelat Bawah
+
+      // Tiang Penyangga Samping Kiri & Kanan
+      offCtx.lineWidth = 8;
+      offCtx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      offCtx.beginPath();
+      offCtx.moveTo(hgX - 90, hgY - (hgH / 2) + 5);
+      offCtx.lineTo(hgX - 90, hgY + (hgH / 2) - 5);
+      offCtx.moveTo(hgX + 90, hgY - (hgH / 2) + 5);
+      offCtx.lineTo(hgX + 90, hgY + (hgH / 2) - 5);
+      offCtx.stroke();
+
+      // Tabung Kaca Jam Pasir (Bentuk Segitiga Atas & Bawah Menyempit di Leher Tengah)
+      offCtx.strokeStyle = "#ffffff";
+      offCtx.lineWidth = 5;
+      offCtx.beginPath();
+      // Kaca Atas
+      offCtx.moveTo(hgX - 75, hgY - (hgH / 2) + 5);
+      offCtx.lineTo(hgX + 75, hgY - (hgH / 2) + 5);
+      offCtx.lineTo(hgX + 12, hgY);
+      // Kaca Bawah
+      offCtx.lineTo(hgX + 75, hgY + (hgH / 2) - 5);
+      offCtx.lineTo(hgX - 75, hgY + (hgH / 2) - 5);
+      offCtx.lineTo(hgX - 12, hgY);
+      offCtx.closePath();
+      offCtx.stroke();
+
+      // Pasir di Tabung Atas (Segitiga Pasir yang Perlahan Berkurang)
+      offCtx.fillStyle = "#ffffff";
+      offCtx.beginPath();
+      offCtx.moveTo(hgX - 58, hgY - 45);
+      offCtx.lineTo(hgX + 58, hgY - 45);
+      offCtx.lineTo(hgX, hgY - 2);
+      offCtx.closePath();
+      offCtx.fill();
+
+      // Aliran Pasir Halus Menetes Terus-Menerus di Tengah Leher Kaca
       offCtx.lineWidth = 4;
-      for (let i = 0; i < 12; i++) {
-        offCtx.beginPath();
-        offCtx.arc(0, 0, 240 + Math.sin(time * 0.003 + i) * 25, (i * Math.PI) / 6, ((i + 0.6) * Math.PI) / 6);
-        offCtx.stroke();
+      offCtx.strokeStyle = "#ffffff";
+      offCtx.beginPath();
+      offCtx.moveTo(hgX, hgY);
+      offCtx.lineTo(hgX, hgY + 80);
+      offCtx.stroke();
+
+      // Butiran Pasir Berjatuhan
+      for (let d = 0; d < 6; d++) {
+        const dy = hgY + 15 + ((d * 18 + Math.floor(time * 0.2)) % 65);
+        offCtx.fillRect(hgX - 2, dy, 4, 4);
       }
-      offCtx.restore();
+
+      // Gundukan Pasir yang Menumpuk di Tabung Bawah
+      offCtx.beginPath();
+      offCtx.moveTo(hgX - 65, hgY + (hgH / 2) - 6);
+      offCtx.lineTo(hgX + 65, hgY + (hgH / 2) - 6);
+      offCtx.lineTo(hgX, hgY + 70);
+      offCtx.closePath();
+      offCtx.fill();
     }
 
     // 11. (185.2 - 188.6) "Seberapa banyak, seberapa mahal"
-    // Visual: Hujan Butiran Emas & Koin Persembahan Mengalir Deras dari Langit Altar
+    // Visual: Hujan Butiran Emas & Koin Persembahan Mengalir Deras
     else if (curTime < 188.8) {
       offCtx.fillStyle = "rgba(255, 255, 255, 0.85)";
       for (let c = 0; c < 60; c++) {
@@ -680,12 +888,8 @@
       offCtx.strokeStyle = "#ffffff";
       offCtx.lineWidth = 7;
       const shockWave = ((time * 0.14) % 360);
-      offCtx.beginPath();
-      offCtx.arc(cx, cy, shockWave, 0, Math.PI * 2);
-      offCtx.stroke();
-      offCtx.beginPath();
-      offCtx.arc(cx, cy, Math.max(0, shockWave - 80), 0, Math.PI * 2);
-      offCtx.stroke();
+      offCtx.beginPath(); offCtx.arc(cx, cy, shockWave, 0, Math.PI * 2); offCtx.stroke();
+      offCtx.beginPath(); offCtx.arc(cx, cy, Math.max(0, shockWave - 80), 0, Math.PI * 2); offCtx.stroke();
     }
 
     // 13. (191.8 - 194.2) "Semua 'kan kugadai"
@@ -736,7 +940,6 @@
         offCtx.fillRect(ex, ey, 9, 9);
       }
 
-      // Glitch Slices
       if (Math.random() < 0.35) {
         offCtx.fillRect(0, cy + 90, width, 12);
       }
@@ -789,7 +992,6 @@
     const maxW = width * 0.94; // 1500px lebar maksimal
 
     if (lines.length === 1) {
-      // 1 Baris: Font Raksasa 150px
       let size = 150;
       offCtx.font = `700 ${size}px "Space Grotesk", "Helvetica Neue", Arial, sans-serif`;
       const textWidth = offCtx.measureText(lines[0]).width;
@@ -799,7 +1001,6 @@
       }
       offCtx.fillText(lines[0], cx, cy);
     } else {
-      // 2 Baris: Font Raksasa 125px Mengisi Penuh Tengah Layar
       let size = 125;
       offCtx.font = `700 ${size}px "Space Grotesk", "Helvetica Neue", Arial, sans-serif`;
       const w1 = offCtx.measureText(lines[0]).width;
@@ -882,7 +1083,6 @@
         const brightness = (r + g + b) / 3;
 
         if (brightness > 60) {
-          // Lirik putih tebal (#ffffff) terdeteksi otomatis dengan brightness > 140
           if (brightness > 140) {
             whiteDots.push(x, y);
           } else if (brightness > 105) {
