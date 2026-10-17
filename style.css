@@ -45,16 +45,16 @@ html, body {
   animation: glitch-anim 0.14s steps(2) forwards;
 }
 
-/* Output Micro-ASCII Kerapatan Tinggi: Teks terbaca jelas seperti tipografi bercahaya */
+/* Output Typography ASCII Resolusi Tinggi: Teks Terbaca Sangat Jelas & Bebas Terpotong */
 #output {
   text-align: center;
   font-family: inherit;
   font-weight: 700;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
   white-space: pre;
   background: transparent !important;
-  font-size: clamp(7.4px, 0.82vw, 8.8px);
-  line-height: 1.06;
+  font-size: clamp(6.8px, 0.74vw, 8.2px);
+  line-height: 1.04;
   cursor: pointer;
   display: block;
   margin: 0 auto;
