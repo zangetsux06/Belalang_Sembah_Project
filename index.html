@@ -56,7 +56,7 @@
       white-space: pre;
       background: transparent !important;
       font-size: 13px;
-      line-height: 1.08;
+      line-height: 1.1;
       cursor: pointer;
       display: block;
     }
@@ -118,7 +118,7 @@
   ▶ Klik di mana saja untuk memutar lagu
 </div>
 
-<canvas id="prerender" width="120" height="56"></canvas>
+<canvas id="prerender" width="124" height="62"></canvas>
 
 <!-- Pemutar Audio Musik -->
 <audio id="audio-player" preload="auto">
@@ -131,99 +131,144 @@
 <script>
   (() => {
     // =========================================================================
-    // KONFIGURASI LIRIK: 1 KATA 1 GELOMBANG (PRE-CHORUS & CHORUS 1)
+    // KONFIGURASI LIRIK: KATA PER KATA MUNCUL SESUAI PENYEBUTAN VOKAL
+    // (Lirik yang belum dinyanyikan tidak akan muncul di layar)
     // =========================================================================
     const config = {
       lyrics: [
-        // --- 1. PRE-CHORUS ---
+        // --- MOMENT 1: 01:07.0 - 01:25.0 (PRE-CHORUS / FIGURAN BURAM) ---
         {
-          wordsLine1: ["Namun", "sabun", "kita"],
-          wordsLine2: ["berbeda", "wangi"],
           startSec: 67.5,
           endSec: 72.8,
           showMs: 5300,
-          hideMs: 600
+          hideMs: 600,
+          words: [
+            { text: "Namun", time: 67.5, line: 1 },
+            { text: "sabun", time: 68.4, line: 1 },
+            { text: "kita", time: 69.6, line: 1 },
+            { text: "berbeda", time: 70.4, line: 2 },
+            { text: "wangi", time: 71.5, line: 2 }
+          ]
         },
         {
-          wordsLine1: ["Dan", "tubuhmu", "dibalut"],
-          wordsLine2: ["hal", "berbeda", "tiap", "malam"],
           startSec: 73.4,
           endSec: 80.2,
           showMs: 6800,
-          hideMs: 600
+          hideMs: 600,
+          words: [
+            { text: "Dan", time: 73.4, line: 1 },
+            { text: "tubuhmu", time: 74.0, line: 1 },
+            { text: "dibalut", time: 75.2, line: 1 },
+            { text: "hal", time: 76.5, line: 2 },
+            { text: "berbeda", time: 77.2, line: 2 },
+            { text: "tiap", time: 78.5, line: 2 },
+            { text: "malam", time: 79.2, line: 2 }
+          ]
         },
         {
-          wordsLine1: ["Saat", "ini", "ku", "masih"],
-          wordsLine2: ["figuran", "buram"],
           startSec: 80.8,
           endSec: 85.0,
           showMs: 4200,
-          hideMs: 400
+          hideMs: 400,
+          words: [
+            { text: "Saat", time: 80.8, line: 1 },
+            { text: "ini", time: 81.3, line: 1 },
+            { text: "ku", time: 81.8, line: 1 },
+            { text: "masih", time: 82.2, line: 1 },
+            { text: "figuran", time: 82.8, line: 2 },
+            { text: "buram", time: 83.6, line: 2 }
+          ]
         },
 
-        // --- 2. CHORUS 1 (BAGIAN VIRAL) ---
+        // --- MOMENT 2: 01:25.0 - 01:45.5 (CHORUS 1 / BELALANG SEMBAH ALTAR) ---
         {
-          wordsLine1: ["Tapi", "jadikanku"],
-          wordsLine2: ["belalang", "sembah"],
           startSec: 85.4,
           endSec: 93.4,
           showMs: 8000,
           hideMs: 400,
-          isChorus: true
+          words: [
+            { text: "Tapi", time: 85.4, line: 1 },
+            { text: "jadikanku", time: 86.8, line: 1 },
+            { text: "belalang", time: 88.8, line: 2 },
+            { text: "sembah", time: 91.0, line: 2 }
+          ]
         },
         {
-          wordsLine1: ["Walau", "sebentar"],
-          wordsLine2: ["kupercaya", "indah"],
           startSec: 93.8,
           endSec: 101.0,
           showMs: 7200,
           hideMs: 400,
-          isChorus: true
+          words: [
+            { text: "Walau", time: 93.8, line: 1 },
+            { text: "sebentar", time: 95.2, line: 1 },
+            { text: "kupercaya", time: 97.0, line: 2 },
+            { text: "indah", time: 99.0, line: 2 }
+          ]
         },
         {
-          wordsLine1: ["Seberapa", "banyak,"],
-          wordsLine2: ["seberapa", "mahal"],
           startSec: 101.4,
           endSec: 105.4,
           showMs: 4000,
-          hideMs: 300
+          hideMs: 300,
+          words: [
+            { text: "Seberapa", time: 101.4, line: 1 },
+            { text: "banyak,", time: 102.2, line: 1 },
+            { text: "seberapa", time: 103.4, line: 2 },
+            { text: "mahal", time: 104.2, line: 2 }
+          ]
         },
+
+        // --- MOMENT 3: 01:45.5 - 02:07.0 (MATIKAN AKU SETELAH USAI / STRIKE & ASH) ---
         {
-          wordsLine1: ["Semua", "'kan", "kuberi"],
-          wordsLine2: [],
           startSec: 105.7,
           endSec: 107.9,
           showMs: 2200,
-          hideMs: 200
+          hideMs: 200,
+          words: [
+            { text: "Semua", time: 105.7, line: 1 },
+            { text: "'kan", time: 106.3, line: 1 },
+            { text: "kuberi", time: 106.8, line: 1 }
+          ]
         },
         {
-          wordsLine1: ["Semua", "'kan", "kugadai"],
-          wordsLine2: [],
           startSec: 108.1,
           endSec: 110.6,
           showMs: 2500,
-          hideMs: 300
+          hideMs: 300,
+          words: [
+            { text: "Semua", time: 108.1, line: 1 },
+            { text: "'kan", time: 108.7, line: 1 },
+            { text: "kugadai", time: 109.2, line: 1 }
+          ]
         },
         {
-          wordsLine1: ["Matikan", "aku"],
-          wordsLine2: ["setelah", "usai"],
           startSec: 110.9,
           endSec: 114.6,
           showMs: 3700,
-          hideMs: 300
+          hideMs: 300,
+          words: [
+            { text: "Matikan", time: 110.9, line: 1 },
+            { text: "aku", time: 111.8, line: 1 },
+            { text: "setelah", time: 112.8, line: 2 },
+            { text: "usai", time: 113.6, line: 2 }
+          ]
         },
         {
-          wordsLine1: ["Matikan", "aku"],
-          wordsLine2: ["setelah", "usai"],
           startSec: 114.9,
           endSec: 118.5,
           showMs: 3600,
-          hideMs: 8500
+          hideMs: 8500,
+          words: [
+            { text: "Matikan", time: 114.9, line: 1 },
+            { text: "aku", time: 115.8, line: 1 },
+            { text: "setelah", time: 116.8, line: 2 },
+            { text: "usai", time: 117.6, line: 2 }
+          ]
         }
       ],
 
       audioStartTime: 67.0,   // Mulai detik 67.0 (01:07.0)
-      audioEndTime: 127.0,     // Selesai detik 127.0 (02:07.0) = Tepat 60 Detik
+      audioEndTime: 127.0,     // Selesai detik 127.0 (02:07.0) = Tepat 60 Detik (1 Menit)
       isLooping: true
     };
 
@@ -237,7 +282,7 @@
     const audioPrompt = document.getElementById("audio-prompt");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
-    // Karakter shading ASCII klasik (tegas, kontur bersih, mudah dibaca)
+    // Karakter shading ASCII klasik berdensitas tinggi untuk kejelasan teks
     const charsFixed = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
     const charsLength = charsFixed.length;
 
@@ -259,15 +304,15 @@
       }, duration);
     };
 
-    // Glitch periodik acak
+    // Glitch periodik halus
     setInterval(() => {
-      if (!isPaused && isShowing && Math.random() < 0.28) {
+      if (!isPaused && isShowing && Math.random() < 0.25) {
         triggerGlitch(80);
       }
-    }, 3800);
+    }, 4000);
 
     // =========================================================================
-    // AUDIO AUTOPLAY & INTERAKSI
+    // AUDIO AUTOPLAY & KONTROL
     // =========================================================================
     const playAudio = () => {
       if (!audioElement) return;
@@ -326,148 +371,213 @@
     });
 
     // =========================================================================
-    // GAMBAR ASET ATMOSFER: SILUET BELALANG SEMBAH (PRAYING MANTIS)
-    // Terletak di bagian bawah layar seperti referensi gambar 1
+    // 3 TEMA MOMEN ATMOSFER DALAM BENTUK SENI ASCII
     // =========================================================================
-    const drawMantisAsset = (time, isChorus) => {
+    const drawMomentScene = (time, curTime) => {
       const cx = canvas.width / 2;
       const baseY = canvas.height - 1;
 
-      // Animasi bernapas halus & antena meliuk
-      const breathe = Math.sin(time * 0.003) * 1.0;
-      const antennaWave = Math.sin(time * 0.004) * 2.2;
-      const eyeGlow = isChorus ? 255 : 220;
-
       ctx.save();
 
-      // 1. Kepala Segitiga
-      const headY = baseY - 18 + breathe;
-      ctx.fillStyle = "white";
-      ctx.beginPath();
-      ctx.moveTo(cx, headY);
-      ctx.lineTo(cx - 4.5, headY - 5.5);
-      ctx.lineTo(cx + 4.5, headY - 5.5);
-      ctx.closePath();
-      ctx.fill();
+      // --- TEMA MOMEN 1: (01:07 - 01:25) FIGURAN BURAM & SMOLDERING NOIR ---
+      if (curTime < 85.2) {
+        // Siluet Gedung Kota Malam di dasar
+        ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+        for (let x = 0; x < canvas.width; x += 6) {
+          const bHeight = 8 + Math.abs(Math.sin(x * 0.28)) * 7 + (x % 5) * 1.5;
+          ctx.fillRect(x, baseY - bHeight, 5, bHeight);
 
-      // 2. Mata Majemuk (Compound Eyes)
-      ctx.beginPath();
-      ctx.arc(cx - 5.5, headY - 6.5, 2, 0, Math.PI * 2);
-      ctx.arc(cx + 5.5, headY - 6.5, 2, 0, Math.PI * 2);
-      ctx.fill();
+          // Kerlap-kerlip jendela kota
+          ctx.fillStyle = "white";
+          for (let wy = baseY - bHeight + 2; wy < baseY - 2; wy += 4) {
+            if ((x + wy + Math.floor(time * 0.002)) % 3 === 0) {
+              ctx.fillRect(x + 2, wy, 1.4, 1.4);
+            }
+          }
+          ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+        }
 
-      // 3. Antena Meliuk Dinamis
-      ctx.strokeStyle = "white";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(cx - 2, headY - 5.5);
-      ctx.quadraticCurveTo(cx - 7 + antennaWave, headY - 12, cx - 13 + antennaWave * 1.4, headY - 17);
-      ctx.moveTo(cx + 2, headY - 5.5);
-      ctx.quadraticCurveTo(cx + 7 - antennaWave, headY - 12, cx + 13 - antennaWave * 1.4, headY - 17);
-      ctx.stroke();
+        // Kepulan Asap Rokok / Hawa Misterius Melayang Naik
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.65)";
+        ctx.lineWidth = 1.2;
+        for (let s = 0; s < 3; s++) {
+          const sOffset = (s - 1) * 22;
+          ctx.beginPath();
+          ctx.moveTo(cx + sOffset, baseY - 10);
+          for (let sy = baseY - 10; sy > baseY - 26; sy -= 3) {
+            const sx = cx + sOffset + Math.sin(time * 0.003 + sy * 0.18 + s) * 4;
+            ctx.lineTo(sx, sy);
+          }
+          ctx.stroke();
+        }
 
-      // 4. Batang Tubuh / Prothorax
-      ctx.lineWidth = 3;
-      ctx.beginPath();
-      ctx.moveTo(cx, headY);
-      ctx.lineTo(cx, baseY - 8);
-      ctx.stroke();
+        // Dua Siluet Tangan Menjangkau Satu Sama Lain ("Figuran Buram")
+        const reach = Math.sin(time * 0.0025) * 2;
+        ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+        // Tangan Kiri
+        ctx.fillRect(cx - 30 + reach, baseY - 18, 14, 3);
+        ctx.fillRect(cx - 18 + reach, baseY - 20, 6, 2);
+        // Tangan Kanan
+        ctx.fillRect(cx + 16 - reach, baseY - 18, 14, 3);
+        ctx.fillRect(cx + 12 - reach, baseY - 20, 6, 2);
+      }
 
-      // 5. Tangan Cakar Raksasa "Sembah" (Raptorial Claws)
-      ctx.lineWidth = 2;
-      const armShift = isChorus ? Math.sin(time * 0.006) * 2 : 0;
-      // Tangan Kiri
-      ctx.beginPath();
-      ctx.moveTo(cx - 2, headY + 3);
-      ctx.lineTo(cx - 11 - armShift, headY - 2);
-      ctx.lineTo(cx - 6, headY + 7);
-      ctx.stroke();
+      // --- TEMA MOMEN 2: (01:25 - 01:45.5) ALTAR KATEDRAL BELALANG SEMBAH HIDUP ---
+      else if (curTime < 105.5) {
+        // Halo Busur Katedral Gothic di Belakang Belalang
+        ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.arc(cx, baseY + 8, 34, Math.PI, Math.PI * 2);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(cx, baseY + 8, 28, Math.PI, Math.PI * 2);
+        ctx.stroke();
 
-      // Tangan Kanan
-      ctx.beginPath();
-      ctx.moveTo(cx + 2, headY + 3);
-      ctx.lineTo(cx + 11 + armShift, headY - 2);
-      ctx.lineTo(cx + 6, headY + 7);
-      ctx.stroke();
+        // Sinar Altar Memancar
+        for (let a = Math.PI + 0.2; a < Math.PI * 2 - 0.2; a += 0.35) {
+          const rx1 = cx + Math.cos(a) * 35;
+          const ry1 = (baseY + 8) + Math.sin(a) * 35;
+          const rx2 = cx + Math.cos(a) * 40;
+          const ry2 = (baseY + 8) + Math.sin(a) * 40;
+          ctx.beginPath();
+          ctx.moveTo(rx1, ry1);
+          ctx.lineTo(rx2, ry2);
+          ctx.stroke();
+        }
 
-      // 6. Sayap & Perut Bersegmen
-      ctx.beginPath();
-      ctx.moveTo(cx, baseY - 8);
-      ctx.lineTo(cx - 8, baseY);
-      ctx.lineTo(cx + 8, baseY);
-      ctx.closePath();
-      ctx.fill();
+        // Tubuh Belalang Sembah yang Hidup & Bernapas
+        const breathe = Math.sin(time * 0.003) * 1.2;
+        const antennaWave = Math.sin(time * 0.005) * 2.5;
 
-      // 7. Kaki Belakang
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(cx - 2, baseY - 7);
-      ctx.lineTo(cx - 16, baseY - 3);
-      ctx.lineTo(cx - 25, baseY);
-      ctx.moveTo(cx + 2, baseY - 7);
-      ctx.lineTo(cx + 18, baseY - 3);
-      ctx.lineTo(cx + 25, baseY);
-      ctx.stroke();
+        // Kepala Segitiga
+        const headY = baseY - 20 + breathe;
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.moveTo(cx, headY);
+        ctx.lineTo(cx - 5, headY - 6);
+        ctx.lineTo(cx + 5, headY - 6);
+        ctx.closePath();
+        ctx.fill();
+
+        // Sepasang Mata Majemuk Menyala Merah
+        ctx.beginPath();
+        ctx.arc(cx - 6, headY - 6, 2.2, 0, Math.PI * 2);
+        ctx.arc(cx + 6, headY - 6, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Antena Panjang Meliuk
+        ctx.strokeStyle = "white";
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(cx - 2, headY - 6);
+        ctx.quadraticCurveTo(cx - 8 + antennaWave, headY - 13, cx - 15 + antennaWave * 1.5, headY - 19);
+        ctx.moveTo(cx + 2, headY - 6);
+        ctx.quadraticCurveTo(cx + 8 - antennaWave, headY - 13, cx + 15 - antennaWave * 1.5, headY - 19);
+        ctx.stroke();
+
+        // Batang Dada Prothorax
+        ctx.lineWidth = 3.2;
+        ctx.beginPath();
+        ctx.moveTo(cx, headY);
+        ctx.lineTo(cx, baseY - 8);
+        ctx.stroke();
+
+        // Cakar Raptorial Terlipat Berdoa "Sembah" yang Bergerak Ritmik
+        ctx.lineWidth = 2.2;
+        const armPray = Math.sin(time * 0.004) * 3;
+        // Cakar Kiri
+        ctx.beginPath();
+        ctx.moveTo(cx - 2, headY + 3);
+        ctx.lineTo(cx - 12 - armPray, headY - 3);
+        ctx.lineTo(cx - 6 - armPray * 0.5, headY + 8);
+        ctx.stroke();
+        // Cakar Kanan
+        ctx.beginPath();
+        ctx.moveTo(cx + 2, headY + 3);
+        ctx.lineTo(cx + 12 + armPray, headY - 3);
+        ctx.lineTo(cx + 6 + armPray * 0.5, headY + 8);
+        ctx.stroke();
+
+        // Sayap & Perut
+        ctx.beginPath();
+        ctx.moveTo(cx, baseY - 8);
+        ctx.lineTo(cx - 9, baseY);
+        ctx.lineTo(cx + 9, baseY);
+        ctx.closePath();
+        ctx.fill();
+
+        // Kaki Laba-laba Panjang
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(cx - 2, baseY - 7);
+        ctx.lineTo(cx - 18, baseY - 3);
+        ctx.lineTo(cx - 28, baseY);
+        ctx.moveTo(cx + 2, baseY - 7);
+        ctx.lineTo(cx + 18, baseY - 3);
+        ctx.lineTo(cx + 28, baseY);
+        ctx.stroke();
+      }
+
+      // --- TEMA MOMEN 3: (01:45.5 - 02:07) MATIKAN AKU / PENGORBANAN & HUJAN ABU ---
+      else {
+        const isDying = curTime > 118.5;
+        const fadeAlpha = isDying ? Math.max(0.12, 1 - (curTime - 118.5) / 8) : 1;
+
+        ctx.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
+        ctx.strokeStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
+
+        const headY = baseY - 18;
+        ctx.beginPath();
+        ctx.moveTo(cx, headY);
+        ctx.lineTo(cx - 5, headY - 6);
+        ctx.lineTo(cx + 5, headY - 6);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.arc(cx - 5.5, headY - 6, 2, 0, Math.PI * 2);
+        ctx.arc(cx + 5.5, headY - 6, 2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Cakar Mengunci Rapat Menusuk ke Dalam (Fatal Strike)
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.moveTo(cx - 2, headY + 2);
+        ctx.lineTo(cx - 7, headY - 2);
+        ctx.lineTo(cx - 1, headY + 7);
+        ctx.moveTo(cx + 2, headY + 2);
+        ctx.lineTo(cx + 7, headY - 2);
+        ctx.lineTo(cx + 1, headY + 7);
+        ctx.stroke();
+
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(cx, headY);
+        ctx.lineTo(cx, baseY - 7);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(cx, baseY - 7);
+        ctx.lineTo(cx - 8, baseY);
+        ctx.lineTo(cx + 8, baseY);
+        ctx.closePath();
+        ctx.fill();
+
+        // Hujan Abu & Partikel Bara Berjatuhan Menghiasi Langit
+        ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+        for (let e = 0; e < 24; e++) {
+          const ex = (cx - 48) + ((e * 17 + Math.floor(time * 0.05)) % 96);
+          const ey = ((e * 23 + Math.floor(time * 0.08)) % 28) + (baseY - 28);
+          ctx.fillRect(ex, ey, 1.3, 1.3);
+        }
+      }
 
       ctx.restore();
     };
 
     // =========================================================================
-    // RENDER LIRIK: 1 KATA 1 GELOMBANG
-    // Setiap kata memiliki gelombang dan highlight sesuai beat vokal
-    // =========================================================================
-    const drawWaveWords = (words, startY, globalWordIdxOffset, totalWordsInItem, progress, time) => {
-      if (!words || words.length === 0) return;
-
-      const spaceW = ctx.measureText(" ").width;
-      const wordWidths = words.map(w => ctx.measureText(w).width);
-      const totalLineW = wordWidths.reduce((a, b) => a + b, 0) + (words.length - 1) * spaceW;
-
-      let curX = (canvas.width - totalLineW) / 2;
-
-      for (let i = 0; i < words.length; i++) {
-        const word = words[i];
-        const wWidth = wordWidths[i];
-        const wordGlobalIdx = globalWordIdxOffset + i;
-
-        // Hitung apakah kata ini sedang aktif dinyanyikan pada progress saat ini
-        const wordFracStart = wordGlobalIdx / totalWordsInItem;
-        const wordFracEnd = (wordGlobalIdx + 1) / totalWordsInItem;
-
-        const isCurrentWord = (progress >= wordFracStart && progress < wordFracEnd);
-        const isPastWord = (progress >= wordFracEnd);
-
-        // 1 Kata 1 Gelombang: Kata aktif melambung naik dalam gelombang sinus
-        let waveY = 0;
-        if (isCurrentWord) {
-          const wordLocalProg = (progress - wordFracStart) / (wordFracEnd - wordFracStart);
-          waveY = -Math.sin(wordLocalProg * Math.PI) * 3.5;
-        } else {
-          waveY = Math.sin(time * 0.0035 + wordGlobalIdx * 0.9) * 0.7;
-        }
-
-        ctx.save();
-        if (isCurrentWord) {
-          // Kata yang sedang dinyanyikan: PUTIH TERANG MENYALA (menjadi merah scarlet di ASCII)
-          ctx.fillStyle = "white";
-          ctx.fillText(word, curX + wWidth / 2, startY + waveY);
-        } else if (isPastWord) {
-          // Kata yang sudah selesai dinyanyikan: MERAH PEKAT STABIL
-          ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
-          ctx.fillText(word, curX + wWidth / 2, startY + waveY);
-        } else {
-          // Kata yang belum tiba giliran: BAYANGAN SAMAR DI KEGELAPAN
-          ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
-          ctx.fillText(word, curX + wWidth / 2, startY + waveY);
-        }
-        ctx.restore();
-
-        curX += wWidth + spaceW;
-      }
-    };
-
-    // =========================================================================
-    // RENDER CANVAS UTAMA (LIRIK DI ATAS + BELALANG SEMBAH DI BAWAH)
+    // RENDER LIRIK: KATA PER KATA MUNCUL TEPAT SESUAI PENYEBUTAN VOKAL
+    // (Kata yang belum dinyanyikan tidak akan tampil di layar)
     // =========================================================================
     const drawTextToCanvas = (time) => {
       const w = canvas.width;
@@ -476,43 +586,56 @@
       ctx.fillStyle = "black";
       ctx.fillRect(0, 0, w, h);
 
-      const currentItem = config.lyrics[currentLyricIndex];
-      const isChorus = currentItem ? !!currentItem.isChorus : false;
-
-      // 1. Gambar siluet Belalang Sembah di bagian bawah kanvas
-      drawMantisAsset(time, isChorus);
-
-      // 2. Gambar lirik dengan efek gelombang kata di bagian atas kanvas
-      if (!isShowing || !currentItem) return;
-
-      const words1 = currentItem.wordsLine1 || [];
-      const words2 = currentItem.wordsLine2 || [];
-      const totalWords = words1.length + words2.length;
-
-      // Hitung progress waktu di dalam baris lirik saat ini (0.0 s/d 1.0)
-      let progress = 0;
+      // Dapatkan waktu audio saat ini
+      let curTime = config.audioStartTime;
       if (audioElement && !audioElement.paused && audioElement.duration > 0) {
-        const curT = audioElement.currentTime;
-        const dur = (currentItem.endSec - currentItem.startSec) || 1;
-        progress = Math.min(1, Math.max(0, (curT - currentItem.startSec) / dur));
+        curTime = audioElement.currentTime;
       } else {
-        const dur = currentItem.showMs || 3000;
-        progress = Math.min(1, Math.max(0, timeAccumulator / dur));
+        const item = config.lyrics[currentLyricIndex];
+        const dur = item ? item.showMs : 3000;
+        const frac = Math.min(1, Math.max(0, timeAccumulator / dur));
+        curTime = item ? (item.startSec + frac * (item.endSec - item.startSec)) : config.audioStartTime;
       }
 
-      ctx.font = `bold 12.5px "Segoe UI", Arial, sans-serif`;
+      // 1. Gambar 3 Tema Momen Suasana di Bagian Bawah
+      drawMomentScene(time, curTime);
+
+      // 2. Gambar Lirik yang Sedang Dinyanyikan di Bagian Atas
+      if (!isShowing) return;
+
+      const currentItem = config.lyrics[currentLyricIndex];
+      if (!currentItem || !currentItem.words) return;
+
+      // Ambil HANYA kata-kata yang sudah dinyanyikan sampai detik saat ini
+      const sungWordsLine1 = currentItem.words
+        .filter(w => w.line === 1 && w.time <= curTime)
+        .map(w => w.text);
+
+      const sungWordsLine2 = currentItem.words
+        .filter(w => w.line === 2 && w.time <= curTime)
+        .map(w => w.text);
+
+      const textLine1 = sungWordsLine1.join(" ");
+      const textLine2 = sungWordsLine2.join(" ");
+
+      // Jika belum ada kata yang mulai dinyanyikan dalam bait ini, kosongkan
+      if (!textLine1 && !textLine2) return;
+
+      // Ukuran font tebal, bersih dan proporsional untuk keterbacaan mata
+      ctx.font = `bold 15px "Segoe UI", Arial, sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
+      ctx.fillStyle = "white"; // Putih di kanvas = Merah menyala bersinar di ASCII
 
-      const hasLine2 = words2.length > 0;
-      const line1Y = hasLine2 ? 8 : 12;
-      const line2Y = 20;
+      const hasLine2 = currentItem.words.some(w => w.line === 2);
+      const line1Y = hasLine2 ? 10 : 15;
+      const line2Y = 23;
 
-      // Baris 1
-      drawWaveWords(words1, line1Y, 0, totalWords, progress, time);
-      // Baris 2
-      if (hasLine2) {
-        drawWaveWords(words2, line2Y, words1.length, totalWords, progress, time);
+      if (textLine1) {
+        ctx.fillText(textLine1, w / 2, line1Y);
+      }
+      if (textLine2) {
+        ctx.fillText(textLine2, w / 2, line2Y);
       }
     };
 
@@ -546,7 +669,7 @@
               if (curTime >= item.startSec && curTime <= item.endSec) {
                 if (currentLyricIndex !== i) {
                   currentLyricIndex = i;
-                  triggerGlitch(160);
+                  triggerGlitch(150);
                 }
                 isShowing = true;
                 matched = true;
@@ -572,7 +695,7 @@
             }
           }
         } else {
-          // Fallback akumulasi waktu jika audio ditahan browser
+          // Fallback waktu jika audio ditahan browser
           if (lastTime === 0) lastTime = time;
           const deltaTime = time - lastTime;
           timeAccumulator += deltaTime;
@@ -590,7 +713,7 @@
               if (currentLyricIndex >= config.lyrics.length) {
                 currentLyricIndex = config.isLooping ? 0 : config.lyrics.length - 1;
               }
-              triggerGlitch(160);
+              triggerGlitch(150);
             }
           }
         }
@@ -605,7 +728,7 @@
 
       let outputText = "";
       
-      for (let y = 0; y < h; y += 2) { // Sampling y step=2 untuk perbaikan proporsi rasio tinggi monospace
+      for (let y = 0; y < h; y += 2) { // Sampling y step=2 untuk proporsi sempurna rasio monospace
         let row = "";
         for (let x = 0; x < w; x++) {
           const index = (x + y * w) * 4;
@@ -627,20 +750,20 @@
               char = charsFixed[safeCharIndex];
             }
 
-            // Pewarnaan Berjenjang & Pendaran Merah
+            // Pewarnaan Merah Obsesif: Teks menyala terang, aset atmosferik mendukung dengan estetika sinematik
             let charColor, glow;
             if (c > 200) {
-              // Inti kata yang aktif sedang dinyanyikan
+              // Teks Lirik yang sedang aktif tampil
               const brightReds = ["#ff1744", "#ff2a55", "#ff003b", "#ff3366"];
               charColor = brightReds[(x + y) % brightReds.length];
-              glow = `0 0 6px ${charColor}, 0 0 14px rgba(255, 23, 68, 0.75)`;
+              glow = `0 0 6px ${charColor}, 0 0 16px rgba(255, 23, 68, 0.75)`;
             } else if (c > 130) {
-              // Kata yang sudah dinyanyikan / tubuh siluet belalang
+              // Tubuh siluet ilustrasi atmosfer
               const midReds = ["#e50914", "#dc143c", "#c00028"];
               charColor = midReds[(x + y) % midReds.length];
-              glow = `0 0 4px rgba(220, 20, 60, 0.55)`;
+              glow = `0 0 4px rgba(220, 20, 60, 0.5)`;
             } else if (c > 65) {
-              // Kata yang akan datang / kontur kaki belalang
+              // Sinar altar / detail halus
               charColor = "#a80020";
               glow = "none";
             } else {
