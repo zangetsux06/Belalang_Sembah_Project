@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-/* 100% HITAM PEKAT MURNI - TANPA KOTAK, TANPA BORDER, MEMENUHI LAYAR */
+/* 100% HITAM PEKAT MURNI - BEBAS KOTAK / FRAME */
 html, body {
   background-color: #000000 !important;
   background: #000000 !important;
@@ -16,7 +16,6 @@ html, body {
   justify-content: center;
   overflow: hidden;
   user-select: none;
-  font-family: "Courier New", "Consolas", "JetBrains Mono", monospace;
 }
 
 .container {
@@ -49,32 +48,35 @@ html, body {
   animation: glitch-anim 0.14s steps(2) forwards;
 }
 
-/* Kontainer Utama Colored ASCII Terminal Art: Rapat, Padat, Bebas Celah */
-#ascii-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #000000 !important;
-  background: #000000 !important;
-  color: #ffffff;
-  font-family: "Courier New", "Consolas", "JetBrains Mono", monospace;
-  font-weight: 700;
-  text-align: center;
-  white-space: pre;
-  margin: auto;
-  line-height: 0.96 !important;
-  letter-spacing: 0px !important; /* RAPAT TANPA JARAK RENGGANG */
-  overflow: hidden;
-  cursor: pointer;
-  user-select: none;
+/* Layer Aura Halus di Belakang (CSS Murni): Berpendar lembut tanpa merusak ASCII */
+#bg-aura {
+  position: fixed;
+  width: 65vw;
+  height: 65vh;
+  background: radial-gradient(circle, rgba(255, 30, 60, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.6s ease-out;
 }
 
-#ascii-container div {
-  display: block;
+/* Kontainer Utama Colored ASCII Terminal Art */
+#ascii-container {
+  position: relative;
+  z-index: 2;
+  font-family: 'Courier New', Consolas, 'Liberation Mono', monospace;
+  font-weight: 700;
   white-space: pre;
-  line-height: inherit;
-  letter-spacing: 0px !important;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  /* Efek glow CRT seperti pada referensi "All Year For This" */
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
+}
+
+.ascii-row {
+  display: block;
+  overflow: hidden;
+  white-space: pre;
 }
 
 @keyframes glitch-anim {
