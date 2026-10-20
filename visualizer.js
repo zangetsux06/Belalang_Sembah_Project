@@ -18,6 +18,7 @@
   const config = {
     lyrics: [
       // --- MOMENT 1 (02:15.8 - 02:32.4): STALKER & OBSESI BUTA (VERSE 2A) ---
+      // Lirik bisik-bisik: SEMUA MERAH SOLID (#ff1744) sesuai permintaan user
       {
         text: "Jumlah rambutmu 'kan kuhafal mati",
         startSec: 135.8,
@@ -26,7 +27,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ff1744"
       },
       {
         text: "Rute pulangmu telah kupelajari",
@@ -36,7 +37,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ff1744"
       },
       {
         text: "Kutahu nama anak kita nanti",
@@ -46,7 +47,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ff1744"
       },
       {
         text: "Suatu saat kau pasti mengerti",
@@ -56,7 +57,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ff1744"
       },
 
       // --- MOMENT 2 (02:32.4 - 02:49.0): KESENJANGAN SOSIAL & RADAR APLIKASI (VERSE 2B) ---
@@ -113,16 +114,17 @@
         fontSize: 16,
         color: "#ffffff"
       },
-      // Bagian 2: "Belalang sembah" - KLIMAKS DROP MERAH DARAH & EFEK BERDARAH!
+      // Bagian 2: "Belalang Sembah" - KLIMAKS DROP MERAH DARAH & EFEK BERDARAH (DARI B SAMPAI h)!
       {
-        text: "Belalang sembah",
+        text: "Belalang Sembah",
         startSec: 173.0,
         endSec: 178.0,
         showMs: 5000,
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
-        fontSize: 18,
+        fontSize: 14,
         color: "#ff1744",
+        singleLine: true,
         dramatic: true,
         bleeding: true
       },
@@ -355,62 +357,147 @@
   };
 
   // =========================================================================
-  // 🩸 5B. SIMULASI EFEK BERDARAH (ASCII BLOOD DRIP SIMULATION)
-  // Aliran tetesan darah merah menetes ke bawah dari huruf "Belalang sembah"
+  // 🩸 5B. SIMULASI EFEK BERDARAH REALISTIK (LETTER-ANCHORED ASCII BLOOD DRIPS)
+  // Menetes murni dari bagian bawah goresan huruf "Belalang Sembah" (dari B ke h)
+  // Dilengkapi fisika gravitasi halus, motion stretch, dan pooling dasar
   // =========================================================================
-  const maxBloodDrips = 28;
+  const maxBloodDrips = 26;
   const bloodDrips = [];
+  const floorPool = new Uint8Array(width);
+
   for (let i = 0; i < maxBloodDrips; i++) {
     bloodDrips.push({
-      xOffset: (Math.random() - 0.5) * 115,
-      len: Math.random() * 4,
-      maxLen: 8 + Math.random() * 20,
-      speed: 0.16 + Math.random() * 0.28,
+      targetRatio: (i + Math.random() * 0.7) / maxBloodDrips,
+      anchorX: 0,
+      anchorY: 0,
+      streamLen: Math.random() * 3,
+      maxStreamLen: 5 + Math.random() * 14,
+      streamSpeed: 0.09 + Math.random() * 0.14,
+      dropActive: false,
       dropY: 0,
-      dropSpeed: 0.45 + Math.random() * 0.65,
-      dropping: false,
-      color: Math.random() < 0.65 ? "#ff1744" : "#d90429"
+      dropVy: 0,
+      color: Math.random() < 0.7 ? "#ff1744" : (Math.random() < 0.5 ? "#d90429" : "#ff2a55")
     });
   }
 
-  const updateAndDrawBloodDrips = (time, cx, bottomY) => {
-    offCtx.save();
+  const resetBloodDrips = () => {
     for (let i = 0; i < bloodDrips.length; i++) {
       const d = bloodDrips[i];
-      const dripX = Math.round(cx + d.xOffset);
+      d.targetRatio = (i + Math.random() * 0.7) / bloodDrips.length;
+      d.streamLen = Math.random() * 2;
+      d.maxStreamLen = 5 + Math.random() * 14;
+      d.dropActive = false;
+      d.dropY = 0;
+      d.dropVy = 0;
+    }
+    floorPool.fill(0);
+  };
 
-      if (dripX < 5 || dripX >= width - 5) continue;
+  const updateAndDrawBloodDrips = (time, textCenterX, textCenterY, size, textW) => {
+    const textLeft = Math.max(1, Math.floor(textCenterX - textW / 2));
+    const textRight = Math.min(width - 2, Math.ceil(textCenterX + textW / 2));
+    const scanTop = Math.max(0, Math.floor(textCenterY - size * 0.45));
+    const scanBottom = Math.min(height - 1, Math.ceil(textCenterY + size * 0.85));
+    const scanW = textRight - textLeft + 1;
+    const scanH = scanBottom - scanTop + 1;
 
-      if (d.len < d.maxLen) {
-        d.len += d.speed;
-      } else {
-        d.dropping = true;
-      }
+    if (scanW <= 0 || scanH <= 0) return;
 
-      // Garis tetesan darah vertikal mengucur ke bawah dari dasar huruf
-      const dripLen = Math.floor(d.len);
-      if (dripLen > 0) {
-        offCtx.fillStyle = d.color;
-        offCtx.fillRect(dripX, bottomY, 1, dripLen);
-      }
+    let imgData;
+    try {
+      imgData = offCtx.getImageData(textLeft, scanTop, scanW, scanH).data;
+    } catch (e) {
+      return;
+    }
 
-      // Tetesan darah terlepas dan jatuh gravitasi (falling droplet)
-      if (d.dropping) {
-        d.dropY += d.dropSpeed;
-        const currentDropY = Math.round(bottomY + d.len + d.dropY);
-        if (currentDropY < height - 2) {
-          offCtx.fillStyle = d.color;
-          offCtx.fillRect(dripX, currentDropY, 1, 2);
-        } else {
-          // Reset tetesan baru
-          d.len = 0;
-          d.dropY = 0;
-          d.dropping = false;
-          d.maxLen = 8 + Math.random() * 20;
-          d.xOffset = (Math.random() - 0.5) * 115;
+    // Pindai dasar huruf: cari piksel huruf paling bawah untuk setiap kolom X dari 'B' ke 'h'
+    const validBottoms = [];
+    for (let col = 0; col < scanW; col++) {
+      const pxX = textLeft + col;
+      for (let row = scanH - 1; row >= 0; row--) {
+        const idx = (row * scanW + col) * 4;
+        const r = imgData[idx];
+        const g = imgData[idx + 1];
+        // Deteksi warna huruf merah (#ff1744: r > 120 dan r jauh lebih tinggi dari g)
+        if (r > 120 && r > g + 25) {
+          validBottoms.push({ x: pxX, bottomY: scanTop + row });
+          break;
         }
       }
     }
+
+    if (validBottoms.length === 0) return;
+
+    offCtx.save();
+
+    for (let i = 0; i < bloodDrips.length; i++) {
+      const d = bloodDrips[i];
+      const entryIdx = Math.min(
+        Math.floor(d.targetRatio * validBottoms.length),
+        validBottoms.length - 1
+      );
+      const col = validBottoms[entryIdx];
+      d.anchorX = col.x;
+      d.anchorY = col.bottomY;
+
+      // 1. Aliran darah kental merembes memanjang ke bawah menempel pada dasar huruf
+      if (d.streamLen < d.maxStreamLen) {
+        d.streamLen += d.streamSpeed;
+      } else if (!d.dropActive) {
+        // Aliran meregang maksimal, tetesan darah putus & jatuh ke bawah
+        d.dropActive = true;
+        d.dropY = d.anchorY + d.streamLen;
+        d.dropVy = 0.35 + Math.random() * 0.25;
+        d.streamLen = Math.max(1, d.streamLen * 0.35); // Elastic snap-back
+        d.maxStreamLen = 5 + Math.random() * 14;
+      }
+
+      // Gambar aliran darah vertikal menempel persis di bawah huruf
+      const sLen = Math.floor(d.streamLen);
+      if (sLen > 0) {
+        offCtx.fillStyle = d.color;
+        offCtx.fillRect(d.anchorX, d.anchorY + 1, 1, sLen);
+
+        // Ujung bulir tetesan yang menggantung
+        offCtx.fillStyle = "#ff2a55";
+        offCtx.fillRect(d.anchorX, d.anchorY + sLen, 1, 1);
+      }
+
+      // 2. Partikel tetesan darah jatuh gravitasi (Smooth gravity acceleration)
+      if (d.dropActive) {
+        d.dropVy += 0.042; // Akselerasi gravitasi mulus ke bawah
+        d.dropY += d.dropVy;
+
+        const curDropY = Math.round(d.dropY);
+        // Motion stretch: saat jatuh lebih cepat, partikel memanjang 1-2 piksel agar mulus di terminal ASCII
+        const stretch = Math.min(2, Math.max(1, Math.round(d.dropVy * 0.85)));
+
+        if (curDropY < height - 2) {
+          offCtx.fillStyle = d.color;
+          offCtx.fillRect(d.anchorX, curDropY, 1, stretch);
+        } else {
+          // Menyentuh lantai: tetesan menyerap ke genangan bawah dan reset
+          if (d.anchorX >= 0 && d.anchorX < width) {
+            floorPool[d.anchorX] = Math.min(3, (floorPool[d.anchorX] || 0) + 1);
+          }
+          d.dropActive = false;
+          d.targetRatio = (Math.random() * 0.9 + (i / bloodDrips.length) * 0.1);
+        }
+      }
+    }
+
+    // 3. Efek genangan darah tipis organik di lantai (floor puddles)
+    for (let x = 0; x < width; x++) {
+      if (floorPool[x] > 0) {
+        const pLvl = floorPool[x];
+        offCtx.fillStyle = pLvl >= 2 ? "#b7094c" : "#89021b";
+        offCtx.fillRect(Math.max(0, x - 1), height - 1, 3, 1);
+        if (Math.random() < 0.015) {
+          floorPool[x]--;
+        }
+      }
+    }
+
     offCtx.restore();
   };
 
@@ -516,32 +603,41 @@
     const fontSty = item.fontStyle || '700';
     offCtx.font = `${fontSty} ${size}px ${fontFam}`;
 
-    // Word-wrapping dinamis berbasis pengukuran piksel teks persis referensi
-    const words = text.split(" ");
+    // Word-wrapping dinamis: untuk baris singleLine/bleeding ("Belalang Sembah"), pertahankan 1 baris utuh
     let lines = [];
-    let currentLine = words[0] || "";
-
-    for (let i = 1; i < words.length; i++) {
-      let word = words[i];
-      let w = offCtx.measureText(currentLine + " " + word).width;
-      if (w < maxW) {
-        currentLine += " " + word;
-      } else {
-        lines.push(currentLine);
-        currentLine = word;
+    if (item.singleLine || item.bleeding) {
+      lines = [text];
+      const lw = offCtx.measureText(text).width;
+      if (lw > maxW) {
+        size = Math.floor(size * (maxW / lw));
+        offCtx.font = `${fontSty} ${size}px ${fontFam}`;
       }
-    }
-    lines.push(currentLine);
+    } else {
+      const words = text.split(" ");
+      let currentLine = words[0] || "";
 
-    // Auto-scale jika ada baris yang masih melebihi batas kanvas
-    let maxLineWidth = 0;
-    for (let i = 0; i < lines.length; i++) {
-      const lw = offCtx.measureText(lines[i]).width;
-      if (lw > maxLineWidth) maxLineWidth = lw;
-    }
-    if (maxLineWidth > maxW) {
-      size = Math.floor(size * (maxW / maxLineWidth));
-      offCtx.font = `${fontSty} ${size}px ${fontFam}`;
+      for (let i = 1; i < words.length; i++) {
+        let word = words[i];
+        let w = offCtx.measureText(currentLine + " " + word).width;
+        if (w < maxW) {
+          currentLine += " " + word;
+        } else {
+          lines.push(currentLine);
+          currentLine = word;
+        }
+      }
+      lines.push(currentLine);
+
+      // Auto-scale jika ada baris yang masih melebihi batas kanvas
+      let maxLineWidth = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const lw = offCtx.measureText(lines[i]).width;
+        if (lw > maxLineWidth) maxLineWidth = lw;
+      }
+      if (maxLineWidth > maxW) {
+        size = Math.floor(size * (maxW / maxLineWidth));
+        offCtx.font = `${fontSty} ${size}px ${fontFam}`;
+      }
     }
 
     const lineHeight = Math.round(size * 1.20);
@@ -558,10 +654,10 @@
       offCtx.fillText(line, cx + swayX, lineY);
     }
 
-    // 🩸 Efek Berdarah (Blood Drips) khusus saat lirik "Belalang sembah"
+    // 🩸 Efek Berdarah (Blood Drips) presisi murni menetes dari huruf "Belalang Sembah" (B sampai h)
     if (item.bleeding) {
-      const bottomY = Math.round(startY + (lines.length * lineHeight / 2) + 1);
-      updateAndDrawBloodDrips(time, cx + swayX, bottomY);
+      const textW = offCtx.measureText(text).width;
+      updateAndDrawBloodDrips(time, cx + swayX, startY, size, textW);
     }
 
     offCtx.restore();
@@ -713,6 +809,7 @@
       if (audioElement && targetItem.startSec !== undefined) {
         audioElement.currentTime = targetItem.startSec;
       }
+      if (!targetItem || !targetItem.bleeding) resetBloodDrips();
       const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
       triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
       lastLyricIndex = nextIndex;
@@ -725,6 +822,7 @@
       if (audioElement && targetItem.startSec !== undefined) {
         audioElement.currentTime = targetItem.startSec;
       }
+      if (!targetItem || !targetItem.bleeding) resetBloodDrips();
       const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
       triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
       lastLyricIndex = prevIndex;
@@ -760,6 +858,7 @@
             audioElement.currentTime = config.audioStartTime;
             currentLyricIndex = 0;
             lastLyricIndex = -1;
+            resetBloodDrips();
           } else {
             isPaused = true;
             audioElement.pause();
@@ -774,9 +873,10 @@
             if (curTime >= item.startSec && curTime < item.endSec) {
               if (currentLyricIndex !== i) {
                 currentLyricIndex = i;
+                if (!item.bleeding) resetBloodDrips();
                 const isChorus = Boolean(item && (item.dramatic || item.bleeding));
                 if (isChorus) {
-                  // Glitch intens Chorus 2 ("Belalang sembah")
+                  // Glitch intens Chorus 2 ("Belalang Sembah")
                   triggerGlitch(360, 0.9, true);
                 } else {
                   // Glitch transisi lirik biasa
@@ -798,6 +898,7 @@
           const nextIndex = (currentLyricIndex + 1) % config.lyrics.length;
           currentLyricIndex = nextIndex;
           const targetItem = config.lyrics[nextIndex];
+          if (!targetItem || !targetItem.bleeding) resetBloodDrips();
           const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
           triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
           lastLyricIndex = nextIndex;
