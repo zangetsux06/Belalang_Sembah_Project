@@ -64,16 +64,16 @@ html, body {
   background: #000000 !important;
   color: #ffffff;
   font-family: "SF Mono", "Courier New", "Consolas", "JetBrains Mono", monospace;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
   white-space: pre;
   margin: auto;
   line-height: 1.0;
-  letter-spacing: 2px;
+  letter-spacing: 1.2px;
   overflow: hidden;
   cursor: pointer;
   user-select: none;
-  filter: brightness(1.25);
+  filter: brightness(1.18);
 }
 
 #ascii-container div {

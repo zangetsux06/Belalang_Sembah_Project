@@ -23,8 +23,8 @@
         startSec: 135.8,
         endSec: 140.0,
         showMs: 4200,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -37,8 +37,8 @@
         startSec: 140.0,
         endSec: 144.2,
         showMs: 4200,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -51,8 +51,8 @@
         startSec: 144.2,
         endSec: 148.2,
         showMs: 4000,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -65,8 +65,8 @@
         startSec: 148.2,
         endSec: 152.4,
         showMs: 4200,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -81,8 +81,8 @@
         startSec: 152.4,
         endSec: 156.4,
         showMs: 4000,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -95,8 +95,8 @@
         startSec: 156.4,
         endSec: 160.8,
         showMs: 4400,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -109,8 +109,8 @@
         startSec: 160.8,
         endSec: 164.8,
         showMs: 4000,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -123,8 +123,8 @@
         startSec: 164.8,
         endSec: 169.5,
         showMs: 4700,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -134,15 +134,30 @@
       },
 
       // --- MOMENT 3 (02:49.5 - 03:08.6): KULTUS PEMUJAAN BELALANG SEMBAH (CHORUS 2) ---
+      // Dipisah berurutan: "Maka jadikanku" -> lalu lanjut "Belalang sembah"
       {
-        text: "Maka jadikanku belalang sembah",
+        text: "Maka jadikanku",
         startSec: 169.5,
+        endSec: 173.0,
+        showMs: 3500,
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
+        fontSize: 16,
+        palette: {
+          core: "#ffffff",
+          gradient: ["#ffffff", "#ff2a55", "#d90429"],
+          spark: "#ff2a55"
+        }
+      },
+      {
+        text: "Belalang sembah",
+        startSec: 173.0,
         endSec: 178.0,
-        showMs: 8500,
-        // CHORUS KLIMAKS! Font Arial Black 900 tebal solid, efek glitch ASCII lirik elektrik
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
-        fontSize: 15,
+        showMs: 5000,
+        // Drop klimaks chorus!
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
+        fontSize: 18,
         dramatic: true,
         palette: {
           core: "#ffffff",
@@ -155,8 +170,8 @@
         startSec: 178.0,
         endSec: 185.2,
         showMs: 7200,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -169,8 +184,8 @@
         startSec: 185.2,
         endSec: 189.0,
         showMs: 3800,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
@@ -185,8 +200,8 @@
         startSec: 189.0,
         endSec: 191.8,
         showMs: 2800,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 16,
         palette: {
           core: "#ffffff",
@@ -199,8 +214,8 @@
         startSec: 191.8,
         endSec: 194.6,
         showMs: 2800,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 16,
         palette: {
           core: "#ffffff",
@@ -213,8 +228,8 @@
         startSec: 194.6,
         endSec: 198.5,
         showMs: 3900,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 15,
         palette: {
           core: "#ffffff",
@@ -227,8 +242,8 @@
         startSec: 198.5,
         endSec: 202.5,
         showMs: 4000,
-        fontFamily: '"Arial Black", Impact, sans-serif',
-        fontStyle: "900",
+        fontFamily: '"Space Grotesk", "Arial", sans-serif',
+        fontStyle: "700",
         fontSize: 15,
         palette: {
           core: "#ffffff",
@@ -244,15 +259,16 @@
   };
 
   // =========================================================================
-  // ⚡ 2. KARAKTER SHIMMER & KAMUS TINGKAT KECERAHAN ASCII (SPEK REFERENSI)
+  // ⚡ 2. KARAKTER SHIMMER & KAMUS TINGKAT KECERAHAN ASCII (SPEK REFERENSI BERSIH)
+  // Karakter seimbang, bersih, tidak terlalu tebal atau berhimpitan
   // =========================================================================
   const charsFixed = [
-    " ", ".", ",", "-", "=", "+", "i", "s", "c", "b", "a", "!", "?",
+    " ", ".", ":", "-", "=", "+", "i", "s", "c", "!", "?",
     "0", "1", "2", "3", "4", "5", "6",
-    ["9", "8"],
+    ["8", "9"],
     ["@", "#"],
     ["X", "Y", "Z"],
-    ["W", "M", "B"]
+    ["#", "%", "*"]
   ];
   const charsLength = charsFixed.length;
   const MAX_COLOR_INDEX = 650;
@@ -419,7 +435,7 @@
     offCtx.textBaseline = "middle";
 
     // 1. Judul Atas: Jelas, Tebal, dan Mudah Dibaca
-    offCtx.font = '900 11px "Arial Black", Impact, sans-serif';
+    offCtx.font = 'bold 11px "Space Grotesk", "Arial", sans-serif';
     const titleGrad = offCtx.createLinearGradient(cx - 55, 11, cx + 55, 11);
     titleGrad.addColorStop(0, "#ff2a55");
     titleGrad.addColorStop(0.3, "#ffffff");
@@ -468,7 +484,7 @@
     offCtx.stroke();
 
     // 3. Subtitle Artis: Jelas & Tajam
-    offCtx.font = '900 10px "Arial Black", Impact, sans-serif';
+    offCtx.font = 'bold 10px "Space Grotesk", "Arial", sans-serif';
     const artistGrad = offCtx.createLinearGradient(cx - 30, 57, cx + 30, 57);
     artistGrad.addColorStop(0, "#ff1744");
     artistGrad.addColorStop(0.5, "#ffffff");
@@ -480,8 +496,8 @@
   };
 
   // =========================================================================
-  // ✍️ 7. RENDER TEKS LIRIK: FONT ARIAL BLACK / IMPACT 900 SESUAI REFERENSI
-  // Word-wrap dinamis berbasis measureText & kalkulasi posisi vertikal presisi
+  // ✍️ 7. RENDER TEKS LIRIK: TEMA OBSESI KEMERAHAN BERSIH & PROPORSIONAL
+  // Word-wrap dinamis berbasis measureText & ketebalan huruf seimbang elegan
   // =========================================================================
   const drawLyricScene = (item, time, bass) => {
     if (!item || !item.text) return;
@@ -506,8 +522,8 @@
 
     const maxW = width * 0.90;
     let size = item.fontSize || 14;
-    const fontFam = item.fontFamily || '"Arial Black", Impact, sans-serif';
-    const fontSty = item.fontStyle || '900';
+    const fontFam = item.fontFamily || '"Space Grotesk", "Arial", sans-serif';
+    const fontSty = item.fontStyle || '700';
     offCtx.font = `${fontSty} ${size}px ${fontFam}`;
 
     // Word-wrapping dinamis berbasis pengukuran piksel teks persis referensi
@@ -538,7 +554,7 @@
       offCtx.font = `${fontSty} ${size}px ${fontFam}`;
     }
 
-    const lineHeight = Math.round(size * 1.16);
+    const lineHeight = Math.round(size * 1.20);
     const totalHeight = lines.length * lineHeight;
     const startY = (height / 2) - (totalHeight / 2) + (lineHeight / 2) + swayY;
 
