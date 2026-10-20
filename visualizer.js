@@ -4,14 +4,15 @@
  * =========================================================================
  * File: visualizer.js
  * Deskripsi: Mesin Real-Time Pixel-to-ASCII Lyric Visualizer hidup & bernapas
- * dengan tema obsesi mendalam (nuansa crimson/kemerahan obsesif), banner
- * pembuka resmi yang tajam & jelas, animasi dramatis khusus Chorus 2
- * ("Maka jadikanku belalang sembah"), serta transisi mulus bebas bug.
+ * dengan tema obsesi kemerahan (Crimson/Blood-Red Obsession), banner pembuka
+ * resmi tajam & jelas, transisi lirik instan langsung ganti tanpa jeda/fade,
+ * serta animasi dramatis ritual khusus Chorus 2 ("Maka jadikanku belalang sembah").
  */
 
 (() => {
   // =========================================================================
-  // 🎵 1. PANDUAN PENGATURAN LIRIK (VERSE 2 & CHORUS 2) DENGAN TEMA OBSESI MENDALAM
+  // 🎵 1. PANDUAN PENGATURAN LIRIK (VERSE 2 & CHORUS 2) - TEMA KEMERAHAN OBSESIF
+  // Seluruh timestamp dirancang rapat kontinu (seamless direct cut tanpa jeda).
   // =========================================================================
   const config = {
     lyrics: [
@@ -19,65 +20,61 @@
       {
         text: "Jumlah rambutmu 'kan kuhafal mati",
         startSec: 135.8,
-        endSec: 139.6,
-        showMs: 3800,
-        hideMs: 400,
+        endSec: 140.0,
+        showMs: 4200,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#e60050"],
-          halo: "rgba(255, 42, 85, 0.35)",
-          spark: "#ff4d6d"
+          gradient: ["#ffffff", "#ff1744", "#d90429"],
+          halo: "rgba(255, 23, 68, 0.35)",
+          spark: "#ff1744"
         }
       },
       {
         text: "Rute pulangmu telah kupelajari",
         startSec: 140.0,
-        endSec: 143.8,
-        showMs: 3800,
-        hideMs: 400,
+        endSec: 144.2,
+        showMs: 4200,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff3366", "#00f0ff"],
-          halo: "rgba(255, 51, 102, 0.32)",
-          spark: "#ff3366"
+          gradient: ["#ffffff", "#ff2a55", "#ff5252"],
+          halo: "rgba(255, 42, 85, 0.35)",
+          spark: "#ff2a55"
         }
       },
       {
         text: "Kutahu nama anak kita nanti",
         startSec: 144.2,
-        endSec: 147.8,
-        showMs: 3600,
-        hideMs: 400,
+        endSec: 148.2,
+        showMs: 4000,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff4081", "#ffd700"],
-          halo: "rgba(255, 64, 129, 0.35)",
-          spark: "#ffd700"
+          gradient: ["#ffffff", "#ff2a55", "#e60039"],
+          halo: "rgba(255, 42, 85, 0.35)",
+          spark: "#ff2a55"
         }
       },
       {
         text: "Suatu saat kau pasti mengerti",
         startSec: 148.2,
-        endSec: 152.0,
-        showMs: 3800,
-        hideMs: 400,
+        endSec: 152.4,
+        showMs: 4200,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff0055", "#b3003b"],
-          halo: "rgba(255, 0, 85, 0.38)",
-          spark: "#ff0055"
+          gradient: ["#ffffff", "#e60026", "#b3001e"],
+          halo: "rgba(230, 0, 38, 0.38)",
+          spark: "#ff1744"
         }
       },
 
@@ -85,25 +82,23 @@
       {
         text: "Walau upahku dalam sebulan",
         startSec: 152.4,
-        endSec: 156.0,
-        showMs: 3600,
-        hideMs: 400,
+        endSec: 156.4,
+        showMs: 4000,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 15,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff5722", "#ff1744"],
-          halo: "rgba(255, 87, 34, 0.35)",
-          spark: "#ff5722"
+          gradient: ["#ffffff", "#ff3344", "#d90429"],
+          halo: "rgba(255, 51, 68, 0.35)",
+          spark: "#ff3344"
         }
       },
       {
         text: "Hanya porsimu dalam sehari",
         startSec: 156.4,
-        endSec: 160.4,
-        showMs: 4000,
-        hideMs: 400,
+        endSec: 160.8,
+        showMs: 4400,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 15,
@@ -119,31 +114,29 @@
         startSec: 160.8,
         endSec: 164.8,
         showMs: 4000,
-        hideMs: 400,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff007f", "#9333ea"],
-          halo: "rgba(255, 0, 127, 0.35)",
-          spark: "#ff007f"
+          gradient: ["#ffffff", "#ff1744", "#d90429"],
+          halo: "rgba(255, 23, 68, 0.35)",
+          spark: "#ff1744"
         }
       },
       {
         text: "Aku yakin kau bisa mengerti",
         startSec: 164.8,
-        endSec: 168.8,
-        showMs: 4000,
-        hideMs: 600,
+        endSec: 169.5,
+        showMs: 4700,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 15,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#ffa114"],
-          halo: "rgba(255, 23, 68, 0.40)",
-          spark: "#ff1744"
+          gradient: ["#ffffff", "#ff2a55", "#d90429"],
+          halo: "rgba(255, 42, 85, 0.38)",
+          spark: "#ff2a55"
         }
       },
 
@@ -151,51 +144,48 @@
       {
         text: "Maka jadikanku belalang sembah",
         startSec: 169.5,
-        endSec: 177.5,
-        showMs: 8000,
-        hideMs: 500,
-        // CHORUS KLIMAKS! Sakral, dramatis, altar shockwave, Cinzel monumental
+        endSec: 178.0,
+        showMs: 8500,
+        // CHORUS KLIMAKS! Sakral, altar shockwave kemerahan mendalam, font Cinzel monumental
         fontFamily: "'Cinzel', serif",
         fontStyle: "900",
         fontSize: 16,
         dramatic: true,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#ffd700"],
-          halo: "rgba(255, 23, 68, 0.52)",
-          spark: "#ffd700"
+          gradient: ["#ffffff", "#ff1744", "#d90429"],
+          halo: "rgba(255, 23, 68, 0.55)",
+          spark: "#ff1744"
         }
       },
       {
         text: "Walau sebentar kupercaya indah",
         startSec: 178.0,
-        endSec: 184.8,
-        showMs: 6800,
-        hideMs: 400,
+        endSec: 185.2,
+        showMs: 7200,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff4081", "#c084fc"],
-          halo: "rgba(255, 64, 129, 0.35)",
-          spark: "#ff4081"
+          gradient: ["#ffffff", "#ff2a55", "#e60039"],
+          halo: "rgba(255, 42, 85, 0.35)",
+          spark: "#ff2a55"
         }
       },
       {
         text: "Seberapa banyak, seberapa mahal",
         startSec: 185.2,
-        endSec: 188.6,
-        showMs: 3400,
-        hideMs: 400,
+        endSec: 189.0,
+        showMs: 3800,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 14,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff3d00", "#ffd700"],
-          halo: "rgba(255, 61, 0, 0.35)",
-          spark: "#ffd700"
+          gradient: ["#ffffff", "#ff2a55", "#d90429"],
+          halo: "rgba(255, 42, 85, 0.35)",
+          spark: "#ff2a55"
         }
       },
 
@@ -203,9 +193,8 @@
       {
         text: "Semua 'kan kuberi",
         startSec: 189.0,
-        endSec: 191.4,
-        showMs: 2400,
-        hideMs: 400,
+        endSec: 191.8,
+        showMs: 2800,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 18,
@@ -219,15 +208,14 @@
       {
         text: "Semua 'kan kugadai",
         startSec: 191.8,
-        endSec: 194.2,
-        showMs: 2400,
-        hideMs: 400,
+        endSec: 194.6,
+        showMs: 2800,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 18,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#ff3366"],
+          gradient: ["#ffffff", "#ff1744", "#d90429"],
           halo: "rgba(255, 23, 68, 0.45)",
           spark: "#ff1744"
         }
@@ -235,15 +223,14 @@
       {
         text: "Matikan aku setelah usai",
         startSec: 194.6,
-        endSec: 198.0,
-        showMs: 3400,
-        hideMs: 500,
+        endSec: 198.5,
+        showMs: 3900,
         fontFamily: "'Cinzel', serif",
         fontStyle: "900",
         fontSize: 16,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#e60026", "#ff4d6d"],
+          gradient: ["#ffffff", "#e60026", "#d90429"],
           halo: "rgba(230, 0, 38, 0.45)",
           spark: "#e60026"
         }
@@ -253,15 +240,14 @@
         startSec: 198.5,
         endSec: 202.5,
         showMs: 4000,
-        hideMs: 1000,
         fontFamily: "'Space Grotesk', sans-serif",
         fontStyle: "700",
         fontSize: 15,
         palette: {
           core: "#ffffff",
-          gradient: ["#ffffff", "#ff758f", "#c084fc"],
-          halo: "rgba(255, 117, 143, 0.30)",
-          spark: "#ff758f"
+          gradient: ["#ffffff", "#ff4d6d", "#d90429"],
+          halo: "rgba(255, 77, 109, 0.32)",
+          spark: "#ff4d6d"
         }
       }
     ],
@@ -304,10 +290,7 @@
   let currentLyricIndex = 0;
   let lastTime = 0;
   let timeAccumulator = 0;
-  let isShowing = true;
   let isPaused = false;
-  let isGlitchActive = false;
-  let glitchTimeout = null;
 
   // Web Audio API Analyser
   let audioCtx = null;
@@ -338,16 +321,6 @@
     return lowFreq / 255;
   };
 
-  const triggerGlitch = (duration = 110) => {
-    isGlitchActive = true;
-    if (outputWrapper) outputWrapper.classList.add("glitching");
-    clearTimeout(glitchTimeout);
-    glitchTimeout = setTimeout(() => {
-      isGlitchActive = false;
-      if (outputWrapper) outputWrapper.classList.remove("glitching");
-    }, duration);
-  };
-
   // =========================================================================
   // 📐 4. SISTEM ADAPTIF UKURAN LAYAR PENUH (FULLSCREEN RESPONSIVE SCALING)
   // =========================================================================
@@ -374,6 +347,7 @@
 
   // =========================================================================
   // 🌟 5. SIMULASI PARTIKEL POINTILLISM HIDUP (ORGANIC LIVING SPARKS)
+  // Serpihan bara api merah melayang organik
   // =========================================================================
   const maxSparks = 65;
   const sparkParticles = [];
@@ -388,7 +362,7 @@
     });
   }
 
-  const updateAndDrawSparks = (time, baseColor, count = 42) => {
+  const updateAndDrawSparks = (time, baseColor, count = 40) => {
     offCtx.save();
     const activeCount = Math.min(count, maxSparks);
     for (let i = 0; i < activeCount; i++) {
@@ -404,7 +378,7 @@
 
       const alpha = Math.sin(p.life * Math.PI) * 0.75;
       if (alpha > 0.05) {
-        offCtx.fillStyle = baseColor || "#ff2a55";
+        offCtx.fillStyle = baseColor || "#ff1744";
         offCtx.globalAlpha = alpha;
         offCtx.fillRect(p.x, p.y, p.size, p.size);
       }
@@ -414,7 +388,7 @@
 
   // =========================================================================
   // 🏛️ 6. INTRO BANNER RESMI .FEAST (DETIK 133.0 - 135.8 / 02:13.0)
-  // Didesain tajam, terbaca jelas, dan beresolusi tinggi dalam format ASCII
+  // Format tajam, kontras tinggi, dan mudah dibaca dalam gaya kemerahan obsesif
   // =========================================================================
   const drawIntroScene = (time, curTime, bass) => {
     const cx = width / 2;
@@ -422,8 +396,8 @@
     offCtx.fillStyle = "#000000";
     offCtx.fillRect(0, 0, width, height);
 
-    // Ethereal red-gold spark embers di latar
-    updateAndDrawSparks(time, "rgba(255, 42, 85, 0.45)", 35);
+    // Ethereal crimson spark embers di latar
+    updateAndDrawSparks(time, "rgba(255, 23, 68, 0.45)", 35);
 
     offCtx.save();
     offCtx.textAlign = "center";
@@ -432,10 +406,10 @@
     // 1. Judul Atas: Jelas, Tebal, dan Mudah Dibaca
     offCtx.font = "bold 11px 'Space Grotesk', sans-serif";
     const titleGrad = offCtx.createLinearGradient(cx - 55, 11, cx + 55, 11);
-    titleGrad.addColorStop(0, "#ff4d6d");
+    titleGrad.addColorStop(0, "#ff2a55");
     titleGrad.addColorStop(0.3, "#ffffff");
     titleGrad.addColorStop(0.7, "#ffffff");
-    titleGrad.addColorStop(1, "#ffd700");
+    titleGrad.addColorStop(1, "#d90429");
     offCtx.fillStyle = titleGrad;
     offCtx.fillText("BELALANG SEMBAH", cx, 11);
 
@@ -451,14 +425,14 @@
       offCtx.drawImage(coverImg, imgX, imgY, imgSize, imgSize);
       offCtx.filter = "none";
     } else {
-      offCtx.fillStyle = "#ffd700";
+      offCtx.fillStyle = "#ff1744";
       offCtx.beginPath();
       offCtx.arc(cx, imgY + 16, 12, 0, Math.PI * 2);
       offCtx.fill();
     }
 
-    // Bingkai Ornamen Sudut Emas-Kemerahan
-    offCtx.strokeStyle = "#ff2a55";
+    // Bingkai Ornamen Sudut Kemerahan
+    offCtx.strokeStyle = "#ff1744";
     offCtx.lineWidth = 1;
     const pad = 2;
     const bx = imgX - pad;
@@ -481,9 +455,9 @@
     // 3. Subtitle Artis: Jelas & Tajam
     offCtx.font = "bold 10px 'Space Grotesk', sans-serif";
     const artistGrad = offCtx.createLinearGradient(cx - 30, 57, cx + 30, 57);
-    artistGrad.addColorStop(0, "#ffd700");
+    artistGrad.addColorStop(0, "#ff1744");
     artistGrad.addColorStop(0.5, "#ffffff");
-    artistGrad.addColorStop(1, "#ff1744");
+    artistGrad.addColorStop(1, "#d90429");
     offCtx.fillStyle = artistGrad;
     offCtx.fillText(". F E A S T", cx, 57);
 
@@ -491,7 +465,7 @@
   };
 
   // =========================================================================
-  // ✍️ 7. RENDER TEKS LIRIK DENGAN TEMA OBSESI MENDALAM & ANIMASI DRAMATIS
+  // ✍️ 7. RENDER TEKS LIRIK: TEMA OBSESI KEMERAHAN & ANIMASI DRAMATIS
   // =========================================================================
   const drawLyricScene = (item, time, bass) => {
     if (!item || !item.text) return;
@@ -508,12 +482,12 @@
     const swayY = Math.cos(time * 0.0022) * 0.7;
     const bassScale = 1.0 + (bass * 0.06);
 
-    // Ethereal Obsessive Halo Aura (Denyutan pendaran merah obsesif mendalam)
+    // Ethereal Obsessive Halo Aura (Kemerahan pekat berdenyut)
     if (item.palette && item.palette.halo) {
       const haloRadius = (item.dramatic ? 62 : 52) * bassScale;
       const haloGrad = offCtx.createRadialGradient(cx, cy, 2, cx, cy, haloRadius);
       haloGrad.addColorStop(0, item.palette.halo);
-      haloGrad.addColorStop(0.65, "rgba(180, 0, 35, 0.12)");
+      haloGrad.addColorStop(0.65, "rgba(217, 4, 41, 0.12)");
       haloGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
       offCtx.fillStyle = haloGrad;
       offCtx.fillRect(0, 0, width, height);
@@ -521,7 +495,7 @@
 
     // --- ANIMASI KHUSUS DRAMATIS: KULTUS BELALANG SEMBAH (CHORUS 2) ---
     if (item.dramatic) {
-      // 1. Gelombang Altar Sakral (Expanding Ritual Shockwaves)
+      // 1. Gelombang Altar Sakral Merah Darah (Expanding Ritual Shockwaves)
       const waveTime = time * 0.045;
       for (let w = 0; w < 3; w++) {
         const r = (waveTime + w * 22) % 68;
@@ -533,9 +507,9 @@
         offCtx.stroke();
       }
 
-      // 2. Berkas Sinar Ritual Diagonal Emas
+      // 2. Berkas Sinar Ritual Diagonal Kemerahan
       offCtx.save();
-      offCtx.strokeStyle = "rgba(255, 215, 0, 0.18)";
+      offCtx.strokeStyle = "rgba(255, 42, 85, 0.18)";
       offCtx.lineWidth = 1;
       for (let a = 0; a < 8; a++) {
         const angle = (a * Math.PI / 4) + (time * 0.0008);
@@ -546,10 +520,10 @@
       }
       offCtx.restore();
 
-      // Partikel bara api pengorbanan ekstra intens
+      // Partikel bara api kemerahan ekstra intens
       updateAndDrawSparks(time, "#ff1744", 60);
     } else {
-      updateAndDrawSparks(time, item.palette ? item.palette.spark : "#ff2a55", 38);
+      updateAndDrawSparks(time, item.palette ? item.palette.spark : "#ff1744", 38);
     }
 
     // Pembagian baris lirik otomatis agar pas di layar
@@ -581,7 +555,7 @@
         textW = offCtx.measureText(lines[0]).width;
       }
 
-      // Gradasi terang: Batang huruf dijamin putih solid (#ffffff), tepi berpendar kemerahan
+      // Gradasi kemerahan obsesif: Inti huruf putih solid (#ffffff), tepian merah crimson
       const p = item.palette;
       const grad = offCtx.createLinearGradient(cx - (textW / 2), cy, cx + (textW / 2), cy);
       if (p && p.gradient && p.gradient.length >= 3) {
@@ -591,9 +565,9 @@
         grad.addColorStop(0.75, "#ffffff");
         grad.addColorStop(1, p.gradient[2]);
       } else {
-        grad.addColorStop(0, "#ff2a55");
+        grad.addColorStop(0, "#ff1744");
         grad.addColorStop(0.5, "#ffffff");
-        grad.addColorStop(1, "#ff2a55");
+        grad.addColorStop(1, "#d90429");
       }
       offCtx.fillStyle = grad;
       offCtx.fillText(lines[0], cx + swayX, cy + swayY);
@@ -619,8 +593,8 @@
         grad1.addColorStop(0, p.gradient[1]); grad1.addColorStop(0.3, "#ffffff"); grad1.addColorStop(0.7, "#ffffff"); grad1.addColorStop(1, p.gradient[2]);
         grad2.addColorStop(0, p.gradient[2]); grad2.addColorStop(0.3, "#ffffff"); grad2.addColorStop(0.7, "#ffffff"); grad2.addColorStop(1, p.gradient[1]);
       } else {
-        grad1.addColorStop(0, "#ff2a55"); grad1.addColorStop(0.5, "#ffffff"); grad1.addColorStop(1, "#ff2a55");
-        grad2.addColorStop(0, "#ff2a55"); grad2.addColorStop(0.5, "#ffffff"); grad2.addColorStop(1, "#ff2a55");
+        grad1.addColorStop(0, "#ff1744"); grad1.addColorStop(0.5, "#ffffff"); grad1.addColorStop(1, "#d90429");
+        grad2.addColorStop(0, "#ff1744"); grad2.addColorStop(0.5, "#ffffff"); grad2.addColorStop(1, "#d90429");
       }
 
       offCtx.fillStyle = grad1;
@@ -667,15 +641,9 @@
           );
           const result = charsFixed[charIndex];
 
-          let char;
-          if (isGlitchActive && Math.random() < 0.16) {
-            const glitchGlyphs = ["†", "‡", "§", "ø", "X", "✦", "#", "!", "?"];
-            char = glitchGlyphs[Math.floor(Math.random() * glitchGlyphs.length)];
-          } else {
-            char = Array.isArray(result)
-              ? result[Math.floor(Math.random() * result.length)]
-              : result;
-          }
+          const char = Array.isArray(result)
+            ? result[Math.floor(Math.random() * result.length)]
+            : result;
 
           const qr = Math.round(r / 4) * 4;
           const qg = Math.round(g / 4) * 4;
@@ -766,8 +734,6 @@
       e.preventDefault();
       currentLyricIndex = (currentLyricIndex + 1) % config.lyrics.length;
       timeAccumulator = 0;
-      isShowing = true;
-      triggerGlitch(120);
       if (audioElement && config.lyrics[currentLyricIndex].startSec !== undefined) {
         audioElement.currentTime = config.lyrics[currentLyricIndex].startSec;
       }
@@ -775,8 +741,6 @@
       e.preventDefault();
       currentLyricIndex = (currentLyricIndex - 1 + config.lyrics.length) % config.lyrics.length;
       timeAccumulator = 0;
-      isShowing = true;
-      triggerGlitch(120);
       if (audioElement && config.lyrics[currentLyricIndex].startSec !== undefined) {
         audioElement.currentTime = config.lyrics[currentLyricIndex].startSec;
       }
@@ -789,7 +753,8 @@
   });
 
   // =========================================================================
-  // 🔄 10. LOOP ANIMASI REAL-TIME (60 FPS) DENGAN TRANSISI BEBAS BUG
+  // 🔄 10. LOOP ANIMASI REAL-TIME: PENGGANTIAN LIRIK LANGSUNG (DIRECT CUT)
+  // Tanpa fade in, tanpa fade out, tanpa blackout gap.
   // =========================================================================
   const updateLoop = (time) => {
     if (!isPaused) {
@@ -801,8 +766,6 @@
           if (config.isLooping) {
             audioElement.currentTime = config.audioStartTime;
             currentLyricIndex = 0;
-            isShowing = true;
-            triggerGlitch(150);
           } else {
             isPaused = true;
             audioElement.pause();
@@ -810,56 +773,26 @@
           return;
         }
 
-        let matched = false;
-        for (let i = 0; i < config.lyrics.length; i++) {
-          const item = config.lyrics[i];
-          if (item.startSec !== undefined && item.endSec !== undefined) {
-            if (curTime >= item.startSec && curTime <= item.endSec) {
-              if (currentLyricIndex !== i) {
-                currentLyricIndex = i;
-                triggerGlitch(120);
-              }
-              isShowing = true;
-              matched = true;
-              break;
-            } else if (i < config.lyrics.length - 1 && curTime > item.endSec && curTime < config.lyrics[i + 1].startSec) {
+        // Penggantian lirik langsung secara kontinu (Direct Cut)
+        if (curTime >= 135.8) {
+          for (let i = 0; i < config.lyrics.length; i++) {
+            const item = config.lyrics[i];
+            if (curTime >= item.startSec && curTime < item.endSec) {
               currentLyricIndex = i;
-              isShowing = false;
-              matched = true;
-              break;
-            } else if (i === config.lyrics.length - 1 && curTime > item.endSec) {
-              currentLyricIndex = i;
-              isShowing = false;
-              matched = true;
               break;
             }
           }
         }
-
-        if (!matched && curTime < 135.8) {
-          isShowing = false;
-        }
       } else {
-        // Fallback timer jika audio belum dimulai
+        // Fallback timer jika audio belum dimulai: ganti lirik langsung tanpa jeda
         if (lastTime === 0) lastTime = time;
         const deltaTime = time - lastTime;
         timeAccumulator += deltaTime;
 
         const currentLyric = config.lyrics[currentLyricIndex];
-        const currentPhaseDuration = isShowing ? currentLyric.showMs : currentLyric.hideMs;
-
-        if (timeAccumulator > currentPhaseDuration) {
+        if (timeAccumulator > (currentLyric ? currentLyric.showMs : 4000)) {
           timeAccumulator = 0;
-          if (isShowing) {
-            isShowing = false;
-          } else {
-            isShowing = true;
-            currentLyricIndex++;
-            if (currentLyricIndex >= config.lyrics.length) {
-              currentLyricIndex = config.isLooping ? 0 : config.lyrics.length - 1;
-            }
-            triggerGlitch(120);
-          }
+          currentLyricIndex = (currentLyricIndex + 1) % config.lyrics.length;
         }
       }
     }
@@ -870,9 +803,7 @@
       curTime = audioElement.currentTime;
     } else {
       const item = config.lyrics[currentLyricIndex];
-      const dur = item ? item.showMs : 3800;
-      const frac = Math.min(1, Math.max(0, timeAccumulator / dur));
-      curTime = item ? (item.startSec + frac * (item.endSec - item.startSec)) : config.audioStartTime;
+      curTime = item ? item.startSec : config.audioStartTime;
     }
 
     const bass = getBassEnergy();
@@ -881,31 +812,10 @@
     if (curTime < 135.8) {
       drawIntroScene(time, curTime, bass);
     } else {
-      // 2. Zona Lirik dengan Tema Obsesif
-      if (isShowing) {
-        const currentItem = config.lyrics[currentLyricIndex];
-        if (currentItem) {
-          drawLyricScene(currentItem, time, bass);
-        }
-      } else {
-        // Jeda antar lirik
-        offCtx.fillStyle = "#000000";
-        offCtx.fillRect(0, 0, width, height);
-
-        // TRANSISI KHUSUS DRAMATIS SEBELUM CHORUS 2 (168.8s - 169.5s)
-        // Lingkaran altar sakral mengumpul ke pusat, menyiapkan ledakan Chorus
-        if (curTime >= 168.8 && curTime < 169.5) {
-          const progress = (curTime - 168.8) / 0.7;
-          const gatherRadius = Math.max(6, 55 * (1 - progress));
-          offCtx.strokeStyle = `rgba(255, 23, 68, ${0.4 + progress * 0.4})`;
-          offCtx.lineWidth = 1.5;
-          offCtx.beginPath();
-          offCtx.arc(width / 2, height / 2, gatherRadius, 0, Math.PI * 2);
-          offCtx.stroke();
-          updateAndDrawSparks(time, "#ff1744", 45);
-        } else {
-          updateAndDrawSparks(time, "rgba(255, 42, 85, 0.28)", 28);
-        }
+      // 2. Zona Lirik: Langsung tampil tanpa jeda fade in / fade out
+      const currentItem = config.lyrics[currentLyricIndex];
+      if (currentItem) {
+        drawLyricScene(currentItem, time, bass);
       }
     }
 
