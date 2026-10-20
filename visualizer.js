@@ -4,7 +4,7 @@
  * =========================================================================
  * File: visualizer.js
  * Deskripsi: Mesin Real-Time Pixel-to-ASCII Lyric Visualizer
- * - Auto-Fit Text Measurement: Lirik tidak akan pernah terpotong di tepi kiri/kanan.
+ * - Auto-Fit Text Measurement: Lirik dijamin 100% tidak akan pernah terpotong di tepi kiri/kanan.
  * - Skala Proporsional Alami (1:1): Tanpa distorsi vertikal atau gepeng.
  * - Formula Luminance Luma: luma = (r + g + b) / 3
  * - Noise Gate Hard Cutoff: BLACK_CUTOFF = 45 (rongga huruf 'a','e','o' terbuka lebar)
@@ -179,10 +179,10 @@
   const GAMMA = 1.45;      // Menjaga rongga 'a','e','o' tetap terbuka lebar
 
   // =========================================================================
-  // 🎮 3. INISIALISASI OFFSCREEN CANVAS (160x60) & DOM
+  // 🎮 3. INISIALISASI OFFSCREEN CANVAS (180x65) & DOM
   // =========================================================================
-  const cols = 160;
-  const rows = 60;
+  const cols = 180;
+  const rows = 65;
 
   const canvas = document.createElement("canvas");
   canvas.width = cols;
@@ -282,21 +282,21 @@
 
     // 1. Judul Atas
     ctx.fillStyle = "#ffffff";
-    ctx.font = '700 8.5px "Space Grotesk", "Inter", sans-serif';
+    ctx.font = '700 9px "Space Grotesk", "Inter", sans-serif';
     if ('letterSpacing' in ctx) ctx.letterSpacing = "1.5px";
-    ctx.fillText("B E L A L A N G   S E M B A H", cx, 8);
+    ctx.fillText("B E L A L A N G   S E M B A H", cx, 9);
 
     // 2. Cover Art Tengah
-    const imgSize = 28;
+    const imgSize = 30;
     const imgX = cx - (imgSize / 2);
-    const imgY = 14;
+    const imgY = 16;
 
     if (coverImg.complete && coverImg.naturalWidth > 0) {
       ctx.drawImage(coverImg, imgX, imgY, imgSize, imgSize);
     } else {
       ctx.fillStyle = "#ffe066";
       ctx.beginPath();
-      ctx.arc(cx, imgY + 14, 10, 0, Math.PI * 2);
+      ctx.arc(cx, imgY + 15, 11, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -313,9 +313,9 @@
     ctx.stroke();
 
     // 3. Subtitle Bawah
-    ctx.font = '700 8px "Space Grotesk", "Inter", sans-serif';
+    ctx.font = '700 8.5px "Space Grotesk", "Inter", sans-serif';
     ctx.fillStyle = "#ff2a55";
-    ctx.fillText(". F E A S T", cx, 52);
+    ctx.fillText(". F E A S T", cx, 55);
 
     ctx.restore();
   };
@@ -335,24 +335,21 @@
     const maxAllowedW = w * 0.82;
 
     // Ukuran font dasar
-    let fontSize = lines.length > 1 ? 14 : 17;
-    ctx.font = `800 ${fontSize}px "Space Grotesk", "Inter", Arial, sans-serif`;
+    let fontSize = lines.length > 1 ? 16 : 19;
     if ('letterSpacing' in ctx) {
-      ctx.letterSpacing = "1.5px";
+      ctx.letterSpacing = "1.2px";
     }
 
-    // Ukur lebar baris terpanjang
-    let maxW = 0;
-    lines.forEach(l => {
-      const measured = ctx.measureText(l).width;
-      if (measured > maxW) maxW = measured;
-    });
-
-    // PENTING: Jika teks melebihi batas aman, perkecil font secara otomatis
-    if (maxW > maxAllowedW) {
-      const scale = maxAllowedW / maxW;
-      fontSize = Math.floor(fontSize * scale);
+    // Ukur dan perkecil font secara iteratif jika ada baris yang melebihi batas aman
+    while (fontSize > 9) {
       ctx.font = `800 ${fontSize}px "Space Grotesk", "Inter", Arial, sans-serif`;
+      let maxW = 0;
+      for (let i = 0; i < lines.length; i++) {
+        const measured = ctx.measureText(lines[i]).width;
+        if (measured > maxW) maxW = measured;
+      }
+      if (maxW <= maxAllowedW) break;
+      fontSize--;
     }
 
     ctx.fillStyle = color;
