@@ -4,11 +4,12 @@
  * =========================================================================
  * File: visualizer.js
  * Deskripsi: Mesin Real-Time Pixel-to-ASCII Lyric Visualizer
+ * - Auto-Fit Text Measurement: Lirik tidak akan pernah terpotong di tepi kiri/kanan.
+ * - Skala Proporsional Alami (1:1): Tanpa distorsi vertikal atau gepeng.
  * - Formula Luminance Luma: luma = (r + g + b) / 3
- * - Noise Gate Hard Cutoff: BLACK_CUTOFF = 48 (menghilangkan kabut/fringe)
- * - Koreksi Gamma: GAMMA = 1.55 (menjaga rongga huruf terbuka & tajam)
+ * - Noise Gate Hard Cutoff: BLACK_CUTOFF = 45 (rongga huruf 'a','e','o' terbuka lebar)
+ * - Koreksi Gamma: GAMMA = 1.45 (tepi huruf tipis, batang huruf solid)
  * - Palet Karakter Netral: [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"]
- * - letterSpacing 3.5px di Offscreen Canvas agar huruf tidak melebur jadi balok
  * - Layer Aura CSS terpisah di luar kanvas (zero leaking dots)
  */
 
@@ -170,22 +171,23 @@
   // =========================================================================
   // ⚡ 2. PALET KARAKTER NETRAL & PARAMETER KETAJAMAN
   // =========================================================================
-  // Simbol kepadatan simetris tanpa alfabet (W, M, B) agar tidak memicu interferensi kognitif
   const charsFixed = [" ", ".", ":", "-", "=", "+", "*", "#", "%", "@"];
   const charsLen = charsFixed.length;
 
   // Parameter Noise Gate & Gamma
-  const BLACK_CUTOFF = 48; // Piksel redup < 48 langsung dipotong menjadi spasi murni
-  const GAMMA = 1.55;      // Menekan anti-aliasing pinggir agar rongga 'a','e','o' tetap terbuka lebar
+  const BLACK_CUTOFF = 45; // Piksel redup < 45 langsung dipotong menjadi spasi murni
+  const GAMMA = 1.45;      // Menjaga rongga 'a','e','o' tetap terbuka lebar
 
   // =========================================================================
-  // 🎮 3. INISIALISASI OFFSCREEN CANVAS & DOM
+  // 🎮 3. INISIALISASI OFFSCREEN CANVAS (160x60) & DOM
   // =========================================================================
+  const cols = 160;
+  const rows = 60;
+
   const canvas = document.createElement("canvas");
+  canvas.width = cols;
+  canvas.height = rows;
   const ctx = canvas.getContext("2d", { willReadFrequently: true });
-
-  canvas.width = 180;  // 180 kolom karakter
-  canvas.height = 75;  // 75 baris karakter
 
   const asciiContainer = document.getElementById("ascii-container");
   const bgAura = document.getElementById("bg-aura");
@@ -221,7 +223,7 @@
       analyser.connect(audioCtx.destination);
       dataArray = new Uint8Array(analyser.frequencyBinCount);
     } catch (e) {
-      // Fallback diam
+      // Fallback
     }
   };
 
@@ -244,27 +246,21 @@
 
   // =========================================================================
   // 📐 4. SISTEM ADAPTIF UKURAN LAYAR PENUH (FULLSCREEN RESPONSIVE SCALING)
-  // Menyeimbangkan rasio monospace agar setiap sel karakter menjadi kotak presisi
+  // Menyesuaikan ukuran ASCII agar tepat proporsional di layar laptop/desktop
   // =========================================================================
   const fitAsciiToScreen = () => {
     if (!asciiContainer) return;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
 
-    // Kompensasi rasio monospace: line-height = 0.65 * fontSize
-    const fontSizeByH = (vh * 0.94) / (canvas.height * 0.65);
-    const fontSizeByW = (vw * 0.94) / (canvas.width * 0.60);
-    const fontSize = Math.floor(Math.min(fontSizeByH, fontSizeByW));
-    const lineHeight = (fontSize * 0.65).toFixed(1);
+    // Kompensasi rasio monospace: lebar per karakter ~ 0.60 font-size
+    const charH = (vh * 0.86) / rows;
+    const charW = (vw * 0.90) / (cols * 0.60);
+    const fontSize = Math.floor(Math.min(charH, charW));
 
     asciiContainer.style.fontSize = `${fontSize}px`;
-    asciiContainer.style.lineHeight = `${lineHeight}px`;
-    asciiContainer.style.letterSpacing = "0.5px";
-
-    const rows = document.querySelectorAll(".ascii-row");
-    rows.forEach(r => {
-      r.style.height = `${lineHeight}px`;
-    });
+    asciiContainer.style.lineHeight = `${fontSize}px`;
+    asciiContainer.style.letterSpacing = "0px";
   };
 
   window.addEventListener("resize", fitAsciiToScreen);
@@ -277,7 +273,6 @@
     const h = canvas.height;
     const cx = w / 2;
 
-    // Wajib hitam murni tanpa gradien agar tidak bocor titik-titik (.)
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, w, h);
 
@@ -287,21 +282,21 @@
 
     // 1. Judul Atas
     ctx.fillStyle = "#ffffff";
-    ctx.font = '700 10px "Space Grotesk", "Inter", sans-serif';
-    if ('letterSpacing' in ctx) ctx.letterSpacing = "2px";
-    ctx.fillText("B E L A L A N G   S E M B A H", cx, 10);
+    ctx.font = '700 8.5px "Space Grotesk", "Inter", sans-serif';
+    if ('letterSpacing' in ctx) ctx.letterSpacing = "1.5px";
+    ctx.fillText("B E L A L A N G   S E M B A H", cx, 8);
 
     // 2. Cover Art Tengah
-    const imgSize = 34;
+    const imgSize = 28;
     const imgX = cx - (imgSize / 2);
-    const imgY = 16;
+    const imgY = 14;
 
     if (coverImg.complete && coverImg.naturalWidth > 0) {
       ctx.drawImage(coverImg, imgX, imgY, imgSize, imgSize);
     } else {
       ctx.fillStyle = "#ffe066";
       ctx.beginPath();
-      ctx.arc(cx, imgY + 17, 12, 0, Math.PI * 2);
+      ctx.arc(cx, imgY + 14, 10, 0, Math.PI * 2);
       ctx.fill();
     }
 
@@ -309,7 +304,7 @@
     ctx.strokeStyle = "#ffd700";
     ctx.lineWidth = 1;
     const pad = 2;
-    const bx = imgX - pad, by = imgY - pad, bw = imgSize + pad * 2, bh = imgSize + pad * 2, bLen = 5;
+    const bx = imgX - pad, by = imgY - pad, bw = imgSize + pad * 2, bh = imgSize + pad * 2, bLen = 4;
     ctx.beginPath();
     ctx.moveTo(bx, by + bLen); ctx.lineTo(bx, by); ctx.lineTo(bx + bLen, by);
     ctx.moveTo(bx + bw - bLen, by); ctx.lineTo(bx + bw, by); ctx.lineTo(bx + bw, by + bLen);
@@ -318,51 +313,61 @@
     ctx.stroke();
 
     // 3. Subtitle Bawah
-    ctx.font = '700 9px "Space Grotesk", "Inter", sans-serif';
+    ctx.font = '700 8px "Space Grotesk", "Inter", sans-serif';
     ctx.fillStyle = "#ff2a55";
-    ctx.fillText(". F E A S T", cx, 63);
+    ctx.fillText(". F E A S T", cx, 52);
 
     ctx.restore();
   };
 
   // =========================================================================
-  // ✍️ 6. RENDER TEKS LIRIK KE OFFSCREEN CANVAS
+  // ✍️ 6. RENDER TEKS LIRIK DENGAN AUTO-FIT (TIDAK AKAN PERNAH TERPOTONG)
   // =========================================================================
   const drawLyricsToOffscreen = (lines, color = "#ffffff") => {
     const w = canvas.width;
     const h = canvas.height;
 
-    // Bersihkan kanvas dengan hitam murni (JANGAN gambar gradien/blur di sini)
+    // Bersihkan kanvas dengan hitam murni
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, w, h);
 
-    // Ukuran font tebal & bersih agar rongga huruf (counter) terbuka lebar
-    const fontSize = lines.length > 1 ? 23 : 27;
+    // Batas aman lebar teks kanvas (82% dari lebar kanvas agar sisi kiri/kanan selalu aman)
+    const maxAllowedW = w * 0.82;
+
+    // Ukuran font dasar
+    let fontSize = lines.length > 1 ? 14 : 17;
     ctx.font = `800 ${fontSize}px "Space Grotesk", "Inter", Arial, sans-serif`;
+    if ('letterSpacing' in ctx) {
+      ctx.letterSpacing = "1.5px";
+    }
+
+    // Ukur lebar baris terpanjang
+    let maxW = 0;
+    lines.forEach(l => {
+      const measured = ctx.measureText(l).width;
+      if (measured > maxW) maxW = measured;
+    });
+
+    // PENTING: Jika teks melebihi batas aman, perkecil font secara otomatis
+    if (maxW > maxAllowedW) {
+      const scale = maxAllowedW / maxW;
+      fontSize = Math.floor(fontSize * scale);
+      ctx.font = `800 ${fontSize}px "Space Grotesk", "Inter", Arial, sans-serif`;
+    }
+
     ctx.fillStyle = color;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-
-    // PENTING: Jarak antar huruf agar tidak melebur jadi balok bata
-    if ('letterSpacing' in ctx) {
-      ctx.letterSpacing = "3.5px";
-    }
-
-    // Bebas shadowBlur agar pinggiran huruf tajam
     ctx.shadowBlur = 0;
 
-    const lineSpacing = fontSize * 1.15;
+    const lineSpacing = Math.floor(fontSize * 1.30);
     const totalHeight = (lines.length - 1) * lineSpacing;
     const startY = (h / 2) - (totalHeight / 2);
 
+    // Gambar teks dengan skala alami (1:1) tanpa distorsi vertikal
     lines.forEach((line, index) => {
-      ctx.save();
       const yPos = startY + (index * lineSpacing);
-      ctx.translate(w / 2, yPos);
-      // Skala vertikal 1.15x untuk mengompensasi rasio tinggi font ASCII
-      ctx.scale(1, 1.15);
-      ctx.fillText(line, 0, 0);
-      ctx.restore();
+      ctx.fillText(line, w / 2, yPos);
     });
   };
 
@@ -389,13 +394,13 @@
         // 1. Hitung Luminance rata-rata (0 - 255)
         const luma = (r + g + b) / 3;
 
-        // 2. Hard Cutoff (Noise Gate): Potong anti-aliasing redup & artefak
+        // 2. Hard Cutoff (Noise Gate): Potong anti-aliasing redup & sela huruf
         if (luma < BLACK_CUTOFF) {
           emptySpaceBuffer += " ";
           continue;
         }
 
-        // Tuangkan akumulasi spasi kosong sebelum karakter menyala
+        // Tuangkan spasi kosong yang terkumpul
         if (emptySpaceBuffer.length > 0) {
           rowHtml += emptySpaceBuffer;
           emptySpaceBuffer = "";
@@ -600,7 +605,7 @@
       if (bgAura) bgAura.style.background = "radial-gradient(circle, rgba(255, 215, 0, 0.14) 0%, rgba(0, 0, 0, 0) 70%)";
       drawIntroScene(time, curTime, bass);
     } else {
-      // 2. Zona Lirik dengan Teks Tajam
+      // 2. Zona Lirik dengan Teks Tajam & Auto-Fit
       if (isShowing) {
         const currentItem = config.lyrics[currentLyricIndex];
         if (currentItem) {
@@ -610,7 +615,6 @@
           drawLyricsToOffscreen(currentItem.lines, currentItem.color || "#ffffff");
         }
       } else {
-        // Jeda gelap antar lirik: layar hitam murni
         ctx.fillStyle = "#000000";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }

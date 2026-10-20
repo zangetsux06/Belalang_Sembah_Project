@@ -59,7 +59,7 @@ html, body {
   transition: background 0.6s ease-out;
 }
 
-/* Kontainer Utama Colored ASCII Terminal Art */
+/* Kontainer Utama Colored ASCII Terminal Art: Rapat, Seimbang, Bebas Terpotong */
 #ascii-container {
   position: relative;
   z-index: 2;
@@ -69,14 +69,15 @@ html, body {
   text-align: center;
   user-select: none;
   cursor: pointer;
-  /* Efek glow CRT seperti pada referensi "All Year For This" */
-  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.35));
+  letter-spacing: 0px !important;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.3));
 }
 
 .ascii-row {
   display: block;
   overflow: hidden;
   white-space: pre;
+  line-height: inherit;
 }
 
 @keyframes glitch-anim {
