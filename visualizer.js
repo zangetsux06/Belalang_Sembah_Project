@@ -26,11 +26,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#d90429"],
-          spark: "#ff1744"
-        }
+        color: "#ffffff"
       },
       {
         text: "Rute pulangmu telah kupelajari",
@@ -40,11 +36,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#ff5252"],
-          spark: "#ff2a55"
-        }
+        color: "#ffffff"
       },
       {
         text: "Kutahu nama anak kita nanti",
@@ -54,11 +46,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#e60039"],
-          spark: "#ff2a55"
-        }
+        color: "#ffffff"
       },
       {
         text: "Suatu saat kau pasti mengerti",
@@ -68,11 +56,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#e60026", "#b3001e"],
-          spark: "#ff1744"
-        }
+        color: "#ffffff"
       },
 
       // --- MOMENT 2 (02:32.4 - 02:49.0): KESENJANGAN SOSIAL & RADAR APLIKASI (VERSE 2B) ---
@@ -84,11 +68,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff3344", "#d90429"],
-          spark: "#ff3344"
-        }
+        color: "#ffffff"
       },
       {
         text: "Hanya porsimu dalam sehari",
@@ -98,11 +78,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#ff4d6d"],
-          spark: "#ff1744"
-        }
+        color: "#ffffff"
       },
       {
         text: "Di dalam app kita bersimpangan",
@@ -112,11 +88,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#d90429"],
-          spark: "#ff1744"
-        }
+        color: "#ffffff"
       },
       {
         text: "Aku yakin kau bisa mengerti",
@@ -126,15 +98,11 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#d90429"],
-          spark: "#ff2a55"
-        }
+        color: "#ffffff"
       },
 
       // --- MOMENT 3 (02:49.5 - 03:08.6): KULTUS PEMUJAAN BELALANG SEMBAH (CHORUS 2) ---
-      // Dipisah berurutan: "Maka jadikanku" -> lalu lanjut "Belalang sembah"
+      // Bagian 1: "Maka jadikanku" - Warna putih solid normal membangun tensi
       {
         text: "Maka jadikanku",
         startSec: 169.5,
@@ -143,27 +111,20 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 16,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#d90429"],
-          spark: "#ff2a55"
-        }
+        color: "#ffffff"
       },
+      // Bagian 2: "Belalang sembah" - KLIMAKS DROP MERAH DARAH & EFEK BERDARAH!
       {
         text: "Belalang sembah",
         startSec: 173.0,
         endSec: 178.0,
         showMs: 5000,
-        // Drop klimaks chorus!
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 18,
+        color: "#ff1744",
         dramatic: true,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#d90429"],
-          spark: "#ff1744"
-        }
+        bleeding: true
       },
       {
         text: "Walau sebentar kupercaya indah",
@@ -173,11 +134,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#e60039"],
-          spark: "#ff2a55"
-        }
+        color: "#ff1744"
       },
       {
         text: "Seberapa banyak, seberapa mahal",
@@ -187,11 +144,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff2a55", "#d90429"],
-          spark: "#ff2a55"
-        }
+        color: "#ff1744"
       },
 
       // --- MOMENT 4 (03:08.6 - 03:23.0): SUMPAH DARAH & PENGORBANAN FATAL ---
@@ -203,11 +156,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 16,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ffffff", "#ff1744"],
-          spark: "#ff1744"
-        }
+        color: "#ff1744"
       },
       {
         text: "Semua 'kan kugadai",
@@ -217,11 +166,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 16,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff1744", "#d90429"],
-          spark: "#ff1744"
-        }
+        color: "#ff1744"
       },
       {
         text: "Matikan aku setelah usai",
@@ -231,11 +176,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 15,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#e60026", "#d90429"],
-          spark: "#e60026"
-        }
+        color: "#e60026"
       },
       {
         text: "Matikan aku setelah usai",
@@ -245,11 +186,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 15,
-        palette: {
-          core: "#ffffff",
-          gradient: ["#ffffff", "#ff4d6d", "#d90429"],
-          spark: "#ff4d6d"
-        }
+        color: "#d90429"
       }
     ],
 
@@ -418,8 +355,68 @@
   };
 
   // =========================================================================
+  // 🩸 5B. SIMULASI EFEK BERDARAH (ASCII BLOOD DRIP SIMULATION)
+  // Aliran tetesan darah merah menetes ke bawah dari huruf "Belalang sembah"
+  // =========================================================================
+  const maxBloodDrips = 28;
+  const bloodDrips = [];
+  for (let i = 0; i < maxBloodDrips; i++) {
+    bloodDrips.push({
+      xOffset: (Math.random() - 0.5) * 115,
+      len: Math.random() * 4,
+      maxLen: 8 + Math.random() * 20,
+      speed: 0.16 + Math.random() * 0.28,
+      dropY: 0,
+      dropSpeed: 0.45 + Math.random() * 0.65,
+      dropping: false,
+      color: Math.random() < 0.65 ? "#ff1744" : "#d90429"
+    });
+  }
+
+  const updateAndDrawBloodDrips = (time, cx, bottomY) => {
+    offCtx.save();
+    for (let i = 0; i < bloodDrips.length; i++) {
+      const d = bloodDrips[i];
+      const dripX = Math.round(cx + d.xOffset);
+
+      if (dripX < 5 || dripX >= width - 5) continue;
+
+      if (d.len < d.maxLen) {
+        d.len += d.speed;
+      } else {
+        d.dropping = true;
+      }
+
+      // Garis tetesan darah vertikal mengucur ke bawah dari dasar huruf
+      const dripLen = Math.floor(d.len);
+      if (dripLen > 0) {
+        offCtx.fillStyle = d.color;
+        offCtx.fillRect(dripX, bottomY, 1, dripLen);
+      }
+
+      // Tetesan darah terlepas dan jatuh gravitasi (falling droplet)
+      if (d.dropping) {
+        d.dropY += d.dropSpeed;
+        const currentDropY = Math.round(bottomY + d.len + d.dropY);
+        if (currentDropY < height - 2) {
+          offCtx.fillStyle = d.color;
+          offCtx.fillRect(dripX, currentDropY, 1, 2);
+        } else {
+          // Reset tetesan baru
+          d.len = 0;
+          d.dropY = 0;
+          d.dropping = false;
+          d.maxLen = 8 + Math.random() * 20;
+          d.xOffset = (Math.random() - 0.5) * 115;
+        }
+      }
+    }
+    offCtx.restore();
+  };
+
+  // =========================================================================
   // 🏛️ 6. INTRO BANNER RESMI .FEAST (DETIK 133.0 - 135.8 / 02:13.0)
-  // Format tajam, kontras tinggi, dan mudah dibaca dalam gaya kemerahan obsesif
+  // Format tajam, font seragam dengan lirik, banner terang jelas tidak gelap
   // =========================================================================
   const drawIntroScene = (time, curTime, bass) => {
     const cx = width / 2;
@@ -427,43 +424,38 @@
     offCtx.fillStyle = "#000000";
     offCtx.fillRect(0, 0, width, height);
 
-    // Ethereal crimson spark embers di latar
-    updateAndDrawSparks(time, "rgba(255, 23, 68, 0.45)", 35);
+    // Ethereal white spark embers di latar
+    updateAndDrawSparks(time, "rgba(255, 255, 255, 0.35)", 25);
 
     offCtx.save();
     offCtx.textAlign = "center";
     offCtx.textBaseline = "middle";
 
-    // 1. Judul Atas: Jelas, Tebal, dan Mudah Dibaca
-    offCtx.font = 'bold 11px "Space Grotesk", "Arial", sans-serif';
-    const titleGrad = offCtx.createLinearGradient(cx - 55, 11, cx + 55, 11);
-    titleGrad.addColorStop(0, "#ff2a55");
-    titleGrad.addColorStop(0.3, "#ffffff");
-    titleGrad.addColorStop(0.7, "#ffffff");
-    titleGrad.addColorStop(1, "#d90429");
-    offCtx.fillStyle = titleGrad;
-    offCtx.fillText("BELALANG SEMBAH", cx, 11);
+    // 1. Judul Atas: Jelas, Putih Solid, Font Samakan dengan Lirik
+    offCtx.font = '700 12px "Space Grotesk", "Arial", sans-serif';
+    offCtx.fillStyle = "#ffffff";
+    offCtx.fillText("BELALANG SEMBAH", cx, 9);
 
-    // 2. Cover Art / Logo Tengah (34x34 piksel pada kanvas 160x68)
-    const imgSize = 34;
-    const imgX = cx - (imgSize / 2);
-    const imgY = 17;
+    // 2. Cover Art / Logo Tengah (38x38 piksel, Terang Jelas Tidak Gelap)
+    const imgSize = 38;
+    const imgX = Math.round(cx - (imgSize / 2));
+    const imgY = 15;
 
     if (coverImg.complete && coverImg.naturalWidth > 0) {
       try {
-        offCtx.filter = "contrast(1.6) brightness(1.25)";
+        offCtx.filter = "brightness(2.6) contrast(1.15) saturate(1.3)";
       } catch (e) {}
       offCtx.drawImage(coverImg, imgX, imgY, imgSize, imgSize);
       offCtx.filter = "none";
     } else {
-      offCtx.fillStyle = "#ff1744";
+      offCtx.fillStyle = "#ffffff";
       offCtx.beginPath();
-      offCtx.arc(cx, imgY + 16, 12, 0, Math.PI * 2);
+      offCtx.arc(cx, imgY + 18, 14, 0, Math.PI * 2);
       offCtx.fill();
     }
 
-    // Bingkai Ornamen Sudut Kemerahan
-    offCtx.strokeStyle = "#ff1744";
+    // Bingkai Ornamen Sudut Putih Bersih
+    offCtx.strokeStyle = "rgba(255, 255, 255, 0.85)";
     offCtx.lineWidth = 1;
     const pad = 2;
     const bx = imgX - pad;
@@ -483,21 +475,17 @@
     offCtx.moveTo(bx + bw - bLen, by + bh); offCtx.lineTo(bx + bw, by + bh); offCtx.lineTo(bx + bw, by + bh - bLen);
     offCtx.stroke();
 
-    // 3. Subtitle Artis: Jelas & Tajam
-    offCtx.font = 'bold 10px "Space Grotesk", "Arial", sans-serif';
-    const artistGrad = offCtx.createLinearGradient(cx - 30, 57, cx + 30, 57);
-    artistGrad.addColorStop(0, "#ff1744");
-    artistGrad.addColorStop(0.5, "#ffffff");
-    artistGrad.addColorStop(1, "#d90429");
-    offCtx.fillStyle = artistGrad;
-    offCtx.fillText(". F E A S T", cx, 57);
+    // 3. Subtitle Artis: Jelas, Putih Solid, Font Samakan dengan Lirik
+    offCtx.font = '700 10px "Space Grotesk", "Arial", sans-serif';
+    offCtx.fillStyle = "#ffffff";
+    offCtx.fillText(". F E A S T", cx, 59);
 
     offCtx.restore();
   };
 
   // =========================================================================
-  // ✍️ 7. RENDER TEKS LIRIK: TEMA OBSESI KEMERAHAN BERSIH & PROPORSIONAL
-  // Word-wrap dinamis berbasis measureText & ketebalan huruf seimbang elegan
+  // ✍️ 7. RENDER TEKS LIRIK: WARNA SOLID BERSIH & EFEK BERDARAH CHORUS
+  // Lirik biasa putih bersih, saat "Belalang sembah" warna merah darah berdarah
   // =========================================================================
   const drawLyricScene = (item, time, bass) => {
     if (!item || !item.text) return;
@@ -513,8 +501,10 @@
     const swayX = Math.sin(time * 0.0018) * 1.3;
     const swayY = Math.cos(time * 0.0022) * 0.7;
 
-    // Partikel bara api kemerahan melayang halus di latar belakang
-    updateAndDrawSparks(time, item.palette ? item.palette.spark : "#ff1744", item.dramatic ? 45 : 30);
+    // Partikel bara api: putih bersih untuk lirik biasa, merah darah untuk lirik berdarah
+    const isRedTheme = item.color === "#ff1744" || item.color === "#e60026" || item.color === "#d90429" || item.bleeding;
+    const sparkColor = isRedTheme ? "#ff1744" : "rgba(255, 255, 255, 0.35)";
+    updateAndDrawSparks(time, sparkColor, isRedTheme ? 40 : 20);
 
     offCtx.save();
     offCtx.textAlign = "center";
@@ -558,27 +548,20 @@
     const totalHeight = lines.length * lineHeight;
     const startY = (height / 2) - (totalHeight / 2) + (lineHeight / 2) + swayY;
 
-    const p = item.palette;
+    // Warna solid tegas tanpa gradien: putih bersih untuk lirik biasa, merah darah untuk lirik berdarah
+    const textColor = item.color || "#ffffff";
+    offCtx.fillStyle = textColor;
+
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
       const lineY = startY + (i * lineHeight);
-      const textW = offCtx.measureText(line).width;
-
-      const grad = offCtx.createLinearGradient(cx - (textW / 2), lineY, cx + (textW / 2), lineY);
-      if (p && p.gradient && p.gradient.length >= 3) {
-        grad.addColorStop(0, p.gradient[1]);
-        grad.addColorStop(0.25, "#ffffff");
-        grad.addColorStop(0.5, "#ffffff");
-        grad.addColorStop(0.75, "#ffffff");
-        grad.addColorStop(1, p.gradient[2]);
-      } else {
-        grad.addColorStop(0, "#ff1744");
-        grad.addColorStop(0.5, "#ffffff");
-        grad.addColorStop(1, "#d90429");
-      }
-
-      offCtx.fillStyle = grad;
       offCtx.fillText(line, cx + swayX, lineY);
+    }
+
+    // 🩸 Efek Berdarah (Blood Drips) khusus saat lirik "Belalang sembah"
+    if (item.bleeding) {
+      const bottomY = Math.round(startY + (lines.length * lineHeight / 2) + 1);
+      updateAndDrawBloodDrips(time, cx + swayX, bottomY);
     }
 
     offCtx.restore();
@@ -730,7 +713,7 @@
       if (audioElement && targetItem.startSec !== undefined) {
         audioElement.currentTime = targetItem.startSec;
       }
-      const isChorus = (nextIndex === 8) || (targetItem && targetItem.dramatic);
+      const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
       triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
       lastLyricIndex = nextIndex;
     } else if (e.code === "ArrowLeft") {
@@ -742,7 +725,7 @@
       if (audioElement && targetItem.startSec !== undefined) {
         audioElement.currentTime = targetItem.startSec;
       }
-      const isChorus = (prevIndex === 8) || (targetItem && targetItem.dramatic);
+      const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
       triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
       lastLyricIndex = prevIndex;
     }
@@ -791,9 +774,9 @@
             if (curTime >= item.startSec && curTime < item.endSec) {
               if (currentLyricIndex !== i) {
                 currentLyricIndex = i;
-                const isChorus = (i === 8) || (item && item.dramatic);
+                const isChorus = Boolean(item && (item.dramatic || item.bleeding));
                 if (isChorus) {
-                  // Glitch intens Chorus 2 ("Maka jadikanku belalang sembah")
+                  // Glitch intens Chorus 2 ("Belalang sembah")
                   triggerGlitch(360, 0.9, true);
                 } else {
                   // Glitch transisi lirik biasa
@@ -815,7 +798,7 @@
           const nextIndex = (currentLyricIndex + 1) % config.lyrics.length;
           currentLyricIndex = nextIndex;
           const targetItem = config.lyrics[nextIndex];
-          const isChorus = (nextIndex === 8) || (targetItem && targetItem.dramatic);
+          const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
           triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
           lastLyricIndex = nextIndex;
         }
