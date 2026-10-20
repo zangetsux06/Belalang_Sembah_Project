@@ -6,7 +6,8 @@
  * Deskripsi: Mesin Real-Time Pixel-to-ASCII Lyric Visualizer hidup & bernapas
  * dengan tema obsesi kemerahan (Crimson/Blood-Red Obsession), banner pembuka
  * resmi tajam & jelas, transisi lirik instan langsung ganti tanpa jeda/fade,
- * serta animasi dramatis ritual khusus Chorus 2 ("Maka jadikanku belalang sembah").
+ * serta efek glitch ASCII lirik elektrik dinamis pada pergantian lirik & Chorus 2
+ * ("Maka jadikanku belalang sembah") tanpa noise/artefak teks hantu.
  */
 
 (() => {
@@ -146,15 +147,14 @@
         startSec: 169.5,
         endSec: 178.0,
         showMs: 8500,
-        // CHORUS KLIMAKS! Sakral, altar shockwave kemerahan mendalam, font Cinzel monumental
-        fontFamily: "'Cinzel', serif",
-        fontStyle: "900",
+        // CHORUS KLIMAKS! Font Space Grotesk tebal, efek glitch ASCII lirik elektrik
+        fontFamily: "'Space Grotesk', sans-serif",
+        fontStyle: "700",
         fontSize: 16,
         dramatic: true,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff1744", "#d90429"],
-          halo: "rgba(255, 23, 68, 0.55)",
           spark: "#ff1744"
         }
       },
@@ -225,13 +225,12 @@
         startSec: 194.6,
         endSec: 198.5,
         showMs: 3900,
-        fontFamily: "'Cinzel', serif",
-        fontStyle: "900",
+        fontFamily: "'Space Grotesk', sans-serif",
+        fontStyle: "700",
         fontSize: 16,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#e60026", "#d90429"],
-          halo: "rgba(230, 0, 38, 0.45)",
           spark: "#e60026"
         }
       },
@@ -291,6 +290,31 @@
   let lastTime = 0;
   let timeAccumulator = 0;
   let isPaused = false;
+
+  // =========================================================================
+  // ⚡ SISTEM EFEK GLITCH ASCII LIRIK (PUNCHY DIGITAL CORRUPTION)
+  // =========================================================================
+  const GLITCH_CHARS = ["#", "%", "&", "8", "X", "$", "/", "\\", "!", "?", "+", "-", "=", "*", "0", "1", "@"];
+  let glitchRemainingMs = 0;
+  let glitchIntensity = 0;
+  let glitchTimeout = null;
+  let lastLyricIndex = -1;
+
+  const triggerGlitch = (durationMs = 200, intensity = 0.5, isIntense = false) => {
+    glitchRemainingMs = durationMs;
+    glitchIntensity = intensity;
+    if (outputWrapper) {
+      const cls = isIntense ? "glitching-intense" : "glitching";
+      outputWrapper.classList.remove("glitching", "glitching-intense");
+      void outputWrapper.offsetWidth; // Force DOM reflow agar animasi glitch bisa di-trigger ulang
+      outputWrapper.classList.add(cls);
+
+      if (glitchTimeout) clearTimeout(glitchTimeout);
+      glitchTimeout = setTimeout(() => {
+        outputWrapper.classList.remove("glitching", "glitching-intense");
+      }, Math.min(durationMs, isIntense ? 320 : 160));
+    }
+  };
 
   // Web Audio API Analyser
   let audioCtx = null;
@@ -465,11 +489,13 @@
   };
 
   // =========================================================================
-  // ✍️ 7. RENDER TEKS LIRIK: TEMA OBSESI KEMERAHAN & ANIMASI DRAMATIS
+  // ✍️ 7. RENDER TEKS LIRIK: TEMA OBSESI KEMERAHAN & ELEMEN VISUAL BERSIH
+  // Menghilangkan garis lingkaran/vektor latar yang memicu glitch teks hantu
   // =========================================================================
   const drawLyricScene = (item, time, bass) => {
     if (!item || !item.text) return;
 
+    // Latar belakang 100% hitam pekat murni tanpa noise
     offCtx.fillStyle = "#000000";
     offCtx.fillRect(0, 0, width, height);
 
@@ -480,51 +506,9 @@
 
     const swayX = Math.sin(time * 0.0018) * 1.3;
     const swayY = Math.cos(time * 0.0022) * 0.7;
-    const bassScale = 1.0 + (bass * 0.06);
 
-    // Ethereal Obsessive Halo Aura (Kemerahan pekat berdenyut)
-    if (item.palette && item.palette.halo) {
-      const haloRadius = (item.dramatic ? 62 : 52) * bassScale;
-      const haloGrad = offCtx.createRadialGradient(cx, cy, 2, cx, cy, haloRadius);
-      haloGrad.addColorStop(0, item.palette.halo);
-      haloGrad.addColorStop(0.65, "rgba(217, 4, 41, 0.12)");
-      haloGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
-      offCtx.fillStyle = haloGrad;
-      offCtx.fillRect(0, 0, width, height);
-    }
-
-    // --- ANIMASI KHUSUS DRAMATIS: KULTUS BELALANG SEMBAH (CHORUS 2) ---
-    if (item.dramatic) {
-      // 1. Gelombang Altar Sakral Merah Darah (Expanding Ritual Shockwaves)
-      const waveTime = time * 0.045;
-      for (let w = 0; w < 3; w++) {
-        const r = (waveTime + w * 22) % 68;
-        const alpha = Math.max(0, (1 - r / 68) * 0.45);
-        offCtx.strokeStyle = `rgba(255, 23, 68, ${alpha})`;
-        offCtx.lineWidth = 1;
-        offCtx.beginPath();
-        offCtx.arc(cx, cy, r, 0, Math.PI * 2);
-        offCtx.stroke();
-      }
-
-      // 2. Berkas Sinar Ritual Diagonal Kemerahan
-      offCtx.save();
-      offCtx.strokeStyle = "rgba(255, 42, 85, 0.18)";
-      offCtx.lineWidth = 1;
-      for (let a = 0; a < 8; a++) {
-        const angle = (a * Math.PI / 4) + (time * 0.0008);
-        offCtx.beginPath();
-        offCtx.moveTo(cx, cy);
-        offCtx.lineTo(cx + Math.cos(angle) * 75, cy + Math.sin(angle) * 35);
-        offCtx.stroke();
-      }
-      offCtx.restore();
-
-      // Partikel bara api kemerahan ekstra intens
-      updateAndDrawSparks(time, "#ff1744", 60);
-    } else {
-      updateAndDrawSparks(time, item.palette ? item.palette.spark : "#ff1744", 38);
-    }
+    // Partikel bara api kemerahan melayang halus di latar belakang
+    updateAndDrawSparks(time, item.palette ? item.palette.spark : "#ff1744", item.dramatic ? 45 : 30);
 
     // Pembagian baris lirik otomatis agar pas di layar
     let lines = [];
@@ -608,11 +592,13 @@
 
   // =========================================================================
   // ⚡ 8. MESIN UTAMA PIXEL-TO-ASCII (REAL-TIME COLORED ASCII SHADER)
+  // Dilengkapi efek glitch teks karakter ASCII elektrik dinamis
   // =========================================================================
   const updateAsciiMatrix = () => {
     const imgData = offCtx.getImageData(0, 0, width, height).data;
 
     let outputText = "";
+    const isGlitch = glitchRemainingMs > 0;
 
     for (let y = 0; y < height; y++) {
       let row = "";
@@ -641,13 +627,24 @@
           );
           const result = charsFixed[charIndex];
 
-          const char = Array.isArray(result)
+          let char = Array.isArray(result)
             ? result[Math.floor(Math.random() * result.length)]
             : result;
 
-          const qr = Math.round(r / 4) * 4;
-          const qg = Math.round(g / 4) * 4;
-          const qb = Math.round(b / 4) * 4;
+          let qr = Math.round(r / 4) * 4;
+          let qg = Math.round(g / 4) * 4;
+          let qb = Math.round(b / 4) * 4;
+
+          // ⚡ Efek Glitch ASCII Lirik: Scramble karakter dan flash crimson/putih
+          if (isGlitch && Math.random() < (0.35 * glitchIntensity)) {
+            char = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+            if (Math.random() < 0.5) {
+              qr = 255;
+              qg = Math.random() < 0.3 ? 255 : 23;
+              qb = Math.random() < 0.3 ? 255 : 68;
+            }
+          }
+
           const colorStr = `rgb(${qr},${qg},${qb})`;
 
           if (colorStr === curColor) {
@@ -732,18 +729,28 @@
       handleUserInteraction();
     } else if (e.code === "ArrowRight") {
       e.preventDefault();
-      currentLyricIndex = (currentLyricIndex + 1) % config.lyrics.length;
+      const nextIndex = (currentLyricIndex + 1) % config.lyrics.length;
+      currentLyricIndex = nextIndex;
       timeAccumulator = 0;
-      if (audioElement && config.lyrics[currentLyricIndex].startSec !== undefined) {
-        audioElement.currentTime = config.lyrics[currentLyricIndex].startSec;
+      const targetItem = config.lyrics[nextIndex];
+      if (audioElement && targetItem.startSec !== undefined) {
+        audioElement.currentTime = targetItem.startSec;
       }
+      const isChorus = (nextIndex === 8) || (targetItem && targetItem.dramatic);
+      triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
+      lastLyricIndex = nextIndex;
     } else if (e.code === "ArrowLeft") {
       e.preventDefault();
-      currentLyricIndex = (currentLyricIndex - 1 + config.lyrics.length) % config.lyrics.length;
+      const prevIndex = (currentLyricIndex - 1 + config.lyrics.length) % config.lyrics.length;
+      currentLyricIndex = prevIndex;
       timeAccumulator = 0;
-      if (audioElement && config.lyrics[currentLyricIndex].startSec !== undefined) {
-        audioElement.currentTime = config.lyrics[currentLyricIndex].startSec;
+      const targetItem = config.lyrics[prevIndex];
+      if (audioElement && targetItem.startSec !== undefined) {
+        audioElement.currentTime = targetItem.startSec;
       }
+      const isChorus = (prevIndex === 8) || (targetItem && targetItem.dramatic);
+      triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
+      lastLyricIndex = prevIndex;
     }
   });
 
@@ -754,9 +761,18 @@
 
   // =========================================================================
   // 🔄 10. LOOP ANIMASI REAL-TIME: PENGGANTIAN LIRIK LANGSUNG (DIRECT CUT)
-  // Tanpa fade in, tanpa fade out, tanpa blackout gap.
+  // Dilengkapi efek glitch lirik instan, tanpa fade in, tanpa fade out
   // =========================================================================
   const updateLoop = (time) => {
+    if (lastTime === 0) lastTime = time;
+    const deltaTime = time - lastTime;
+    lastTime = time;
+
+    // Reduksi sisa waktu efek glitch
+    if (glitchRemainingMs > 0) {
+      glitchRemainingMs = Math.max(0, glitchRemainingMs - (deltaTime || 16));
+    }
+
     if (!isPaused) {
       if (audioElement && !audioElement.paused && audioElement.duration > 0) {
         const curTime = audioElement.currentTime;
@@ -766,6 +782,7 @@
           if (config.isLooping) {
             audioElement.currentTime = config.audioStartTime;
             currentLyricIndex = 0;
+            lastLyricIndex = -1;
           } else {
             isPaused = true;
             audioElement.pause();
@@ -778,25 +795,38 @@
           for (let i = 0; i < config.lyrics.length; i++) {
             const item = config.lyrics[i];
             if (curTime >= item.startSec && curTime < item.endSec) {
-              currentLyricIndex = i;
+              if (currentLyricIndex !== i) {
+                currentLyricIndex = i;
+                const isChorus = (i === 8) || (item && item.dramatic);
+                if (isChorus) {
+                  // Glitch intens Chorus 2 ("Maka jadikanku belalang sembah")
+                  triggerGlitch(360, 0.9, true);
+                } else {
+                  // Glitch transisi lirik biasa
+                  triggerGlitch(120, 0.35, false);
+                }
+                lastLyricIndex = i;
+              }
               break;
             }
           }
         }
       } else {
         // Fallback timer jika audio belum dimulai: ganti lirik langsung tanpa jeda
-        if (lastTime === 0) lastTime = time;
-        const deltaTime = time - lastTime;
         timeAccumulator += deltaTime;
 
         const currentLyric = config.lyrics[currentLyricIndex];
         if (timeAccumulator > (currentLyric ? currentLyric.showMs : 4000)) {
           timeAccumulator = 0;
-          currentLyricIndex = (currentLyricIndex + 1) % config.lyrics.length;
+          const nextIndex = (currentLyricIndex + 1) % config.lyrics.length;
+          currentLyricIndex = nextIndex;
+          const targetItem = config.lyrics[nextIndex];
+          const isChorus = (nextIndex === 8) || (targetItem && targetItem.dramatic);
+          triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
+          lastLyricIndex = nextIndex;
         }
       }
     }
-    lastTime = time;
 
     let curTime = config.audioStartTime;
     if (audioElement && !audioElement.paused && audioElement.duration > 0) {

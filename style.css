@@ -44,9 +44,14 @@ html, body {
   transition: transform 0.08s ease-out;
 }
 
-/* Glitch hentakan halus saat pergantian lirik */
+/* Glitch hentakan halus saat pergantian lirik biasa */
 #output-wrapper.glitching {
-  animation: glitch-anim 0.14s steps(2) forwards;
+  animation: glitch-anim 0.16s steps(2) forwards;
+}
+
+/* Glitch intens agresif untuk Chorus 2 ("Maka jadikanku belalang sembah") */
+#output-wrapper.glitching-intense {
+  animation: glitch-anim-intense 0.32s steps(3) forwards;
 }
 
 /* Kontainer Utama Colored ASCII Terminal Art */
@@ -80,5 +85,13 @@ html, body {
   0% { transform: translate(0, 0); }
   30% { transform: translate(-3px, 1px) skewX(-1.5deg); filter: contrast(1.4) brightness(1.2); }
   70% { transform: translate(3px, -1px) skewX(1deg); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes glitch-anim-intense {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-5px, 2px) skewX(-2.5deg); filter: contrast(1.6) brightness(1.3); }
+  50% { transform: translate(5px, -2px) skewX(2deg); filter: contrast(1.4); }
+  75% { transform: translate(-2px, 1px) skewX(-1deg); }
   100% { transform: translate(0, 0); }
 }
