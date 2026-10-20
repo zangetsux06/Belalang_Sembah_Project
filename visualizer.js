@@ -27,7 +27,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ff1744"
+        color: "#ff1744",
       },
       {
         text: "Rute pulangmu telah kupelajari",
@@ -37,7 +37,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ff1744"
+        color: "#ff1744",
       },
       {
         text: "Kutahu nama anak kita nanti",
@@ -47,39 +47,39 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ff1744"
+        color: "#ff1744",
       },
       {
         text: "Suatu saat kau pasti mengerti",
         startSec: 148.2,
-        endSec: 152.4,
+        endSec: 152.0,
         showMs: 4200,
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ff1744"
+        color: "#ff1744",
       },
 
       // --- MOMENT 2 (02:32.4 - 02:49.0): KESENJANGAN SOSIAL & RADAR APLIKASI (VERSE 2B) ---
       {
         text: "Walau upahku dalam sebulan",
-        startSec: 152.4,
-        endSec: 156.4,
+        startSec: 152.0,
+        endSec: 156.0,
         showMs: 4000,
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ffffff",
       },
       {
         text: "Hanya porsimu dalam sehari",
-        startSec: 156.4,
+        startSec: 156.0,
         endSec: 160.8,
         showMs: 4400,
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ffffff",
       },
       {
         text: "Di dalam app kita bersimpangan",
@@ -89,7 +89,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ffffff",
       },
       {
         text: "Aku yakin kau bisa mengerti",
@@ -99,7 +99,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ffffff"
+        color: "#ffffff",
       },
 
       // --- MOMENT 3 (02:49.5 - 03:08.6): KULTUS PEMUJAAN BELALANG SEMBAH (CHORUS 2) ---
@@ -112,7 +112,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 16,
-        color: "#ffffff"
+        color: "#ffffff",
       },
       // Bagian 2: "Belalang Sembah" - KLIMAKS DROP MERAH DARAH & EFEK BERDARAH (DARI B SAMPAI h)!
       {
@@ -122,11 +122,11 @@
         showMs: 5000,
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
-        fontSize: 14,
+        fontSize: 18,
         color: "#ff1744",
         singleLine: true,
         dramatic: true,
-        bleeding: true
+        bleeding: true,
       },
       {
         text: "Walau sebentar kupercaya indah",
@@ -136,7 +136,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ff1744"
+        color: "#ff1744",
       },
       {
         text: "Seberapa banyak, seberapa mahal",
@@ -146,7 +146,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 14,
-        color: "#ff1744"
+        color: "#ff1744",
       },
 
       // --- MOMENT 4 (03:08.6 - 03:23.0): SUMPAH DARAH & PENGORBANAN FATAL ---
@@ -158,7 +158,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 16,
-        color: "#ff1744"
+        color: "#ff1744",
       },
       {
         text: "Semua 'kan kugadai",
@@ -168,7 +168,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 16,
-        color: "#ff1744"
+        color: "#ff1744",
       },
       {
         text: "Matikan aku setelah usai",
@@ -178,7 +178,7 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 15,
-        color: "#e60026"
+        color: "#e60026",
       },
       {
         text: "Matikan aku setelah usai",
@@ -188,13 +188,13 @@
         fontFamily: '"Space Grotesk", "Arial", sans-serif',
         fontStyle: "700",
         fontSize: 15,
-        color: "#d90429"
-      }
+        color: "#d90429",
+      },
     ],
 
     audioStartTime: 133.0, // Mulai detik 133.0 (02:13.0) -> Intro Banner Resmi
-    audioEndTime: 202.5,   // Selesai detik 202.5 (03:22.5) -> Loop kembali
-    isLooping: true
+    audioEndTime: 202.5, // Selesai detik 202.5 (03:22.5) -> Loop kembali
+    isLooping: true,
   };
 
   // =========================================================================
@@ -202,12 +202,28 @@
   // Karakter seimbang, bersih, tidak terlalu tebal atau berhimpitan
   // =========================================================================
   const charsFixed = [
-    " ", ".", ":", "-", "=", "+", "i", "s", "c", "!", "?",
-    "0", "1", "2", "3", "4", "5", "6",
+    " ",
+    ".",
+    ":",
+    "-",
+    "=",
+    "+",
+    "i",
+    "s",
+    "c",
+    "!",
+    "?",
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
     ["8", "9"],
     ["@", "#"],
     ["X", "Y", "Z"],
-    ["#", "%", "*"]
+    ["#", "%", "*"],
   ];
   const charsLength = charsFixed.length;
   const MAX_COLOR_INDEX = 650;
@@ -240,13 +256,35 @@
   // =========================================================================
   // ⚡ SISTEM EFEK GLITCH ASCII LIRIK (PUNCHY DIGITAL CORRUPTION)
   // =========================================================================
-  const GLITCH_CHARS = ["#", "%", "&", "8", "X", "$", "/", "\\", "!", "?", "+", "-", "=", "*", "0", "1", "@"];
+  const GLITCH_CHARS = [
+    "#",
+    "%",
+    "&",
+    "8",
+    "X",
+    "$",
+    "/",
+    "\\",
+    "!",
+    "?",
+    "+",
+    "-",
+    "=",
+    "*",
+    "0",
+    "1",
+    "@",
+  ];
   let glitchRemainingMs = 0;
   let glitchIntensity = 0;
   let glitchTimeout = null;
   let lastLyricIndex = -1;
 
-  const triggerGlitch = (durationMs = 200, intensity = 0.5, isIntense = false) => {
+  const triggerGlitch = (
+    durationMs = 200,
+    intensity = 0.5,
+    isIntense = false,
+  ) => {
     glitchRemainingMs = durationMs;
     glitchIntensity = intensity;
     if (outputWrapper) {
@@ -256,9 +294,12 @@
       outputWrapper.classList.add(cls);
 
       if (glitchTimeout) clearTimeout(glitchTimeout);
-      glitchTimeout = setTimeout(() => {
-        outputWrapper.classList.remove("glitching", "glitching-intense");
-      }, Math.min(durationMs, isIntense ? 320 : 160));
+      glitchTimeout = setTimeout(
+        () => {
+          outputWrapper.classList.remove("glitching", "glitching-intense");
+        },
+        Math.min(durationMs, isIntense ? 320 : 160),
+      );
     }
   };
 
@@ -270,7 +311,8 @@
   const initAudioAnalyser = () => {
     if (audioCtx || !audioElement) return;
     try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) return;
       audioCtx = new AudioContextClass();
       const source = audioCtx.createMediaElementSource(audioElement);
@@ -287,7 +329,8 @@
   const getBassEnergy = () => {
     if (!analyser || !dataArray) return 0;
     analyser.getByteFrequencyData(dataArray);
-    const lowFreq = (dataArray[0] + dataArray[1] + dataArray[2] + dataArray[3]) / 4;
+    const lowFreq =
+      (dataArray[0] + dataArray[1] + dataArray[2] + dataArray[3]) / 4;
     return lowFreq / 255;
   };
 
@@ -305,7 +348,10 @@
 
     const fontSize = Math.floor(charH * 0.88);
     const lineHeight = Math.floor(charH);
-    const letterSpacing = Math.max(0, (vw * 0.94 / cols) - (fontSize * 0.58)).toFixed(1);
+    const letterSpacing = Math.max(
+      0,
+      (vw * 0.94) / cols - fontSize * 0.58,
+    ).toFixed(1);
 
     asciiContainer.style.fontSize = `${fontSize}px`;
     asciiContainer.style.lineHeight = `${lineHeight}px`;
@@ -328,7 +374,7 @@
       speed: 0.16 + Math.random() * 0.35,
       phase: Math.random() * Math.PI * 2,
       size: Math.random() < 0.25 ? 2 : 1,
-      life: Math.random()
+      life: Math.random(),
     });
   }
 
@@ -376,7 +422,12 @@
       dropActive: false,
       dropY: 0,
       dropVy: 0,
-      color: Math.random() < 0.7 ? "#ff1744" : (Math.random() < 0.5 ? "#d90429" : "#ff2a55")
+      color:
+        Math.random() < 0.7
+          ? "#ff1744"
+          : Math.random() < 0.5
+            ? "#d90429"
+            : "#ff2a55",
     });
   }
 
@@ -393,11 +444,20 @@
     floorPool.fill(0);
   };
 
-  const updateAndDrawBloodDrips = (time, textCenterX, textCenterY, size, textW) => {
+  const updateAndDrawBloodDrips = (
+    time,
+    textCenterX,
+    textCenterY,
+    size,
+    textW,
+  ) => {
     const textLeft = Math.max(1, Math.floor(textCenterX - textW / 2));
     const textRight = Math.min(width - 2, Math.ceil(textCenterX + textW / 2));
     const scanTop = Math.max(0, Math.floor(textCenterY - size * 0.45));
-    const scanBottom = Math.min(height - 1, Math.ceil(textCenterY + size * 0.85));
+    const scanBottom = Math.min(
+      height - 1,
+      Math.ceil(textCenterY + size * 0.85),
+    );
     const scanW = textRight - textLeft + 1;
     const scanH = scanBottom - scanTop + 1;
 
@@ -434,7 +494,7 @@
       const d = bloodDrips[i];
       const entryIdx = Math.min(
         Math.floor(d.targetRatio * validBottoms.length),
-        validBottoms.length - 1
+        validBottoms.length - 1,
       );
       const col = validBottoms[entryIdx];
       d.anchorX = col.x;
@@ -481,7 +541,7 @@
             floorPool[d.anchorX] = Math.min(3, (floorPool[d.anchorX] || 0) + 1);
           }
           d.dropActive = false;
-          d.targetRatio = (Math.random() * 0.9 + (i / bloodDrips.length) * 0.1);
+          d.targetRatio = Math.random() * 0.9 + (i / bloodDrips.length) * 0.1;
         }
       }
     }
@@ -525,7 +585,7 @@
 
     // 2. Cover Art / Logo Tengah (38x38 piksel, Terang Jelas Tidak Gelap)
     const imgSize = 38;
-    const imgX = Math.round(cx - (imgSize / 2));
+    const imgX = Math.round(cx - imgSize / 2);
     const imgY = 15;
 
     if (coverImg.complete && coverImg.naturalWidth > 0) {
@@ -553,13 +613,21 @@
 
     offCtx.beginPath();
     // Sudut kiri atas
-    offCtx.moveTo(bx, by + bLen); offCtx.lineTo(bx, by); offCtx.lineTo(bx + bLen, by);
+    offCtx.moveTo(bx, by + bLen);
+    offCtx.lineTo(bx, by);
+    offCtx.lineTo(bx + bLen, by);
     // Sudut kanan atas
-    offCtx.moveTo(bx + bw - bLen, by); offCtx.lineTo(bx + bw, by); offCtx.lineTo(bx + bw, by + bLen);
+    offCtx.moveTo(bx + bw - bLen, by);
+    offCtx.lineTo(bx + bw, by);
+    offCtx.lineTo(bx + bw, by + bLen);
     // Sudut kiri bawah
-    offCtx.moveTo(bx, by + bh - bLen); offCtx.lineTo(bx, by + bh); offCtx.lineTo(bx + bLen, by + bh);
+    offCtx.moveTo(bx, by + bh - bLen);
+    offCtx.lineTo(bx, by + bh);
+    offCtx.lineTo(bx + bLen, by + bh);
     // Sudut kanan bawah
-    offCtx.moveTo(bx + bw - bLen, by + bh); offCtx.lineTo(bx + bw, by + bh); offCtx.lineTo(bx + bw, by + bh - bLen);
+    offCtx.moveTo(bx + bw - bLen, by + bh);
+    offCtx.lineTo(bx + bw, by + bh);
+    offCtx.lineTo(bx + bw, by + bh - bLen);
     offCtx.stroke();
 
     // 3. Subtitle Artis: Jelas, Putih Solid, Font Samakan dengan Lirik
@@ -589,7 +657,11 @@
     const swayY = Math.cos(time * 0.0022) * 0.7;
 
     // Partikel bara api: putih bersih untuk lirik biasa, merah darah untuk lirik berdarah
-    const isRedTheme = item.color === "#ff1744" || item.color === "#e60026" || item.color === "#d90429" || item.bleeding;
+    const isRedTheme =
+      item.color === "#ff1744" ||
+      item.color === "#e60026" ||
+      item.color === "#d90429" ||
+      item.bleeding;
     const sparkColor = isRedTheme ? "#ff1744" : "rgba(255, 255, 255, 0.35)";
     updateAndDrawSparks(time, sparkColor, isRedTheme ? 40 : 20);
 
@@ -597,10 +669,10 @@
     offCtx.textAlign = "center";
     offCtx.textBaseline = "middle";
 
-    const maxW = width * 0.90;
+    const maxW = (item.singleLine || item.bleeding) ? width * 0.94 : width * 0.90;
     let size = item.fontSize || 14;
     const fontFam = item.fontFamily || '"Space Grotesk", "Arial", sans-serif';
-    const fontSty = item.fontStyle || '700';
+    const fontSty = item.fontStyle || "700";
     offCtx.font = `${fontSty} ${size}px ${fontFam}`;
 
     // Word-wrapping dinamis: untuk baris singleLine/bleeding ("Belalang Sembah"), pertahankan 1 baris utuh
@@ -640,9 +712,9 @@
       }
     }
 
-    const lineHeight = Math.round(size * 1.20);
+    const lineHeight = Math.round(size * 1.2);
     const totalHeight = lines.length * lineHeight;
-    const startY = (height / 2) - (totalHeight / 2) + (lineHeight / 2) + swayY;
+    const startY = height / 2 - totalHeight / 2 + lineHeight / 2 + swayY;
 
     // Warna solid tegas tanpa gradien: putih bersih untuk lirik biasa, merah darah untuk lirik berdarah
     const textColor = item.color || "#ffffff";
@@ -650,7 +722,7 @@
 
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      const lineY = startY + (i * lineHeight);
+      const lineY = startY + i * lineHeight;
       offCtx.fillText(line, cx + swayX, lineY);
     }
 
@@ -696,7 +768,7 @@
         } else {
           const charIndex = Math.min(
             Math.floor((charsLength * c) / MAX_COLOR_INDEX),
-            charsLength - 1
+            charsLength - 1,
           );
           const result = charsFixed[charIndex];
 
@@ -709,8 +781,9 @@
           let qb = Math.round(b / 4) * 4;
 
           // ⚡ Efek Glitch ASCII Lirik: Scramble karakter dan flash crimson/putih
-          if (isGlitch && Math.random() < (0.35 * glitchIntensity)) {
-            char = GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
+          if (isGlitch && Math.random() < 0.35 * glitchIntensity) {
+            char =
+              GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)];
             if (Math.random() < 0.5) {
               qr = 255;
               qg = Math.random() < 0.3 ? 255 : 23;
@@ -751,7 +824,10 @@
     if (audioCtx && audioCtx.state === "suspended") {
       audioCtx.resume();
     }
-    if (audioElement.currentTime < config.audioStartTime || audioElement.currentTime >= (config.audioEndTime || 9999)) {
+    if (
+      audioElement.currentTime < config.audioStartTime ||
+      audioElement.currentTime >= (config.audioEndTime || 9999)
+    ) {
       audioElement.currentTime = config.audioStartTime;
     }
     const p = audioElement.play();
@@ -761,7 +837,10 @@
       }).catch(() => {
         const unlock = () => {
           if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
-          if (audioElement.currentTime < config.audioStartTime || audioElement.currentTime >= (config.audioEndTime || 9999)) {
+          if (
+            audioElement.currentTime < config.audioStartTime ||
+            audioElement.currentTime >= (config.audioEndTime || 9999)
+          ) {
             audioElement.currentTime = config.audioStartTime;
           }
           audioElement.play().catch(() => {});
@@ -810,12 +889,15 @@
         audioElement.currentTime = targetItem.startSec;
       }
       if (!targetItem || !targetItem.bleeding) resetBloodDrips();
-      const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
+      const isChorus = Boolean(
+        targetItem && (targetItem.dramatic || targetItem.bleeding),
+      );
       triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
       lastLyricIndex = nextIndex;
     } else if (e.code === "ArrowLeft") {
       e.preventDefault();
-      const prevIndex = (currentLyricIndex - 1 + config.lyrics.length) % config.lyrics.length;
+      const prevIndex =
+        (currentLyricIndex - 1 + config.lyrics.length) % config.lyrics.length;
       currentLyricIndex = prevIndex;
       timeAccumulator = 0;
       const targetItem = config.lyrics[prevIndex];
@@ -823,7 +905,9 @@
         audioElement.currentTime = targetItem.startSec;
       }
       if (!targetItem || !targetItem.bleeding) resetBloodDrips();
-      const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
+      const isChorus = Boolean(
+        targetItem && (targetItem.dramatic || targetItem.bleeding),
+      );
       triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
       lastLyricIndex = prevIndex;
     }
@@ -874,7 +958,9 @@
               if (currentLyricIndex !== i) {
                 currentLyricIndex = i;
                 if (!item.bleeding) resetBloodDrips();
-                const isChorus = Boolean(item && (item.dramatic || item.bleeding));
+                const isChorus = Boolean(
+                  item && (item.dramatic || item.bleeding),
+                );
                 if (isChorus) {
                   // Glitch intens Chorus 2 ("Belalang Sembah")
                   triggerGlitch(360, 0.9, true);
@@ -899,7 +985,9 @@
           currentLyricIndex = nextIndex;
           const targetItem = config.lyrics[nextIndex];
           if (!targetItem || !targetItem.bleeding) resetBloodDrips();
-          const isChorus = Boolean(targetItem && (targetItem.dramatic || targetItem.bleeding));
+          const isChorus = Boolean(
+            targetItem && (targetItem.dramatic || targetItem.bleeding),
+          );
           triggerGlitch(isChorus ? 360 : 120, isChorus ? 0.9 : 0.35, isChorus);
           lastLyricIndex = nextIndex;
         }
