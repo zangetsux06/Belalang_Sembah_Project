@@ -16,7 +16,7 @@ html, body {
   justify-content: center;
   overflow: hidden;
   user-select: none;
-  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  font-family: "Courier New", "Consolas", "JetBrains Mono", monospace;
 }
 
 .container {
@@ -28,6 +28,7 @@ html, body {
   position: relative;
   padding: 0;
   margin: 0;
+  background-color: #000000 !important;
 }
 
 #output-wrapper {
@@ -39,6 +40,7 @@ html, body {
   height: 100vh;
   padding: 0;
   margin: 0;
+  overflow: hidden;
   transition: transform 0.08s ease-out;
 }
 
@@ -47,19 +49,31 @@ html, body {
   animation: glitch-anim 0.14s steps(2) forwards;
 }
 
-/* Canvas Stockholm Metro: Bebas Kotak, Memenuhi Layar (Fullfill), Hitam Murni */
-#matrix-canvas {
-  width: 100vw;
-  height: 100vh;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
+/* Kontainer Utama Colored ASCII Terminal Art */
+#ascii-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #000000 !important;
   background: #000000 !important;
+  color: #ffffff;
+  font-family: "Courier New", "Consolas", "JetBrains Mono", monospace;
+  font-weight: 700;
+  text-align: center;
+  white-space: pre;
+  margin: auto;
+  line-height: 1.0;
+  letter-spacing: 2px;
+  overflow: hidden;
   cursor: pointer;
+  user-select: none;
+}
+
+#ascii-container div {
+  display: block;
+  white-space: pre;
+  line-height: inherit;
 }
 
 @keyframes glitch-anim {

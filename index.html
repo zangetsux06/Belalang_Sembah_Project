@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Belalang Sembah - .Feast (Stockholm Metro Dot Matrix)</title>
+  <title>Belalang Sembah - .Feast (Colored ASCII Lyric Visualizer)</title>
   
-  <!-- Font Google: Space Grotesk (Stockholm Metro Font), DotGothic16 -->
+  <!-- Font Monospace & Font Tematik Google: Space Grotesk, Playfair Display, Cinzel, JetBrains Mono, DotGothic16, Anton -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=DotGothic16&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700;900&family=DotGothic16&family=JetBrains+Mono:wght@700&family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
 
   <!-- Modular Styling -->
   <link rel="stylesheet" href="style.css">
@@ -17,8 +17,8 @@
 
 <div class="container">
   <div id="output-wrapper">
-    <!-- Canvas Resolusi 1600x900 Widescreen: Kerapatan Dot Tinggi & Memenuhi Layar Penuh -->
-    <canvas id="matrix-canvas" width="1600" height="900"></canvas>
+    <!-- Kontainer Render Real-Time Colored ASCII Art -->
+    <div id="ascii-container"></div>
   </div>
 </div>
 
@@ -30,7 +30,7 @@
   <source src="belalang_sembah.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Modular Script Mesin Dot Matrix Visualizer & Pengaturan Lirik -->
+<!-- Modular Script Mesin Colored ASCII Lyric Visualizer -->
 <script src="visualizer.js"></script>
 
 </body>
