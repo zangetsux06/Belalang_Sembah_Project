@@ -16,7 +16,7 @@ html, body {
   justify-content: center;
   overflow: hidden;
   user-select: none;
-  font-family: "Courier New", "Consolas", "JetBrains Mono", monospace;
+  font-family: "SF Mono", "Courier New", "Consolas", "JetBrains Mono", monospace;
 }
 
 .container {
@@ -63,7 +63,7 @@ html, body {
   background-color: #000000 !important;
   background: #000000 !important;
   color: #ffffff;
-  font-family: "Courier New", "Consolas", "JetBrains Mono", monospace;
+  font-family: "SF Mono", "Courier New", "Consolas", "JetBrains Mono", monospace;
   font-weight: 700;
   text-align: center;
   white-space: pre;
@@ -73,6 +73,7 @@ html, body {
   overflow: hidden;
   cursor: pointer;
   user-select: none;
+  filter: brightness(1.25);
 }
 
 #ascii-container div {

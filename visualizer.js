@@ -23,13 +23,12 @@
         startSec: 135.8,
         endSec: 140.0,
         showMs: 4200,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff1744", "#d90429"],
-          halo: "rgba(255, 23, 68, 0.35)",
           spark: "#ff1744"
         }
       },
@@ -38,13 +37,12 @@
         startSec: 140.0,
         endSec: 144.2,
         showMs: 4200,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff2a55", "#ff5252"],
-          halo: "rgba(255, 42, 85, 0.35)",
           spark: "#ff2a55"
         }
       },
@@ -53,13 +51,12 @@
         startSec: 144.2,
         endSec: 148.2,
         showMs: 4000,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff2a55", "#e60039"],
-          halo: "rgba(255, 42, 85, 0.35)",
           spark: "#ff2a55"
         }
       },
@@ -68,13 +65,12 @@
         startSec: 148.2,
         endSec: 152.4,
         showMs: 4200,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#e60026", "#b3001e"],
-          halo: "rgba(230, 0, 38, 0.38)",
           spark: "#ff1744"
         }
       },
@@ -85,13 +81,12 @@
         startSec: 152.4,
         endSec: 156.4,
         showMs: 4000,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 15,
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff3344", "#d90429"],
-          halo: "rgba(255, 51, 68, 0.35)",
           spark: "#ff3344"
         }
       },
@@ -100,13 +95,12 @@
         startSec: 156.4,
         endSec: 160.8,
         showMs: 4400,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 15,
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff1744", "#ff4d6d"],
-          halo: "rgba(255, 23, 68, 0.38)",
           spark: "#ff1744"
         }
       },
@@ -115,13 +109,12 @@
         startSec: 160.8,
         endSec: 164.8,
         showMs: 4000,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff1744", "#d90429"],
-          halo: "rgba(255, 23, 68, 0.35)",
           spark: "#ff1744"
         }
       },
@@ -130,13 +123,12 @@
         startSec: 164.8,
         endSec: 169.5,
         showMs: 4700,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 15,
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff2a55", "#d90429"],
-          halo: "rgba(255, 42, 85, 0.38)",
           spark: "#ff2a55"
         }
       },
@@ -147,10 +139,10 @@
         startSec: 169.5,
         endSec: 178.0,
         showMs: 8500,
-        // CHORUS KLIMAKS! Font Space Grotesk tebal, efek glitch ASCII lirik elektrik
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 16,
+        // CHORUS KLIMAKS! Font Arial Black 900 tebal solid, efek glitch ASCII lirik elektrik
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 15,
         dramatic: true,
         palette: {
           core: "#ffffff",
@@ -163,13 +155,12 @@
         startSec: 178.0,
         endSec: 185.2,
         showMs: 7200,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff2a55", "#e60039"],
-          halo: "rgba(255, 42, 85, 0.35)",
           spark: "#ff2a55"
         }
       },
@@ -178,13 +169,12 @@
         startSec: 185.2,
         endSec: 189.0,
         showMs: 3800,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 14,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff2a55", "#d90429"],
-          halo: "rgba(255, 42, 85, 0.35)",
           spark: "#ff2a55"
         }
       },
@@ -195,13 +185,12 @@
         startSec: 189.0,
         endSec: 191.8,
         showMs: 2800,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 18,
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 16,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ffffff", "#ff1744"],
-          halo: "rgba(255, 255, 255, 0.45)",
           spark: "#ff1744"
         }
       },
@@ -210,13 +199,12 @@
         startSec: 191.8,
         endSec: 194.6,
         showMs: 2800,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 18,
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 16,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff1744", "#d90429"],
-          halo: "rgba(255, 23, 68, 0.45)",
           spark: "#ff1744"
         }
       },
@@ -225,9 +213,9 @@
         startSec: 194.6,
         endSec: 198.5,
         showMs: 3900,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
-        fontSize: 16,
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
+        fontSize: 15,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#e60026", "#d90429"],
@@ -239,13 +227,12 @@
         startSec: 198.5,
         endSec: 202.5,
         showMs: 4000,
-        fontFamily: "'Space Grotesk', sans-serif",
-        fontStyle: "700",
+        fontFamily: '"Arial Black", Impact, sans-serif',
+        fontStyle: "900",
         fontSize: 15,
         palette: {
           core: "#ffffff",
           gradient: ["#ffffff", "#ff4d6d", "#d90429"],
-          halo: "rgba(255, 77, 109, 0.32)",
           spark: "#ff4d6d"
         }
       }
@@ -257,11 +244,15 @@
   };
 
   // =========================================================================
-  // ⚡ 2. KARAKTER SHIMMER & KAMUS TINGKAT KECERAHAN ASCII (SPEK TEKNIS)
+  // ⚡ 2. KARAKTER SHIMMER & KAMUS TINGKAT KECERAHAN ASCII (SPEK REFERENSI)
   // =========================================================================
   const charsFixed = [
-    " ", ".", ":", "-", "=", "+", "*", "#", "%", "@",
-    ["$", "&", "8"], ["W", "M", "B"]
+    " ", ".", ",", "-", "=", "+", "i", "s", "c", "b", "a", "!", "?",
+    "0", "1", "2", "3", "4", "5", "6",
+    ["9", "8"],
+    ["@", "#"],
+    ["X", "Y", "Z"],
+    ["W", "M", "B"]
   ];
   const charsLength = charsFixed.length;
   const MAX_COLOR_INDEX = 650;
@@ -428,7 +419,7 @@
     offCtx.textBaseline = "middle";
 
     // 1. Judul Atas: Jelas, Tebal, dan Mudah Dibaca
-    offCtx.font = "bold 11px 'Space Grotesk', sans-serif";
+    offCtx.font = '900 11px "Arial Black", Impact, sans-serif';
     const titleGrad = offCtx.createLinearGradient(cx - 55, 11, cx + 55, 11);
     titleGrad.addColorStop(0, "#ff2a55");
     titleGrad.addColorStop(0.3, "#ffffff");
@@ -477,7 +468,7 @@
     offCtx.stroke();
 
     // 3. Subtitle Artis: Jelas & Tajam
-    offCtx.font = "bold 10px 'Space Grotesk', sans-serif";
+    offCtx.font = '900 10px "Arial Black", Impact, sans-serif';
     const artistGrad = offCtx.createLinearGradient(cx - 30, 57, cx + 30, 57);
     artistGrad.addColorStop(0, "#ff1744");
     artistGrad.addColorStop(0.5, "#ffffff");
@@ -489,8 +480,8 @@
   };
 
   // =========================================================================
-  // ✍️ 7. RENDER TEKS LIRIK: TEMA OBSESI KEMERAHAN & ELEMEN VISUAL BERSIH
-  // Menghilangkan garis lingkaran/vektor latar yang memicu glitch teks hantu
+  // ✍️ 7. RENDER TEKS LIRIK: FONT ARIAL BLACK / IMPACT 900 SESUAI REFERENSI
+  // Word-wrap dinamis berbasis measureText & kalkulasi posisi vertikal presisi
   // =========================================================================
   const drawLyricScene = (item, time, bass) => {
     if (!item || !item.text) return;
@@ -500,7 +491,6 @@
     offCtx.fillRect(0, 0, width, height);
 
     const text = item.text.trim();
-    const words = text.split(" ");
     const cx = width / 2;
     const cy = height / 2;
 
@@ -510,38 +500,55 @@
     // Partikel bara api kemerahan melayang halus di latar belakang
     updateAndDrawSparks(time, item.palette ? item.palette.spark : "#ff1744", item.dramatic ? 45 : 30);
 
-    // Pembagian baris lirik otomatis agar pas di layar
-    let lines = [];
-    if (words.length <= 3) {
-      lines = [text];
-    } else {
-      const mid = Math.ceil(words.length / 2);
-      lines = [
-        words.slice(0, mid).join(" "),
-        words.slice(mid).join(" ")
-      ];
-    }
-
     offCtx.save();
     offCtx.textAlign = "center";
     offCtx.textBaseline = "middle";
 
-    const baseSize = item.fontSize || 14;
-    const maxW = width * 0.91;
+    const maxW = width * 0.90;
+    let size = item.fontSize || 14;
+    const fontFam = item.fontFamily || '"Arial Black", Impact, sans-serif';
+    const fontSty = item.fontStyle || '900';
+    offCtx.font = `${fontSty} ${size}px ${fontFam}`;
 
-    if (lines.length === 1) {
-      let size = baseSize;
-      offCtx.font = `${item.fontStyle || '700'} ${size}px ${item.fontFamily}`;
-      let textW = offCtx.measureText(lines[0]).width;
-      if (textW > maxW) {
-        size = Math.floor(size * (maxW / textW));
-        offCtx.font = `${item.fontStyle || '700'} ${size}px ${item.fontFamily}`;
-        textW = offCtx.measureText(lines[0]).width;
+    // Word-wrapping dinamis berbasis pengukuran piksel teks persis referensi
+    const words = text.split(" ");
+    let lines = [];
+    let currentLine = words[0] || "";
+
+    for (let i = 1; i < words.length; i++) {
+      let word = words[i];
+      let w = offCtx.measureText(currentLine + " " + word).width;
+      if (w < maxW) {
+        currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
       }
+    }
+    lines.push(currentLine);
 
-      // Gradasi kemerahan obsesif: Inti huruf putih solid (#ffffff), tepian merah crimson
-      const p = item.palette;
-      const grad = offCtx.createLinearGradient(cx - (textW / 2), cy, cx + (textW / 2), cy);
+    // Auto-scale jika ada baris yang masih melebihi batas kanvas
+    let maxLineWidth = 0;
+    for (let i = 0; i < lines.length; i++) {
+      const lw = offCtx.measureText(lines[i]).width;
+      if (lw > maxLineWidth) maxLineWidth = lw;
+    }
+    if (maxLineWidth > maxW) {
+      size = Math.floor(size * (maxW / maxLineWidth));
+      offCtx.font = `${fontSty} ${size}px ${fontFam}`;
+    }
+
+    const lineHeight = Math.round(size * 1.16);
+    const totalHeight = lines.length * lineHeight;
+    const startY = (height / 2) - (totalHeight / 2) + (lineHeight / 2) + swayY;
+
+    const p = item.palette;
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const lineY = startY + (i * lineHeight);
+      const textW = offCtx.measureText(line).width;
+
+      const grad = offCtx.createLinearGradient(cx - (textW / 2), lineY, cx + (textW / 2), lineY);
       if (p && p.gradient && p.gradient.length >= 3) {
         grad.addColorStop(0, p.gradient[1]);
         grad.addColorStop(0.25, "#ffffff");
@@ -553,38 +560,9 @@
         grad.addColorStop(0.5, "#ffffff");
         grad.addColorStop(1, "#d90429");
       }
+
       offCtx.fillStyle = grad;
-      offCtx.fillText(lines[0], cx + swayX, cy + swayY);
-    } else {
-      let size = Math.floor(baseSize * 0.94);
-      offCtx.font = `${item.fontStyle || '700'} ${size}px ${item.fontFamily}`;
-      const w1 = offCtx.measureText(lines[0]).width;
-      const w2 = offCtx.measureText(lines[1]).width;
-      const maxLineWidth = Math.max(w1, w2);
-      if (maxLineWidth > maxW) {
-        size = Math.floor(size * (maxW / maxLineWidth));
-        offCtx.font = `${item.fontStyle || '700'} ${size}px ${item.fontFamily}`;
-      }
-
-      const lineSpacing = size * 0.96;
-      const y1 = cy + swayY - (lineSpacing / 2);
-      const y2 = cy + swayY + (lineSpacing / 2);
-
-      const p = item.palette;
-      const grad1 = offCtx.createLinearGradient(cx - (w1 / 2), y1, cx + (w1 / 2), y1);
-      const grad2 = offCtx.createLinearGradient(cx - (w2 / 2), y2, cx + (w2 / 2), y2);
-      if (p && p.gradient && p.gradient.length >= 3) {
-        grad1.addColorStop(0, p.gradient[1]); grad1.addColorStop(0.3, "#ffffff"); grad1.addColorStop(0.7, "#ffffff"); grad1.addColorStop(1, p.gradient[2]);
-        grad2.addColorStop(0, p.gradient[2]); grad2.addColorStop(0.3, "#ffffff"); grad2.addColorStop(0.7, "#ffffff"); grad2.addColorStop(1, p.gradient[1]);
-      } else {
-        grad1.addColorStop(0, "#ff1744"); grad1.addColorStop(0.5, "#ffffff"); grad1.addColorStop(1, "#d90429");
-        grad2.addColorStop(0, "#ff1744"); grad2.addColorStop(0.5, "#ffffff"); grad2.addColorStop(1, "#d90429");
-      }
-
-      offCtx.fillStyle = grad1;
-      offCtx.fillText(lines[0], cx + swayX, y1);
-      offCtx.fillStyle = grad2;
-      offCtx.fillText(lines[1], cx + swayX, y2);
+      offCtx.fillText(line, cx + swayX, lineY);
     }
 
     offCtx.restore();
